@@ -82,4 +82,4 @@ plt.title('Onda quadrada.')
 plt.legend(loc='lower left',fontsize = 14)
 plt.xlabel(r'$x$', fontsize = 16) #k indica cor preta
 plt.ylabel(r'$y(x)$', fontsize = 16)
-plt.savefig('fourier_series_square_square_wave.png', dpi = 300, bbox_inches='tight')
+plt.savefig('fourier_series_square_wave.png', dpi = 300, bbox_inches='tight')
