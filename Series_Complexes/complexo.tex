@@ -1,0 +1,42 @@
+%pdflatex
+\documentclass[margin=5mm]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+\begin{document}
+\begin{tikzpicture}
+
+\begin{axis}
+    [
+    ytick ={-2, 0, 2,3}, yticklabels={$-2i$, $0$, $2i$, $3i$},
+    axis lines = center,
+    %grid=both,
+    minor tick num=1,
+    ticks=both,
+    xlabel=$x$,
+    ylabel=$y$,
+    ymin=-3,
+    ymax=+4,
+    xmin=-4,
+    xmax=+5
+    ]
+
+    \addplot [blue, mark = *] coordinates {( 0, 0)} {};
+    \addplot [blue, mark = *] coordinates {( 3, 2)} {};
+    \addplot [blue, mark = *] coordinates {( 2, 3)} {};
+    \addplot [blue, mark = *] coordinates {( -1, 1)} {};
+
+    \node [below right, red] at (axis cs:  0, 0) {};
+    \node [right, red] at (axis cs:  3, 2) {$3+2i$};
+    \node [above, red] at (axis cs:  2, 3) {$2+3i$};
+    \node [left, red] at (axis cs:  -1, 1) {$-1+i$};
+
+%    \addplot [dashed, black] coordinates { (0,0) (3,2) };
+%    \addplot [dashed, black] coordinates { (3,2) (2,3) };
+%    \addplot [dashed, black] coordinates { (2,3) (-1,1) };
+%    \addplot [dashed, black] coordinates { (-1,1) (0,0) };
+
+\end{axis}
+\end{tikzpicture}
+
+\end{document}
