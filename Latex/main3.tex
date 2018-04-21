@@ -1,0 +1,279 @@
+\documentclass[12pt]{book}
+%
+
+\usepackage{mathpazo}
+%\usepackage{fouriernc}
+
+%%% esse inputenc é para o windows ler os acentos gráficos, e não funciona no mac
+\usepackage[latin1]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+%
+%%necessario para formulas matematicas
+%%\usepackage{amsmath}
+%
+
+%pacotes para fazer letra cursiva
+\usepackage{mathrsfs}
+
+%%necessario para alguns simbolos matematicos, como \quad
+\usepackage{amssymb}
+%\usepackage{wasysym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%packages para usar letras gregas em negrito
+
+%\usepackage{amsbsy} %opcao 1
+%$\hat{\pmb{\varphi}}$, $\hat{\boldsymbol{\varphi}}$
+
+\usepackage{bm} %opcao 2
+%$\hat{\bm{\varphi}}$
+
+%\usepackage{fixmath} %opcao 3
+%$\hat{\mathbold{\varphi}}$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+%
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm,
+ }  % o valor padrao das margens right, left, top e bottom e de 20 mm
+% 
+ %para fazer figuras compostas, com parte a e parte b
+\usepackage{subfigure}
+ 
+ %legenda ao lado das figuras
+\usepackage{sidecap}
+%
+\setlength{\parindent}{1em} %altera o espacamento do paragrafo
+\setlength{\parskip}{1em}  %altera o espaco entre dois paragrafos
+\renewcommand{\baselinestretch}{1.1} %altera o espacamento entre as linhas
+%
+%define as palavras que vao no cabecalho, mais sofisticado que o anterior
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+%\rhead{Seção \thesection }
+\rhead{\rightmark} %\rightmark = current section, and \leftmark is current chapter
+\lhead{Paulo Freitas Gomes.}
+\rfoot{\thepage}
+%
+%para escrever fracoes do tipo a/b mais bonito
+\newcommand{\slfrac}[2]{\left.#1\middle/#2\right.}
+%
+%altera modelos do capitulo, para estetica apenas
+%Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+\usepackage[bf]{caption}
+%\usepackage{subcaption}
+%\usepackage{amssymb}
+\usepackage[fleqn]{amsmath,mathtools}
+\usepackage{fancyhdr}
+\usepackage[Lenny]{fncychap} %legais: Sonny, Bjarne, Bjornstrup
+\usepackage{hyperref}
+
+\ChTitleVar{\Huge\bfseries}
+%
+%
+%%altera o formato da numeracao dos footnotes
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+\usepackage[svgnames]{xcolor}
+%
+%para fazer caixas coloridas
+\usepackage[most]{tcolorbox}
+
+%cria o enviroment exemplo numerado
+\newcounter{exemplo}[chapter]
+\newenvironment{exemplo}[1][\blacksquare]{
+  % this increments our counter
+  \refstepcounter{exemplo}\par\medskip\noindent
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=yellow!10!white,colframe=red!75!black,title={\sffamily Exemplo \thechapter.\theexemplo}]  
+%\begin{tcolorbox}[colback=yellow!10!white,colframe=red!75!black,title={\sffamily Exemplo \thechapter.\theexemplo}]  
+    }
+    {   \end{tcolorbox}}
+    
+    
+    
+%cria o enviroment codigo numerado
+\newcounter{codigo}[chapter]
+\newenvironment{codigo}[1][\blacksquare]{
+  % this increments our counter
+  \refstepcounter{codigo}\par\medskip\noindent
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=blue!75!black,title={\sffamily Código \thechapter.\thecodigo}]  
+%\begin{tcolorbox}[colback=yellow!10!white,colframe=red!75!black,title={\sffamily Exemplo \thechapter.\theexemplo}]  
+    }
+    {   \end{tcolorbox}}    
+    
+    
+    
+        %cria o enviroment problema numerado
+\newcounter{problema}[chapter]
+\newenvironment{problema}[1][\blacksquare]{
+  % this increments our counter
+  \refstepcounter{problema}\par\medskip\noindent
+{\color{blue}\textbf{\thechapter.\theproblema )}}
+    }
+    
+    
+
+%%coloca cor os nomes dos capitulos ou secoes
+%\usepackage{sectsty}
+%\chapterfont{\color{Navy}}  % sets colour of chapters
+%\sectionfont{\color{Blue}}  % sets colour of sections
+%aparentemente esse nao funciona com o fncychap
+
+%este deve ser carregado depois do fncychap
+\usepackage{hyperref} % necessario para usar \url{} e \href{}
+
+%para nao ficar o retangulo em volta dos links, apenas muda a cor dos caracteres
+\hypersetup{ colorlinks,
+linkcolor=blue,
+filecolor=blue,
+urlcolor=blue,
+citecolor=blue }
+
+
+%package para escrever codigo
+\usepackage{listings} 
+\usepackage{color} %permite definir cores
+%
+%%definicao de cores para os diferentes tipos
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python, %definicao da linguagem a ser usada
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=true,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray}, %numeros em cinza
+  keywordstyle=\color{blue}, %palavras chave em azul
+  commentstyle=\color{dkgreen}, %comentarios em verde
+  stringstyle=\color{red},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+%numerar equacoes em duas colunas de forma independente
+%\makeatletter
+%\newcommand\Label[1]{&\refstepcounter{equation}(\theequation)\ltx@label{#1}&}
+%\makeatother
+%tem que usar o Label 
+
+%para criar o espacamento usual no primeiro paragrafo
+\usepackage{indentfirst}
+
+
+%pacote para colorir tabelas
+\usepackage{array}
+\usepackage{colortbl}
+
+
+%para criar o cabecalho na secao de problemas
+\usepackage{stackengine}
+\colorlet{lightcyan}{cyan!40!white}
+
+
+%macros para gerar o r cursivo do griffiths
+\def\rcurs{{\mbox{$\resizebox{.09in}{.08in}{\includegraphics{ScriptR}}$}}}
+\def\brcurs{{\mbox{$\resizebox{.09in}{.08in}{\includegraphics{BoldR}}$}}}
+\def\hrcurs{{\mbox{$\hat \brcurs$}}}
+
+%para gerar o plano complexo
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%para usar figuras tikz
+%especificamente, essa foi necessário para a figura complexo_polar
+\usepackage{tikz}
+%\usetikzlibrary{trees,snakes}
+\usepackage{verbatim}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{backgrounds,angles,quotes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% altera a fonte nas legendas das figuras
+%\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+
+
+\usepackage{mathcomp} %para usar simbolos textcomp, tipo \textonehalf
+
+\usepackage{gensymb} % para gerar simbolos tipo \celsius, \ohm, \degree, \micro
+
+\usepackage{marvosym} %computer hardware symbols
+%\ComputerMouse \ParallelPort \SerialInterface \Keyboard  \Printer  \SerialPort
+
+%\include{arquivos/capa1}
+
+%comando para a funcao erro
+\newcommand{\erf}{\mathrm{erf}\,}
+
+\begin{document}
+%
+\thispagestyle{empty}
+%%
+
+\input{arquivos/capa2}
+
+\thispagestyle{empty}
+%\titleAT % This command includes the title page
+%
+%\newpage
+
+\tableofcontents
+
+\newpage
+
+\listoffigures
+% 
+\listoftables
+%
+\newpage
+%
+
+
+\include{arquivos/prefacio}
+
+\include{arquivos/calculo}
+
+\include{arquivos/series_complexes}
+
+\include{arquivos/EDO}
+
+\include{arquivos/funcoes_especiais}
+
+\include{arquivos/liouville}
+
+\include{arquivos/Fourier}
+
+\include{arquivos/EDP1}
+
+
+
+\appendix 
+
+%\addcontentsline{toc}{chapter}{Apêndices}
+
+\include{arquivos/coord_curvilineas}
+
+\include{arquivos/apendices}
+%
+
+\include{arquivos/referencias_notas}
+%
+\end{document}

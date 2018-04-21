@@ -1,0 +1,825 @@
+\chapter{Séries e Números Complexos} \label{chapseriescomplexos}
+
+
+
+
+\begin{flushright}
+\begin{small}
+\textit{ Gentlemen, that is surely true, it is absolutely paradoxical; we cannot understand it, and we don't know what it means. But we have proved it, and therefore we know it must be the truth.}  
+\textbf{Benjamin Peirce}
+\end{small}
+\end{flushright}
+
+
+\begin{flushright}
+\begin{small}
+\textit{ Os números imaginários são uma viagem maravilhosa do espírito de Deus; eles são quase um anfíbio entre ser e não ser.}  
+\textbf{Gottfried Wilhelm von Leibniz, 1702}
+\end{small}
+\end{flushright}
+
+Os códigos de todas as figuras deste capítulo estão no Github: \url{https://github.com/paulofreitasgomes/Math_Methods_for_Physics/tree/master/Series_Complexes}.
+
+
+\section{Séries}
+
+Uma série é uma sequência de termos $a_n$, para $n=0,1,2,3,4,...$ com o critério definido para o cálculo de cada termo. Uma série infinita envolve infinitos termos. Já uma soma parcial envolve apenas os $N$ primeiros termos.
+
+Se a soma resultante de uma série infinita tende para o infinito, a série é dita divergente. Já se a soma é finita, a série é dita convergente:
+\begin{equation}
+S = \sum_{n=0}^{+\infty} a_n. \nonumber
+\end{equation}
+
+\begin{exemplo}
+\textbf{Série Geométrica}. O termo $a_n$ desta série é definido como $a_n = r a_{n-1} = r^n a$, onde $r$ é a razão e $a$ o primeiro termo da série. A soma dos $n$ primeiros termos desta série é:
+\begin{equation}
+S_n = \dfrac{1-r^n}{1-r}. \label{somedosprnsldkje}
+\end{equation}
+Se $r>1$ teremos que $S_n \rightarrow \infty$ quando $n\rightarrow \infty$. Assim, esta série é convergente apenas para $r<1$. Neste caso:
+\begin{equation}
+\lim_{n\rightarrow \infty} S_n = \dfrac{1}{1-r}. \nonumber
+\end{equation}
+\end{exemplo}
+
+Este exemplo mostra que $\lim_{n\rightarrow \infty} a_n = 0$ é necessário para que a série seja convergente. De fato, é uma condição necessária, mas não suficiente. A definição formal de limite é: uma série $a_n$ é convergente tendo um limite $S$ se para qualquer $\varepsilon >0$ existe um $N$ tal que:
+\begin{equation}
+\vert S - a_n \vert < \varepsilon, \text{para } n >N.
+\end{equation}
+
+
+\begin{exemplo}
+Encontre o limite para $n \rightarrow \infty$ da sequência:
+\begin{equation}
+a_n = \dfrac{(2n-1)^4 + \sqrt{1+9n^8}}{1-n^3 - 7n^4}. \nonumber
+\end{equation}
+\tcblower
+Para $n$ muito grande podemos desprezar os 1 que aparecem: $a_n \approx \dfrac{(2n)^4 + 3n^4}{n^3 - 7n^4}$.
+
+Agora dividimos o numerador e denominador por $n^4$. Resta apenas os termos que não vão para zero:
+\begin{equation}
+\lim_{n \rightarrow \infty} \dfrac{a_n}{n^4} = \dfrac{(2n)^4 + 3n^4}{n^4} \dfrac{n^4}{n^3 - 7n^4} = - \dfrac{2^4 + 3}{ 7} = -\dfrac{19}{7}. \nonumber 
+\end{equation}
+\end{exemplo}
+
+\subsection{Testes de convergência}
+
+Para saber se uma série é convergente ou não deve-se aplicar os chamados testes de convergência. Um primeiro teste simples é o de comparação. Seja $a_n$ uma série convergente. Logo se outra série $u_n$ é tal que $0 \leq u_n \leq a_n$ para todo $n$, então a série $u_n$ também é convergente.
+
+\begin{exemplo}
+\textbf{Série da função Zeta de Riemann}. Seja a série $a_n = 1/n^2$. Ela converge?
+\tcblower
+A função zeta de Riemann é definida como:
+\begin{equation}
+\zeta (x) = \sum_{n=1}^{\infty} \dfrac{1}{n^x} = 1 + \dfrac{1}{2^x} + \dfrac{1}{3^x} + ... \nonumber
+\end{equation}
+Logo temos que $a_n = \zeta (2)$. Vamos então usar o teste de comparação com a série $b_n = 1/(n^2+n)$ que é convergente. Se $n\geq 1$ temos que $n+1 > n$, o que implica em $(n+1)^2 > n(n+1)$. Tirando a inversa temos que:
+\begin{equation}
+a_n = \dfrac{1}{n^2} <\dfrac{1}{(n+1)^2} < \dfrac{1}{n(n+1)} = b_n.
+\end{equation}
+Logo $a_n$ converge. O valor do limite é $\zeta(2) = \pi^2/6 \sim 1,6449$ e foi encontrado por Euler (sempre ele!)\footnote{São necessários cerca de 200 termos para se encontrar o número correto na segunda casa decimal, como obtido por Euler.}. Euler encontrou também $\zeta(4)$, $\zeta(6)$, ..., em termos de $\pi$.
+\end{exemplo} 
+
+Outro teste importante é o de d'Alembert (ou razão de Cauchy). Se $0 \leq a_{n+1}/a_n \leq r < 1$ para um $r$ suficientemente grande, então $a_n$ é convergente. Por outro lado se $a_{n+1}/a_n = 1$ a convergência é indeterminada e se for maior que 1 a série é divergente. Este critério não é muito sensível e em vários casos outros testes são importantes.
+
+\subsubsection{Convergência absoluta}
+
+Seja uma série $u_n$. Se $\sum \vert u_n \vert $ converge a série é dita absolutamente convergente (ou tem convergência absoluta). Se $\sum u_n $ converge mas $\sum \vert u_n \vert $ não, a série é dita condicionalmente convergente. 
+
+A álgebra de séries com convergência absoluta é intuitiva. Séries com convergência absoluta podem ser somadas em qualquer ordem e a série resultante também será convergente. Já séries condicionalmente convergentes devem ser somadas em uma sequência específica para que o resultado também seja convergente. Da mesma forma, multiplicação de séries com convergência absoluta resulta em uma série cujo limite é o produto das séries iniciais. Em específico, o produto de duas séries pode ser escrito como:
+\begin{equation}
+\sum_n u_n \sum_n v_n = \sum_n \sum_{m=0}^n u_m v_{n-m}. \label{proddeseries}
+\end{equation}
+
+
+\begin{codigo} \label{codigopinumericos}
+O número $\pi$ é um número irracional que pode ser calculado numericamente de diversas formas\footnote{Por exemplo, usando uma malha infinita cuja resistência equivalente também será o limite de uma série: veja E.V.C. Tadeu, L. M. Alves, M. I. A. Jardim, W. P. Queirós, A. M. B. Goncalves  \textit{Determinação do número pi ($\pi$) por meio de uma rede quadrada de resistores idênticos} Revista Brasileira de Ensino de Física, \href{http://dx.doi.org/10.1590/1806-9126-RBEF-2017-0142}{\textbf{40}, n. 2, e2304 (2018)}.}. Todos sabemos que a área de um círculo é dado por $A = \pi r^2$. Neste caso supomos conhecido o valor de $\pi$ e raio $r$ para então encontrar a área $A$. Podemos estimar numericamente o $\pi$ se soubermos a área $A$, a qual podemos representar por um polígono regular de $N$ lados. Dessa forma:
+\begin{equation}
+\pi_e(N) = \dfrac{A_N}{r^2}, \label{slekjfwoislkjppp}
+\end{equation}
+ onde $A_N$ é a área do polígono e $\pi_e$ é a estimativa numérica para $\pi$. O valor verdadeiro será então o limite da série para $N$ muito grande, quando o polígono se aproxima de um círculo:
+\begin{equation}
+\pi = \lim_{N \rightarrow \infty} \dfrac{A_N}{r^2}. \nonumber
+\end{equation}  
+Na figura \ref{figura_pi} está ilustrado o caso de um hexágono (polígono regular com $N=$ 6 lados) inscrito em um círculo de raio $r=$ 1. Fazendo o cálculo de um polígono regular de $N$ lados em função de $N$, observa-se que para $N$ maior que 50 já obtém-se uma boa aproximação, como mostra a figura \ref{figura_pi2}. 
+\end{codigo}
+
+\begin{figure}[!h]
+\centering
+\subfigure{a)
+\includegraphics[width=3.1 in]{figuras/complexo/figura_pi.pdf}
+\label{figura_pi}
+}
+\subfigure{b)
+\includegraphics[width=3.1 in]{figuras/complexo/figura_pi2.pdf}
+\label{figura_pi2}
+}
+\caption[Cálculo numérico do número $\pi$.]{\subref{figura_pi} Hexágono inscrito em um círculo. \subref{figura_pi2} Estimativa $\pi_e$ em função do número de lados $N$. A linha tracejada vermelha é o valor real de $\pi$. O valor $\Delta$ indicado é o erro relativo em porcentagem.}
+\end{figure}
+
+\subsection{Séries de Funções}
+
+Quando cada termo de uma série é uma função $u_n = u_n(x)$, trata-se de uma série de funções, o que é amplamente utilizado em física. Dessa forma, tanto a soma parcial quanto o limite ficam também dependentes de $x$. Se para qualquer valor $\varepsilon >0$ existir um $N$ independente de $x$ no intervalo $[a,b]$ tal que:
+\begin{equation}
+\vert S(x) - s_n(x) \vert < \varepsilon, \qquad \text{para todo } \quad n \geq N,
+\end{equation}
+dizemos que a série é uniformemente convergente no intervalo $a \leq x \leq b$. Sendo uniformemente convergente uma série de funções converge para uma função contínua, sendo inclusive diferenciável. O intervalo deve ser fechado: incluso os pontos das borda.
+
+As séries uniformemente convergentes e com os termos $u_n(x)$ contínuos tem três propriedades importantes (muito utilizadas na física):
+\begin{itemize}
+\item A soma $f(x) = \sum_{n=1}^{\infty} u_n(x)$ também é contínua.
+\item A série pode ser integrada termo a termo. A soma das integrais é igual a integral da soma:
+\begin{equation}
+\int_a^b f(x) dx = \sum_{n=1}^{\infty} \int_a^b u_n(x) dx. \nonumber
+\end{equation}
+\item A derivada da soma é igual a soma das derivadas:
+\begin{equation}
+\dfrac{d}{dx} f(x) = \sum_{n=1}^{\infty} \dfrac{d}{dx} u_n(x) . \nonumber
+\end{equation}
+caso $du_n/dx$ também seja contínuo em $[a,b]$.
+\end{itemize}
+
+\subsection{Expansão de Taylor}
+
+Expansão de Taylor é uma série de funções envolvendo a derivada de uma função com o objetivo de obter uma expressão aproximada para a mesma. Seja $f(x)$ uma função com sua derivada n-ésima $f^{(n)}(x)$ contínua no intervalo $a \leq x \leq b$. Integrando essa n-ésima derivada obtemos:
+\begin{equation}
+\int_a^x f^{(n)}(x) dx_1 = f^{(n-1)}(x_1)\bigg\vert_a^x = f^{(n-1)}(x) - f^{(n-1)}(a). \nonumber
+\end{equation}
+Integrando novamente:
+\begin{eqnarray}
+\int_a^x dx_2 \int_a^{x_2} dx_1 f^{(n)}(x_1)  &=& \int_a^x dx_2 \left[ f^{(n-1)}(x_2) - f^{(n-1)}(a) \right], \nonumber \\
+&=& f^{(n-2)}(x) - f^{(n-2)}(a) - (x-a)f^{(n-1)}(a). \nonumber
+\end{eqnarray}
+Mais uma vez:
+\begin{equation}
+\int_a^x dx_3 \int_a^{x_3} dx_2 \int_a^{x_2} dx_1 f^{(n)}(x_1) = f^{(n-3)}(x) - f^{(n-3)}(a) - (x-a)f^{(n-2)}(a) - \dfrac{(x-a)^2}{2!} f^{(n-1)}(a). \nonumber
+\end{equation}
+Finalmente, integrando pela n-ésima vez:
+\begin{eqnarray}
+\int_a^x dx_n \cdot \cdot \cdot \int_a^{x_2} dx_1  f^{(n)}(x_1) = f(x) - f)(a) -  (x-a)f'(a) - \dfrac{(x-a)^2}{2!} f''(a) \nonumber \\
+ -\cdot \cdot \cdot - \dfrac{(x-a)^{n-1}}{(n-1)!} f^{(n-1)}(a) . \nonumber
+\end{eqnarray}
+Estas expressões são exatas: não contém nenhuma aproximação. Agora vamos isolar $f(x)$ da última expressão:
+\begin{equation}
+f(x) = f(a) + (x-a)f'(a) + \dfrac{(x-a)^2}{2!} f''(a) + \cdot \cdot \cdot +  \dfrac{(x-a)^{n-1}}{(n-1)!} f^{(n-1)}(a) + R_n, \nonumber
+\end{equation}
+onde o último termo $R_n$ é chamado de restante e é igual a 
+\begin{equation}
+R_n = \int_a^x dx_n  \cdot \cdot \cdot \int_a^{x_3} dx_1 f^{(n)}(x_1). \nonumber
+\end{equation}
+Quando este restante tende a zero\footnote{$\lim_{n \rightarrow \infty} R_n = 0$.}, temos a chamada Expansão de Taylor:
+\begin{eqnarray}
+f(x) &=& f(a) + (x-a)f'(a) + \dfrac{(x-a)^2}{2!} f''(a)  +  \dfrac{(x-a)^3}{3!} f'''(a) + ... \\ \nonumber
+&=& \sum_{n=0}^{\infty} \dfrac{(x-a)^n}{n!} f^{(n)}(a). \nonumber
+\end{eqnarray}
+A Expansão de Taylor relaciona o valor da função em um ponto $x$ com o valor de suas derivadas em um ponto de referência $a$. É uma função na potência da diferença $\Delta = x-a$. Esta expansão é útil quando se deseja encontrar o valor da função na vizinhaça de um ponto conhecido. Outra forma de se escrever é:
+\begin{equation}
+f(x+h) = \sum_{n=0}^{\infty} \dfrac{h^n}{n!} f^{(n)}(a), \nonumber
+\end{equation}
+com $h$ pequeno.
+
+Quando a expansão é feita em torno de $a=0$, ela é chamada de série de Maclaurin:
+\begin{equation}
+f(x) = f(0) + xf'(0) + \dfrac{x^2}{2!} f''(0)  +  \dfrac{x^3}{3!} f'''(0) + ... = \sum_{n=0}^{\infty} \dfrac{x^n}{n!} f^{(n)}(0). \nonumber
+\end{equation}
+
+\begin{exemplo}
+Seja $f(x) = e^x$. Encontre a expansão de Taylor.
+\tcblower
+Temos que $f^{(n)}(0) = 1$ para todo $n$ inteiro. Logo:
+\begin{equation}
+e^x = 1 + x + \dfrac{x^2}{2!} + \dfrac{x^3}{3!} + ... = \sum_{n=0}^{\infty} \dfrac{x^n}{n!}. \nonumber 
+\end{equation}
+Aplicando o teste da razão temos que:
+\begin{equation}
+\dfrac{a_{n+1}}{a_n}=\dfrac{x^{n+1} n!}{x^n (n+1)!} = \dfrac{x}{n+1} \rightarrow 0 \nonumber
+\end{equation}
+se $n \rightarrow \infty$. Logo de fato a série é convergente.
+
+Por completeza, vamos calcular o restante $R_n$. Porém antes vamos reescrevê-lo de outra forma mais conveniente. O teorema do valor médio diz que:
+\begin{equation}
+\int_a^x g(x) dx = (x-a) g(\xi), \nonumber
+\end{equation}
+para algum $\xi$ tal que $a \leq \xi \leq x$. Integrando $n$ vezes encontramos a forma de Lagrange para o restante:
+\begin{equation}
+R_n = \dfrac{(x-a)^n}{n!} f^{(n)} (\xi). \nonumber
+\end{equation}
+Para o caso da exponencial o restante fica:
+\begin{equation}
+R_n = \dfrac{x^n}{n!} f^{(n)} (\xi) = \dfrac{x^n}{n!} e^{\xi}, \qquad 0 \leq \vert \xi \vert \leq x. \nonumber
+\end{equation}
+Logo $\vert R_n \vert \leq x^n e^x / n!$, o que implica $\lim_{n\rightarrow \infty} R_n = 0$ para todos os valores finitos de $x$. Logo a série de Maclaurin de $e^x$ converge absolutamente no intervalo $- \infty < x < \infty$.
+\end{exemplo}
+
+
+
+\begin{codigo} \label{coditaylorerfx}
+A função erro aparece na solução de algumas equações diferenciais de difusão e também em estatística. Sua definição é:
+\begin{equation}
+\erf (x)=\frac{2}{\sqrt{\pi}}\int_0^x e^{-t^2}\,dt
+\end{equation}
+Algumas de suas propriedades são:
+\begin{eqnarray}
+  \erf(-\infty)=-1, &\quad& \erf(+\infty)=1 \\
+  \erf(-x)=-\erf(x), &\quad& \int_0^x e^{-\frac{t^2}{2\sigma^2}}\,dt=\sqrt{\frac{\pi}{2}}\sigma\,\erf\left[\frac{x}{\sqrt{2}\sigma}\right]
+\end{eqnarray}
+onde o asterisco significa complexo conjugado.
+%\[
+% \int_0^x e^{-\frac{t^2}{2\sigma^2}}\,dt=\sqrt{\frac{\pi}{2}}\sigma\,\erf\left[\frac{x}{\sqrt{2}\sigma}\right]
+%\]
+Apesar de sua definição não intuitiva, a função erro pode ser aproximada utilizando séries de Taylor:
+\begin{equation}
+g(x) = \sum_{q=0}^{\infty} g_q(x) = \frac{2}{\sqrt{\pi}}  \sum_{q=0}^{\infty} \dfrac{(-1)^q x^{2q+1}}{q!(2q+1)}. \label{seritaylorfuncerroskl}
+\end{equation}
+onde $g_q(x)$ é a expansão contendo $q$ termos. Quando a função é complicada, como a função erro, o cálculo da série de Taylor pode ser trabalhoso. Porém, isso pode ser facilmente feito utilizando a computação simbólica. Em Python o módulo Sympy (\url{http://www.sympy.org}) implementa computação simbólica de maneira simples permitindo a definição literal de funções diversas e suas operações como derivadas (necessário para o cálculo da série de Taylor). Na figura \ref{serie_taylor_erf} está o gráfico contendo $\erf (x)$\footnote{O módulo SciPy contém uma implementação da função erro: \url{https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.special.erf.html}.} e 4 séries $g_q(x)$ para $q=$ 1, 11, 21 e 31. O código efetua de forma analítica as derivadas para obter as expressões para $g_q(x)$ para qualquer função $f(x)$ que possa ser definida no Sympy.
+\end{codigo}
+
+\subsection{Séries de potências}
+
+Séries de potências aparecem muito em física e por isso merecem uma atenção em mais detalhes. Sua expressão geral é:
+\begin{equation}
+f(x) = a_0 + a_1(x-x_0) + a_2(x-x_0)^2 + a_3 (x-x_0)^3 + ... = \sum_{n=0}^{\infty} a_n (x-x_0)^n, \nonumber
+\end{equation}
+onde os coeficientes $a_n$ são independente de $x$ e $x_0$ é uma constante. Sua convergência depende também do valor de $x$ e pode ser avaliada usando o teste da razão:
+\begin{equation}
+\rho = \lim_{n \rightarrow \infty} \left\vert \dfrac{a_{n+1}(x-x_0)^{n+1}}{a_n(x-x_0)^n} \right\vert. \nonumber
+\end{equation}
+Se $\rho <1$ a série é convergente.
+
+
+
+Um resultado que torna a série de potência muito útil\footnote{E que pode ser provado pelo teste de Weierstrass.} é o fato de que se ela é convergente para algum $\vert x \vert < R$ então ela é absoluta e uniformemente convergente para para algum intervalo $\vert x \vert <S$ sendo que $0<S<R$. Neste caso, como os termos $a_nx^n$ são contínuos, a função $f(x)$ também será contínua. Logo $f(x)$ é diferenciável e integrável quantas vezes for desejado. Estas características tornam a série de potências muito usada em física.
+
+\begin{exemplo}
+Avalie se as seguintes séries são onverentes ou não:
+\begin{equation}
+\text{a)} \quad \sum_{n=0}^{\infty} \dfrac{(-x)^n}{2^n}, \qquad \text{b)} \quad \sum_{n=0}^{\infty} \dfrac{(x+2)^n}{\sqrt{n+1}}. \nonumber
+\end{equation}
+\tcblower
+a) Para a primeira série temos:
+\begin{equation}
+\rho_n = \left\vert \dfrac{a_{n+1}(x-x_0)^{n+1}}{a_n(x-x_0)^n} \right\vert = \left\vert \dfrac{(-x)^{n+1}}{2^{n+1}} \dfrac{2^n}{(-x)^n} \right\vert = \left\vert \dfrac{x}{2} \right\vert.
+\end{equation}
+Fazendo o limite $n \rightarrow \infty$ obtemos $\rho = x/2$. Temos então que a série é convergente para $\rho <1$, ou $\vert x \vert < 2$. 
+
+b) Para a segunda série:
+\begin{eqnarray}
+\rho_n &=& \left\vert \dfrac{(x+2)^{n+1}}{\sqrt{n+2}} \dfrac{\sqrt{n+1}}{(x+2)^n} \right\vert = (x+2) \dfrac{\sqrt{n+1}}{\sqrt{n+2}}, \nonumber \\
+\rho &=& \vert x + 2 \vert. \nonumber
+\end{eqnarray}
+A série converge para $\vert x + 2 \vert < 1$, ou $-3 < x < -1$. Porém, se $x=-3$ temos a série:
+\begin{equation}
+1 - \dfrac{1}{\sqrt{2}}+\dfrac{1}{\sqrt{3}} - \dfrac{1}{\sqrt{4}} + \cdot \cdot \cdot \nonumber
+\end{equation}
+que é convergente. Já para $x=-1$ a série não converge. Logo o intervalo de convergência é $-3 \leq x < -1$.
+\end{exemplo}
+
+
+
+
+\begin{exemplo} \label{exemplounicidadeseripotendkl}
+Mostre que a representação em série de potências de uma função é única.
+\tcblower
+Seja uma função representada por duas séries de potências:
+\begin{eqnarray}
+f(x)  &=& \left\{
+\begin{array}{rl}
+\sum_{n=0}^{\infty} a_n x^n& \quad -R_a < x < R_a  \\
+\\
+ \sum_{n=0}^{\infty} b_n x^n& \quad -R_b < x < R_b
+\end{array} 
+ \right.
+ \nonumber  
+\end{eqnarray}
+com intervalos coincidentes de convergência, incluindo a origem. Queremos mostrar que $a_n = b_n$ para todo $n$. Dado a definição de $f(x)$ podemos escrever:
+\begin{equation}
+\sum_{n=0}^{\infty} a_n x^n = \sum_{n=0}^{\infty} b_n x^n, \qquad \qquad -R<x<R, \label{seriespotenunicall}
+\end{equation}
+onde $R$ é o menor entre $R_a$ e $R_b$. Fazendo $x=0$ na Eq. \ref{seriespotenunicall} obtemos $a_0=b_0$. Como é uma série de potência convergente, vamos derivar a Eq. \ref{seriespotenunicall}:
+\begin{equation}
+\sum_{n=0}^{\infty} na_n x^{n-1} = \sum_{n=0}^{\infty} nb_n x^{n-1}, \label{seriepotenunica33}.
+\end{equation}
+Fazendo $x=0$ nesta equação obtemos $a_1 = b_1$. Derivando a Eq. \ref{seriepotenunica33} e fazendo $x=0$ obtemos $a_2=b_2$. Repetindo esse processo $n$ vezes obtemos $a_n=b_n$, o que mostra que as duas séries coincidem. Assim a representação em série de potências é única.
+Esta propriedade é essencial na busca de solução em séries de potências de equações diferenciais.
+\end{exemplo}
+
+\subsubsection{Obtenção para séries de potências}
+
+Como séries de potências são muito úteis em física, apresentamos aqui alguns dos resultados mais usados e técnicas para encontrar outros casos não tão comuns. Por exemplo, as seguintes de funções trigonométricas e exponenciais são predominante em física:
+\begin{eqnarray}
+\sin x &=& \sum_{n=0}^{\infty} \dfrac{(-1)^n x^{2n+1} }{(2n+1)!} = x - \dfrac{x^3}{3!} + \dfrac{x^5}{5!} - \dfrac{x^7}{7!} + ..., \quad \forall x, \label{seriepotencialseno} \\
+\cos x &=& \sum_{n=0}^{\infty} \dfrac{(-1)^n x^{2n} }{(2n)!} = 1 - \dfrac{x^2}{2!} + \dfrac{x^4}{4!} - \dfrac{x^6}{6!} + ..., \quad \forall x, \nonumber \\
+e^x &=& \sum_{n=0}^{\infty} \dfrac{ x^n }{n!} =1+ x + \dfrac{x^2}{2!} + \dfrac{x^3}{3!} +  \dfrac{x^4}{4!} + ..., \quad \forall x, \label{seriepoenexponen} \\
+\ln (1+x)  &=& \sum_{n=1}^{\infty} \dfrac{ (-1)^{n+1} x^n }{n} = x - \dfrac{x^2}{2!} + \dfrac{x^3}{3!} -  \dfrac{x^4}{4!} + ..., \quad -1< x \leq 1, \label{seriepotencialnwmax}
+\end{eqnarray}
+
+Várias técnicas de combinações de séries podem ser usadas para obtenção de séries de funções aparentemente difícieis.
+
+\begin{exemplo}
+Ache a série de potência das seguintes funções:
+a) $f(x) = (x+1) \sin x$. Usando a Eq. \ref{seriepotencialseno} temos:
+\begin{equation}
+f(x) = (x+1) \sum_{n=0}^{\infty} \dfrac{(-1)^n x^{2n+1} }{(2n+1)!} = x + x^2 - \dfrac{x^3}{3!} - \dfrac{x^4}{3!} + ... \nonumber
+\end{equation} 
+b) $f(x) = \dfrac{1}{x} \ln (1+x)$. Divida a Eq. \ref{seriepotencialnwmax} por $x$.
+
+c) $f(x) = e^{-x^2}$. Troque $x$ por $-x^2$ na Eq. \ref{seriepoenexponen}:
+\begin{equation}
+e^{-x^2} = 1 - x^2 + \dfrac{x^4}{2!} - \dfrac{x^6}{3!}+... \nonumber
+\end{equation}
+d) $f(x) = \arctan x$. Para essa vamos usar a expressão integral do $\arctan$, Eq. \ref{intearctangelslkj}, e também a expansão binomial do integrando. Temos que:
+\begin{equation}
+\dfrac{1}{1+t^2} = 1 - t^2 + t^4 - t^6 + ... \nonumber
+\end{equation}
+Logo:
+\begin{eqnarray}
+\arctan x &=& \int_0^x \dfrac{dt}{1+t^2} = \int_0^x ( 1 - t^2 + t^4 - t^6 + ...)dt =\left(  t - \dfrac{t^3}{3} + \dfrac{t^5}{5} - \dfrac{t^7}{7} + ...\right)\bigg\rvert_0^x, \nonumber \\
+&=& x - \dfrac{x^3}{3} + \dfrac{x^5}{5} - \dfrac{x^7}{7} + \cdot \cdot \cdot . \nonumber 
+\end{eqnarray}
+\end{exemplo}
+
+Veja que esses métodos são mais fáceis do que tirar várias derivadas de $f(x)$. E o teorema deduzido no exemplo \ref{chapseriescomplexos}.\ref{exemplounicidadeseripotendkl} assegura que se encontrarmos uma solução, essa é a solução.
+
+\begin{figure}[!h]
+\centering
+\subfigure{a)
+\includegraphics[width=3.2 in]{figuras/complexo/serie_taylor_erf.pdf}
+\label{serie_taylor_erf}
+}
+\subfigure{b)
+\includegraphics[width=2.4 in]{figuras/complexo/tijolos.png}
+\label{tijolos}
+}
+\caption[Séries.]{\subref{serie_taylor_erf} Gráfico da função erro $\erf(x)$ e suas expansões de Taylor $g_q(x)$ com $q =$ 1, 11, 21 e 31. \subref{tijolos} Pilha de tijolos. Geometria referente ao problema \ref{chapseriescomplexos}.\ref{rpopilhadetijolos}.}
+\end{figure}
+
+
+%\begin{SCfigure}
+%\centering
+%\includegraphics[width=2.9 in]{figuras/complexo/tijolos.png}
+%\caption{ Pilha de tijolos. Geometria referente ao problema \ref{chapseriescomplexos}.\ref{rpopilhadetijolos}.} 
+%\label{tijolos}
+%\end{SCfigure}
+
+
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+    
+
+\begin{problema}
+Prove o resultado \ref{somedosprnsldkje} por indução. a) Prove que vale para $n=1$. b) Prove que se vale para $n$, vale também para $n+1$. c) Usando este resultado, mostre que dízimas periódicas infinitas podem ser escritas como frações, por exemplo: 1,1111... = 10/9 e 0.131313... = 13/99.
+\end{problema}
+
+\begin{problema} \label{coeficbinomiskais}
+Seja $f(x) = (1+x)^m$. a) Mostre que:
+\begin{equation}
+f(x) = 1 + mx + \dfrac{m(m-1)}{2!}x^2 + \dfrac{m(m-1)(m-2)}{3!}x^3+ ... \nonumber
+\end{equation}
+b) Os coeficientes binomiais $B_{mn}$ são definidos como os coeficientes na expansão:
+\begin{equation}
+(1+x)^m = \sum_{n=0}^{+\infty} B_{mn} x^n. \nonumber
+\end{equation}
+Calcule $B_{mn}$.
+\end{problema}
+
+\begin{problema}
+A razão de duas funções $g(x)$ e $f(x)$ é indeterminada quando ambas as funções tendem para zero quando $x \rightarrow x_0$. Prove a regra de l'Hopital:
+\begin{equation}
+\lim_{x \rightarrow x_0} \dfrac{g(x)}{f(x)} = \lim_{x \rightarrow x_0} \dfrac{g'(x)}{f'(x)}. \nonumber 
+\end{equation}
+\end{problema}
+
+
+\begin{problema}
+Encontre o limite para $n \rightarrow \infty$ das seguintes sequências:
+\begin{eqnarray}
+\text{a)} \quad a_n &=& \dfrac{n^2 + 5n^3}{2n^3 + 3\sqrt{4+n^6}}, \qquad \text{b)} \quad b_n = \dfrac{(n+1)^2}{\sqrt{3+5n^2+3n^3}}, \nonumber \\
+\text{c)} \quad c_n &=& \dfrac{3^n}{n^2}, \qquad \text{d)} \quad d_n = n \cos (1/n). \nonumber 
+\end{eqnarray}
+\end{problema}
+
+\begin{problema}
+Deduza a Fórmula de Euler: $e^{ix} = \cos x + i \sin x$.
+\end{problema}
+
+\begin{problema}
+Usando os métodos da seção, calcule a expansão em série das funções:
+\begin{eqnarray}
+\text{a)} \quad f(x) &=& e^x \cos x, \qquad \text{b)} \quad g(x) = x \sqrt{a+bx},  \nonumber \\
+\text{c)} \quad h(x) &=& \cos x^3, \qquad \text{b)} \quad i(x) = \dfrac{x}{\sqrt{a+bx}}.  \nonumber 
+\end{eqnarray}
+\end{problema}
+
+
+\begin{problema} \label{hipergeometriagauss}
+$\bigstar$ Determine os maiores e os menores valores de $x$, ou seja, o intervalo de convergência da série hipergeométrica de Gauss:
+\begin{equation}
+F(\alpha,\beta,\gamma;x) = 1 + \dfrac{\alpha \beta}{1! \gamma}x + \dfrac{ (\alpha+1) (\beta+1)\alpha \beta}{2!\gamma (\gamma+1)}x^2 + ...
+\end{equation} 
+\end{problema}
+
+\begin{problema} \label{proelmaclaurinlogranauta}
+a) Encontre a série de Maclaurin de $f(x) = \ln (1+x)$. b) Encontre a expansão de Taylo de $e^{\tan x}$. c) Encontre a expansão de $\arctan x$.
+\end{problema}
+
+\begin{problema} \label{erroaproxderivdaseugnda}
+Em análise numérica é comum aproximar a derivada segunda por:
+\begin{equation}
+\dfrac{d^2 \psi}{dx^2} \approx \dfrac{\psi (x+h) -2\psi (x) + \psi(x-h)}{h^2}. \nonumber
+\end{equation}
+Encontre o erro nesta aproximação. 
+\end{problema}
+
+
+\begin{problema} 
+A teoria de Planck de osciladores quantizados leva a uma energia média da forma:
+\begin{equation}
+\langle \varepsilon\rangle = \dfrac{\sum_{n=1}^{\infty} n \varepsilon_0 \exp \left( -n\varepsilon_0/kT\right)   }{\sum_{n=1}^{\infty} \exp \left( -n\varepsilon_0/kT\right) }. \nonumber
+\end{equation}
+Mostre que:
+\begin{equation}
+\langle \varepsilon\rangle = \dfrac{\varepsilon_0}{\exp (\varepsilon_0 / kT) -1}. \nonumber
+\end{equation}
+\end{problema}
+
+\begin{problema}
+A teoria clássica de Langevin para o paramagnetismo fornece a a polarização magnética o seguinte resultado:
+\begin{equation}
+P(\alpha) = A \left( \dfrac{\cosh \alpha}{ \sinh \alpha} - \dfrac{1}{\alpha } \right), \nonumber
+\end{equation}
+onde $A$ é uma constante. Expanda $P(\alpha)$ em série de potências para $\alpha << 1$ (baixo campo e alta temperatura).
+\end{problema}
+
+\begin{problema}
+{\color{red}\Keyboard} $\bigstar$ a) Mostre que a expansão de Taylor da função erro é a Eq. \ref{seritaylorfuncerroskl}. b) Quantos termos são necessários para se obter $\text{erf} (0.1)$, $\text{erf} (1)$ e $\text{erf} (2)$? Use computação simbólica ou escreva um código computacional que resolva numericamente. 
+\end{problema}
+%
+\begin{problema} \label{rpopilhadetijolos}
+$\bigstar$ a) Mostre que é possível empilhar tijolos (ou livros) de forma que o tijolo mais alto esteja tão longe a direita do primeiro quanto você queira. Veja figura \ref{tijolos}. b) Encontre a distância entre a borda da direita do tijolo mais alto para a mesma borda do tijolo abaixo dele. c) Encontre a fórmula geral para essa distância para qualquer tijolo da pilha. Dica: Calcule o torque na borda considerando as três forças atuando no tijolo. d) Mostre que a soma dessas distâncias é uma série divergente\footnote{Veja John F. Hall \textit{Fun with stacking blocks}, Am. J. Phys. \href{http://dx.doi.org/10.1119/1.2074007}{\textbf{73}, 1107 (2005)}. Para uma pilha invertida veja M. Paterson, Y. Peres, M. Thorup, P. Winkler and U. Zwick \textit{Maximum Overhang}, The American Mathematical Monthly, \href{http://www.jstor.org/stable/40391297?origin=JSTOR-pdf}{\textbf{116}, No. 9, pp. 763-787 (2009)}.}. 
+\end{problema}
+
+
+\begin{problema} \label{cladogipinumeriosl}
+{\color{red}\Keyboard} A área de um polígono regular de $N$ lados pode ser calculado considerando o polígono como uma soma de triângulos. Dado um sistema de coordenadas, esta área pode ser encontrada em função das coordenadas $x,y$ de cada vértice através da Fórmula do Cadarso\footnote{Ou fórmula da área de Gauss, pois foi desenvolvida de maneira independente por Meister em 1769 e por Gauss (sempre ele) em 1795. Veja por exemplo \url{https://en.wikipedia.org/wiki/Shoelace_formula}.}:
+\begin{equation}
+A(N) =  \dfrac{1}{2} \sum_{i=1}^N (x_iy_{i+1} - x_{i+1}y_i), \nonumber
+\end{equation}
+onde $x_i,y_i$ são as coordenadas do i-ésimo ponto. É necessário que os pontos sejam ordenados: $x_0,y_0$ é o primeiro, $x_1,y_1$ o segundo, etc...
+a) Faça um pseudo-algoritmo que calcule numericamente a estimativa $\pi_e(N)$ para um polígono de $N$ lados (veja Eq. \ref{slekjfwoislkjppp}), usando o método do código \ref{chapseriescomplexos}.\ref{codigopinumericos} e a Fórmula do Cadarso. b) A partir desse algoritmo, desenvolva uma implementação em Python que faça o cálculo e gere os gráficos como das figuras \ref{figura_pi} e \ref{figura_pi2}.
+\end{problema}
+
+%\begin{problema} 
+%{\color{red}\Keyboard} Use o código que gera a figura \ref{serie_taylor_erf} referente ao exemplo \ref{chapseriescomplexos}.\ref{coditaylorerfx} e obtenha a expansão de Taylor para 4 valores diferentes de $q$ para as seguintes funções: a) 
+%\end{problema}
+
+\begin{problema}
+$\bigstar \bigstar \quad$ Mostre que:
+\begin{equation}
+\int_0^{\infty} \dfrac{\sinh (\pi x) }{\sinh (3\pi x)} e^{-3\pi x^2} dx = \dfrac{1}{\sqrt{3} e^{2\pi /3}} \sum_0^{\infty} \dfrac{\exp \left[ -2n(n+1)\pi \right] }{(1+e^{-\pi})^2 (1+e^{-3\pi})^2 \cdot \cdot \cdot (1+e^{-(2n+1)\pi})^2 } . \nonumber
+\end{equation}
+Dica: veja \cite{Nahin2015}.
+\end{problema}
+
+\begin{problema}
+$\bigstar \bigstar \quad$ Mostre os seguintes resultados:
+\begin{eqnarray}
+\text{a)} \quad \int_0^1 x^x dx &=& 1 - \dfrac{1}{2^2} + \dfrac{1}{3^3} - \dfrac{1}{4^4} + \dfrac{1}{5^5} - ... = 0.78343... \label{irresistivelinte1} \\
+\text{b)} \quad \int_0^1 x^{x^2} dx &=& 1 - \dfrac{1}{3^2} + \dfrac{1}{5^3} - \dfrac{1}{7^4} + \dfrac{1}{9^5} - ... = 0.89648... \nonumber \\
+\text{c)} \quad \int_0^1 x^{\sqrt{x}} dx &=& 1 - \left(  \dfrac{2}{3} \right)^2  + \left(  \dfrac{2}{4} \right)^3 - \left(  \dfrac{2}{5} \right)^4  + \left(  \dfrac{2}{6} \right)^5 - ... = 0.65858... \nonumber
+\end{eqnarray}
+A integral da Eq. \ref{irresistivelinte1} foi resolvida primeiramente pelo matemático suiço John Bernoulli em 1697. Ele ficou tão fascinado pelo resultado que o chamou de "series mirabili", ou série maravilhosa\footnote{Veja Ref. \cite{Nahin2015}.}. 
+\end{problema}
+
+\begin{problema}
+Se você fizer um investimento com juros compostos de 5 \% ao mês, você terá $(1.005)^n$ reais após $n$ meses. Se você investir 30 reais no início de cada mês, quanto você terá ao final de 15 anos? 
+\end{problema}
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\section{Números Complexos}
+
+
+Números complexos são formados por um par de números reais de forma que o conjunto dos reais $\mathbb{R}$ faz parte do conjunto dos complexos $\mathbb{C}$. Em geral, funções e séries reais podem ser generalizadas para complexas apenas trocando as variáveis reais por complexas. 
+
+Números complexos são usados em física por exemplo na solução de equações diferenciais e também na descrição dos campos elétrico e magnético.
+
+\subsection{Álgebra Complexa}
+
+A primeira e mais simples motivação para a definição dos números complexos é a solução de equações quadráticas.
+
+\begin{exemplo}
+Seja $y(x) = x^2 + x +1$ para $x\in \mathtt{R}$ ($x$ real). Encontre as soluções para $y(x)=0$.
+\tcblower
+Usando a fórmula de Baskara e delta verifica-se que não há solução real. Porém, se usarmos o símbolo $i = \sqrt{-1}$ podemos encontrar soluções. De fato, verifica-se que $x_{\pm} = \frac{1}{2} (-1 \pm i \sqrt{3})$ é solução:
+\begin{equation}
+\left[ \dfrac{1}{2} (-1 \pm i\sqrt{3} \right]^2 + \dfrac{1}{2}(-1 \pm i \sqrt{3}) +1 = \dfrac{1}{4} (1 -3 \mp 2i \sqrt{3} -2 \pm 2i \sqrt{3}) + 1 = 0. \nonumber 
+\end{equation}
+Matematicamente o problema foi resolvido, porém ainda não temos um significado para o símbolo $i$.
+\end{exemplo} 
+
+Para formalizar mais a existência desses números complexos definimos o chamado plano complexo formado pelos eixos $x$ e $y$ (veja figura \ref{plano_complexo}). Assim cada número complexo será definido pelo par $z \equiv (x,y)$ onde $x$ é chamado de parte real $\operatorname{Re}(z)$ e $y$ a parte imaginária $\operatorname{Im}(z)$: 
+\begin{equation}
+z \equiv (x,y) = x + iy, \qquad \qquad x = \operatorname{Re}(z), \qquad \qquad y = \operatorname{Im}(z). \nonumber
+\end{equation}
+Dessa forma, um número real é escrito como $(x,0)$ a unidade imaginária é definida como $i \equiv (0,1)$\footnote{Em outras áreas, engenharia por exemplo, é comum usar $j$ como sendo a unidade imaginária.}.
+
+%\begin{SCfigure}
+% \centering
+%\begin{tikzpicture}
+%\begin{axis}
+%    [
+%    ytick ={-2, 0, 2,3}, yticklabels={$-2i$, $0$, $2i$, $3i$},
+%    axis lines = center,
+%    %grid=both,
+%    minor tick num=1,
+%    ticks=both,
+%    xlabel=$x$,
+%    ylabel=$y$,
+%    ymin=-3,
+%    ymax=+4,
+%    xmin=-4,
+%    xmax=+5
+%    ]
+%
+%    \addplot [blue, mark = *] coordinates {( 0, 0)} {};
+%    \addplot [blue, mark = *] coordinates {( 3, 2)} {};
+%    \addplot [blue, mark = *] coordinates {( 2, 3)} {};
+%    \addplot [blue, mark = *] coordinates {( -1, 1)} {};
+%
+%    \node [below right, red] at (axis cs:  0, 0) {};
+%    \node [right, red] at (axis cs:  3, 2) {$3+2i$};
+%    \node [above, red] at (axis cs:  2, 3) {$2+3i$};
+%    \node [left, red] at (axis cs:  -1, 1) {$-1+i$};
+%
+%%    \addplot [dashed, black] coordinates { (0,0) (3,2) };
+%%    \addplot [dashed, black] coordinates { (3,2) (2,3) };
+%%    \addplot [dashed, black] coordinates { (2,3) (-1,1) };
+%%    \addplot [dashed, black] coordinates { (-1,1) (0,0) };
+%
+%\end{axis}
+%\end{tikzpicture}
+%\caption{Plano complexo com alguns pontos representados.}
+%\label{plano_complexo}
+%\end{SCfigure} 
+
+Um número complexo $z=(a,b)$ nada mais é então do que um ponto no plano complexo, tendo sua abcissa como a parte real e a ordenada como a parte imaginária. Toda a análise envolvendo números complexos é feita baseando nos pares ordenados. A soma por exemplo é:
+\begin{equation}
+z_1+z_2 = (x_1,y_1) + (x_2,y_2) = (x_1+x_2,y_1+y_2) = z_1+z_2. \nonumber
+\end{equation}
+Veja que $x$ e $y$ se comportam como coordenadas de um vetor $z$ no plano complexo. A multiplicação fica:
+\begin{equation}
+z_1z_2 = (x_1+iy_2)(x_2+iy_2) = x_1x_2 -y_1y_2 + i(x_1y_2 + x_2y_1). \nonumber
+\end{equation}
+Lembrando que $i^2 = -1$.
+
+Outra operação muito utilizada na física é o complexo conjugado $z^*$ de um número complexo $z=(a+ib)$, definido como $z^* = a-ib$. Veja que tirar o complexo conjugado significa apenas trocar o sinal da parte imaginária. Dessa forma temos:
+\begin{equation}
+zz^* = (a+ib)(a-ib) = a^2 + b^2 = \vert z \vert,
+\end{equation}
+onde $\vert z \vert$ é chamado de módulo de $z$. 
+
+Já a divisão de dois número complexos consiste em deixar o denominador real:
+\begin{equation}
+\dfrac{z_1}{z_2} = \dfrac{z_1}{z_2} \dfrac{z_2^*}{z_2^*} = \dfrac{z_1 z_2^*}{\vert z_2 \vert } 
+\end{equation}
+Por exemplo, se $z_1 = a_1+ib_1$ e $z_2 = a_2+ib_2$ a divisão de ambos será:
+\begin{equation}
+\dfrac{z_1}{z_2} = \dfrac{a_1a_2+b_1b_2 + i(a_2b_1-a_1b_2)}{a_2^2+b_2^2}. \label{slsdkjfppqqpa}
+\end{equation}
+
+
+\begin{figure}[!h]
+\centering
+\subfigure{a)
+\begin{tikzpicture}
+\begin{axis}
+    [
+    ytick ={-2, 0, 2,3}, yticklabels={$-2i$, $0$, $2i$, $3i$},
+    axis lines = center,
+    %grid=both,
+    minor tick num=1,
+    ticks=both,
+    xlabel=$x$,
+    ylabel=$y$,
+    ymin=-3,
+    ymax=+4,
+    xmin=-4,
+    xmax=+5
+    ]
+
+    \addplot [blue, mark = *] coordinates {( 0, 0)} {};
+    \addplot [blue, mark = *] coordinates {( 3, 2)} {};
+    \addplot [blue, mark = *] coordinates {( 2, 3)} {};
+    \addplot [blue, mark = *] coordinates {( -1, 1)} {};
+
+    \node [below right, red] at (axis cs:  0, 0) {};
+    \node [right, red] at (axis cs:  3, 2) {$3+2i$};
+    \node [above, red] at (axis cs:  2, 3) {$2+3i$};
+    \node [left, red] at (axis cs:  -1, 1) {$-1+i$};
+
+%    \addplot [dashed, black] coordinates { (0,0) (3,2) };
+%    \addplot [dashed, black] coordinates { (3,2) (2,3) };
+%    \addplot [dashed, black] coordinates { (2,3) (-1,1) };
+%    \addplot [dashed, black] coordinates { (-1,1) (0,0) };
+
+\end{axis}
+\end{tikzpicture}
+\label{plano_complexo}
+}
+\subfigure{b)
+\begin{tikzpicture} [thick]
+  \draw[thin,gray!40] (-1,-1) grid (4.0,3.0);
+  \draw[<->] (-1,0)--(4,0) node[above]{$x$};
+  \draw[<->] (0,-1)--(0,3) node[left]{$y$};
+  \draw[line width=2pt,blue,-stealth](0,0)--(3,0) node[above]{$x$};
+  \draw[line width=2pt,red,-stealth](0,0)--(0,2) node[right]{$y$};
+  \draw[line width=2pt,black,-stealth](0,0)--(3,2) node[anchor=south west]{$z$};
+  \node[] at (1.3,1.2) {$r$};
+
+
+\coordinate (O) at (0,0);
+\coordinate (A) at (3,0);
+\coordinate (B) at (3,2);
+%\draw (O)--(A)--(B)--cycle;
+
+\tkzMarkAngle[fill= orange,size=0.8cm,opacity=.4](A,O,B)
+\tkzLabelAngle[pos = 0.6](A,O,B){$\theta$}
+
+%\shade[inner color = black, outer color = blue] (0,0) circle (0.1);
+%\shade[inner color = black, outer color = red] (5,5) circle (0.1);
+
+\end{tikzpicture}
+\label{complexo_polar}
+}
+\caption{\subref{plano_complexo} Plano complexo com alguns pontos representados. \subref{complexo_polar} Representação polar de um número complexo.}
+\end{figure}
+
+
+%
+%\begin{SCfigure}
+% \centering
+%\begin{tikzpicture} [thick]
+%  \draw[thin,gray!40] (-1,-1) grid (4.0,3.0);
+%  \draw[<->] (-1,0)--(4,0) node[above]{$x$};
+%  \draw[<->] (0,-1)--(0,3) node[left]{$y$};
+%  \draw[line width=2pt,blue,-stealth](0,0)--(3,0) node[above]{$x$};
+%  \draw[line width=2pt,red,-stealth](0,0)--(0,2) node[right]{$y$};
+%  \draw[line width=2pt,black,-stealth](0,0)--(3,2) node[anchor=south west]{$z$};
+%  \node[] at (1.3,1.2) {$r$};
+%
+%
+%\coordinate (O) at (0,0);
+%\coordinate (A) at (3,0);
+%\coordinate (B) at (3,2);
+%%\draw (O)--(A)--(B)--cycle;
+%
+%\tkzMarkAngle[fill= orange,size=0.8cm,opacity=.4](A,O,B)
+%\tkzLabelAngle[pos = 0.6](A,O,B){$\theta$}
+%
+%%\shade[inner color = black, outer color = blue] (0,0) circle (0.1);
+%%\shade[inner color = black, outer color = red] (5,5) circle (0.1);
+%
+%\end{tikzpicture}
+%\caption{Plano complexo com alguns pontos representados.}
+%\label{plano_complexo}
+%\end{SCfigure} 
+
+
+\subsection{Forma polar}
+
+Outra forma útil de escrever números complexos é usando coordenadas polares. Da figura \ref{complexo_polar} temos que:
+\begin{equation}
+x = r \cos \theta, \qquad y = r \sin \theta, \qquad z = r (\cos \theta + i \sin \theta). \label{mmmmammmm}
+\end{equation}
+Agora, $r$ e $\theta$ são chamados de módulo e fase de $z$:
+\begin{equation}
+r = \sqrt{x^2 + y^2}, \qquad \tan \theta = \dfrac{y}{x}. \nonumber
+\end{equation}
+Para obtermos uma relação útil, vamos expandir a exponencial complexa em uma série:
+\begin{eqnarray}
+e^{i \theta} &=& \sum_{n=0}^{\infty} \dfrac{(i\theta)^n}{n!} =  \sum_{m=0}^{\infty} \dfrac{(i\theta)^{2m}}{(2m)!} +  \sum_{m=0}^{\infty} \dfrac{(i\theta)^{2m+1}}{(2m+1)!} = \sum_{m=0}^{\infty} (i)^m\dfrac{(\theta)^{2m}}{(2m)!} + i  \sum_{m=0}^{\infty} (-1)^m \dfrac{(\theta)^{2m+1}}{(2m+1)!}, \nonumber \\
+&=& \cos \theta + i \sin \theta. \label{slskjwoiwlkjsfdf}
+\end{eqnarray}
+A Eq. \ref{slskjwoiwlkjsfdf} é a famosa relação de Euler. A partir dela podemos representar um número complexo em coordenada polar (Eq. \ref{mmmmammmm}) como $z = r e^{i\theta}$. A fórmula de Euler permite escrever as regras de adição de ângulos, por exemplo:
+\begin{equation}
+\cos (\theta_1 + \theta_2) + i \sin (\theta_1 + \theta_2) = \cos \theta_1 \cos \theta_2 - \sin \theta_1 \sin \theta_2 + i (\sin \theta_1 \cos \theta_2 + \sin \theta_2 \cos \theta_1). \label{kkkkwkkkk} 
+\end{equation}
+Outras propriedades interessante são:
+\begin{equation}
+\vert z_1 \vert - \vert z_2 \vert \leq \vert z_1 + z_2 \vert \leq \vert z_1 \vert + \vert z_2 \vert, \qquad \vert z_1 \cdot z_2 \vert = \vert z_1 \vert \cdot \vert z_2 \vert. \label{wywywhqhqhmm}
+\end{equation}
+
+
+A escolha da representação cartesiana ou polar para os números complexos é uma questão de conveniência. Soma e subtração é mais simples usando cartesianas já multiplicação, divisão e radiciação são mais fáceis usando a representação polar. Por exemplo:
+\begin{equation}
+\sqrt[n]{z}  = \sqrt[n]{re^{i \theta}} = \sqrt[n]{re^{i \theta+2im\pi}} = \sqrt[n]{r} \exp{i \theta /n + 2im\pi /n}, \qquad m = 1,2,3,..., n-1, \nonumber
+\end{equation}
+já que, da fórmula de Euler (Eq. \ref{slskjwoiwlkjsfdf}), $\exp{i\theta + 2im\pi} = e^{i\theta} \cos 2m\pi = e^{i\theta}$. Ou seja, radiciação de um número complexo é uma função multivalorada (para cada $z$ retorna mais de um resultado).
+
+Outro exemplo de função complexa multivalorada é o logaritmo. Em princípio teríamos $\ln z = \ln r e^{i\theta} = \ln r + i \theta$. Porém, usando novamente $\exp{i\theta + 2in\pi} = e^{i\theta}$ temos que:
+\begin{equation}
+\ln z = \ln r \exp{i\theta + 2in\pi} = \ln r + i (\theta + 2n\pi), \qquad n = 0,1,2,3,...
+\end{equation}
+Ou seja, $\ln z$ pode retornar infinitos valores para cada real $r$ e $\theta$. É comum usar como padrão $n=0$ e $\theta$ em qualquer intervalo de comprimento $2\pi$ para que $\ln z$ retorne um valor apenas.
+
+
+\begin{codigo}
+Série de números complexos tem diversas aplicações, como por exemplo em fractais. Por exemplo o conjunto de Mandelbrot que é o conjunto $M$ de números complexos $c \in \mathbb{C}$ tais que a série $z_{n+1} = z_n^2 + c$ não é divergente, usando $z_0=0$. Dizer que uma série não diverge não implica que ela converge, mas que o seu valor máximo é limitado. Assim, o conjunto $M$ de Maldelbrot é pode ser definido como:
+\begin{equation}
+c \in \mathbb{M} \Longleftrightarrow \lim_{n \rightarrow + \infty} \vert z_{n+1} \vert \leq L. \label{criconjbmandelbrot}
+\end{equation}
+É comum usar $L=2$. Para $c=1$ a série $z_n$ diverge. Mas para $c=-1$ a série é convergente logo $-1 \in \mathbb{M}$.
+
+Uma maneira de fazer uma figura mostrando o conjunto $\mathbb{M}$ é definir um domínio no plano complexo e então calcular o n-ésimo termo $z_n$ para todos os valores de $c$ neste domínio. Quando $\vert z_n \vert<2$ , colore-se o ponto $c$ de vermelho, caso contrário de branco, como está na figura \ref{fractal_mandelbrot}. 
+%O código que gera esta figura é: \lstinputlisting[language=Python]{figuras/complexo/mandelbrot4.py}
+Veja que a função limite retorna 1 se $\vert z_{100} \vert < L=2$ e 0 caso contrário. São calculados no total $10^6$ valores de $c$ (1000 valores para sua parte real guardadas no vetor x e 1000 para a parte imaginária no vetor y). Os valores calculados da função são armazenados na matriz \verb|fm|. O gráfico é feito usando o comando \verb|plt.imshow|.
+\end{codigo}
+
+
+\begin{SCfigure}
+\centering
+\includegraphics[width=2.8 in]{figuras/complexo/fractal_mandelbrot.pdf}
+\caption[Fractal de Mandelbrot.]{Fractal de Mandelbrot.} 
+\label{fractal_mandelbrot}
+\end{SCfigure}
+
+%\begin{figure}[!h]
+%\centering
+%\subfigure{a)
+%\includegraphics[width=2.8 in]{figuras/complexo/fractal_mandelbrot.pdf}
+%\label{fractal_mandelbrot}
+%}
+%\subfigure{b)
+%\includegraphics[width=2.7 in]{figuras/complexo/fractal_mandelbrot2.pdf}
+%\label{fractal_mandelbrot2}
+%}
+%\caption[Fractal de Mandelbrot.]{Fractal de Mandelbrot. \subref{fractal_mandelbrot} Gráfico simples ilustrando o conceito do algoritmo. \subref{fractal_mandelbrot2} Renderização mais completa. O código está disponível em \href{https://matplotlib.org/examples/showcase/mandelbrot.html}{https://matplotlib.org/}.}
+%\end{figure}
+
+
+
+
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=DarkGreen!75!black,title=Um pouco de história.]
+
+A matemática de fractais começou possivelmente no século XVII com o matemático e filósofo Gottfried Leibniz (o mesmo do cálculo), quando ele considerou o conceito de similaridade recursiva, usando o termo expoentes fractais. Apenas em 1872 Karl Weierstrass apresentou à Royal Prussian Academy of Sciences uma função que hoje é considerada como fractal tendo a propriedade não intuitiva de ser contínua em todo o espaço mas não diferenciável. Em 1883, Georg Cantor, que assistiu as palestras de Leibniz apresentou o fractal que hoje é conhecido como conjunto de Cantor. Todos os tratamentos até então eram analíticos e apenas em 1904 os primeiros desenhos (feitos a mão) foram apresentados, relativo ao fractal conhecido como floco de neve. Em 1915 foi apresentado o triângulo de Sierpinski, em 1918 o fractal de Julia (por Pierre Fatou e Gaston Julia de maneira independente, veja a figura \ref{fractal_julia}).
+
+O estudo de fractais deu um grande salto com Benoit Mandelbrot, que criou o fractal q leva seu nome (veja figuras \ref{fractal_mandelbrot} e \ref{fractal_mandelbrot2}) após seus estudos tentando encontrar o comprimento da costa da Grã-Bretanha. Em 1975 apresentou os primeiros gráficos gerados em computador de um fractal, cunhando também o termo fractal. O fractal de Mandelbrot foi artigo de capa da Scientific American em agosto de 1985 e apresentou ao público geral um algoritmo para criá-lo.
+\end{tcolorbox}
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+    
+
+
+\begin{problema}
+a) Deduza a expressão da Eq. \ref{slsdkjfppqqpa}. b) Deduza a equação \ref{kkkkwkkkk}. c) Deduza os resultados das equações \ref{wywywhqhqhmm}. d) Mostre que $\arg (z_1z_2) = \arg(z_1) + \arg(z_2)$, onde $\arg(z)=$ a fase de $z$.
+\end{problema}
+
+\begin{problema}
+Calcule $\operatorname{Re}\left( \dfrac{1}{x \pm iy} \right)$ e $\operatorname{Im}\left( \dfrac{1}{x \pm iy} \right)$.
+\end{problema}
+
+
+\begin{problema} \label{exechpcomplexmorivre}
+a) Deduza a fórmula de De Moivre: $\cos n\theta + i \sin n\theta = (\cos \theta + i \sin \theta)^n$. b) Calcule $(1+i)^{20}$.
+\end{problema}
+
+\begin{problema}
+Para $z = x+iy$, prove que: a) $\vert \sin z \vert \geq \vert \sin x \vert$ e b) $\vert \cos z \vert \geq \vert \cos x \vert$.
+\end{problema}
+
+\begin{problema}
+Mostre que: a) $\sin^{-1} z = -i  \ln \left( iz  \pm \sqrt{1-z^2} \right)$, b)  $\cos^{-1} z = -i  \ln \left( z  \pm \sqrt{z^2-1} \right)$ e c) $\tan^{-1} z = \dfrac{i}{2} \ln \left( \dfrac{i+z}{i-z} \right)$. 
+\end{problema}
+
+
+\begin{problema}
+Mostre que: a) $\sinh^{-1} z = \ln \left( z  + \sqrt{z^2+1} \right)$, b)  $\cosh^{-1} z = \ln \left( z  + \sqrt{z^2-1} \right)$ e c) $\tanh^{-1} z = \dfrac{1}{2} \ln \left( \dfrac{1+z}{1-z} \right)$. 
+\end{problema}
+
+\begin{problema}
+Mostre que $\ln (-1) = i \pi$.
+\end{problema}
+
+\begin{problema} \label{procomfrajulia}
+{\color{red}\Keyboard} $\bigstar$  Os fractais apresentados nas figuras \ref{fractal_mandelbrot} e \ref{fractal_mandelbrot2} são do tipo Mandelbrot, definidos pela Eq. \ref{criconjbmandelbrot}. Existem vários outros tipos definidos por outros critérios, como por exemplo os fractais do tipo Julia. Considere uma sequência definida por $z_{n+1} = f(z_n) + c$ onde $c$ é um número complexo e o primeiro elemento da série é $z_0 = x + iy$. Para cada $x$ e $y$ (ou seja, para cada $z_0$ dentro de uma certa região) calculamos quantas iterações $\kappa$ na série são necessárias de modo que $\vert z_{\kappa} \vert > L$, para algum certo limite $L$. Dessa forma definimos a função:
+\begin{equation}
+\Gamma (x,y,c,f) =  \kappa \qquad \qquad \text{tal que} \qquad \qquad \vert z_{\kappa} \vert > L. \nonumber
+\end{equation}
+Definindo um valor $c$ e uma região de variação para $z_0$ construimos a função $\Gamma(x,y,c,f)$ na mesma região. O gráfico de tal função é um fractal\footnote{Para evitar loop infinito, coloca-se um critério de segurança impondo $\kappa < \Xi$ para um certo $\Xi$.}, como o da figura \ref{fractal_julia}. Diferentes valores de $c$ e expressões para $f(z)$ geram diferentes fractais\footnote{Uma linda animação variando o valor de $c$ está no Wikipedia: \url{https://en.wikipedia.org/wiki/File:JSr07885.gif}.}. Construa um código que cria uma imagem de fractal do tipo Julia. Use os parâmetros da figura \ref{fractal_julia}.
+\end{problema}
+
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+\begin{SCfigure}
+ \centering
+\includegraphics[width=3.0 in]{figuras/complexo/fractal_julia.pdf}
+\caption[Fractal Julia.]{Fractal do tipo Julia referente ao Problema \ref{chapseriescomplexos}.\ref{procomfrajulia}. Parâmetros utilizados: $f(z) = z^2$, $c=-1+0,65i$, $\Xi = 2000$, $-1,5 < x,y < 1,5$ e $L=10$.}
+\label{fractal_julia}
+\end{SCfigure} %acertado

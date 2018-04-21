@@ -1,0 +1,105 @@
+\chapter{Teoria de Sturm-Liouville}
+
+Equações diferenciais tem grandes semelhanças com vários conceitos da álgebra linear. Funções podem ser encaradas como vetores e operadores lineares atuando nessas funções são as matrizes da álgebra linear. Diagonalizar uma matriz corresponde a resolver uma EDO definida por um operador auto-adjunto $\mathscr{L}$. Os autovetores da matriz são as funções soluções da EDO, chamadas de auto-funções. Em Álgera Linear um vetor é representador por $\textbf{a}$, em Mecânica Quântica usa-se a notação (de Dirac) $\vert a \rangle$ e assim usaremos a notação $\vert \varphi \rangle$ para as autofunções.
+
+\section{EDO auto-adjunta}
+
+Uma EDO é definida pelo operador:
+\begin{equation}
+\mathscr{L} = p_0(x) \dfrac{d^2}{dx^2} + p_1(x)\dfrac{d}{dx} + p_2(x). \nonumber
+\end{equation}
+Sejam duas funções $u(x)$ e $v(x)$. O produto interno (análogo ao produto escalar de dois vetores) é definido como:
+\begin{equation}
+\langle v \vert u \rangle \equiv \int_a^b v^*(x) u(x) dx, \nonumber
+\end{equation}
+onde $z^*$ é o complexo conjugado de $z$\footnote{Se $z = a+ib$ logo $z^* = a - ib$.}. Continuando a analogia, $u$ e $v$ são ortogonais se $\langle v \vert u \rangle=0$.
+
+$\mathscr{L}$ é chamado de operador pois ele atua nos vetores (ou funções) $\vert u \rangle$:
+\begin{equation}
+\mathscr{L}\vert u \rangle = p_0(x) \dfrac{d^2u}{dx^2} + p_1(x)\dfrac{du}{dx} + p_2(x)u. \nonumber
+\end{equation}
+O resultado dessa operação é outro vetor, que também pode ser feito produto interno com ainda outro vetor:
+\begin{equation}
+\langle v \vert \mathcal{L} \vert u \rangle = \langle v \vert \mathscr{L} u \rangle \int_a^b v^*(x) \mathscr{L} u(x)
+\end{equation}
+
+Um tipo específido de operadores muito útil em física é o chamado operador auto-adjunto definido pela propriedade:
+\begin{equation}
+\langle u \vert \mathscr{L} u \rangle = \langle \mathscr{L}_a u \vert u \rangle 
+\end{equation}
+$\mathcal{L}_a$ é o operador adjunto definido como:
+\begin{equation}
+\mathscr{L}_a u(x) =  \dfrac{d^2}{dx^2}(p_0u) + \dfrac{d}{dx}(p_1u) + p_2u 
+\end{equation}
+A condição necessária e suficiente para que $\mathcal{L}$ seja auto-adjunto (ou seja, $\mathcal{L} = \mathcal{L}_a$) é que $\dfrac{dp_0}{dx} = p_1$. De maneira geral um operador auto-adjunto pode ser escrito diretamente na forma:
+\begin{equation}
+\mathscr{L} u(x) = \mathscr{L}_a u(x) =  \dfrac{d}{dx} \left[ p(x) \dfrac{du(x)}{dx} \right] + q(x)u(x). 
+\end{equation}
+Além disso, um operador qualquer também pode se transformado em um operador auto-adjunto.
+
+
+\subsection{Autovetores e autovalores}
+
+Problemas de autovetores e autovalores são comuns em física. Por exemplo a Eq. de Schrodinger independente do tempo em uma dimensão é a equação secular $H \psi (x) = E \psi(x)$, onde $\psi(x)$ e $E$ são respectivamente os autovetores e autovalores. O hamiltoniano define o operador $\mathscr{L} = H$\footnote{$\psi$ é chamada de função de onda e $E$ é a energia total do sistema.}. De maneira geral uma equação secular (que define os autovetores e autovalores de um operador) é escrita como:
+\begin{equation}
+\mathscr{L} \vert u \rangle + \lambda w \vert u \rangle = 0, \label{eqseculargeralsturli}
+\end{equation}
+onde $w$ é o peso ou função densidade, $\lambda$ é o autovalor e $\vert u \rangle$ o autovetor. A análise da Eq. \ref{eqseculargeralsturli} para um operador auto-adjunto $\mathscr{L}$ e de suas soluções é chamada de Teoria de Sturm-Liouville. Agora o produto interno de autovetores também depende do peso:
+\begin{equation}
+\langle v \vert u \rangle \equiv \int_a^b v^*(x) u(x) w(x) dx
+\end{equation}
+
+Para cada $\lambda$ há um $\vert u \rangle$ correspondente, sendo então escrito como $\vert u_{\lambda} \rangle$. Autovetores diferentes de um mesmo operador também podem ser ortogonais se $\langle u_{\lambda1} \vert u_{\lambda2} \rangle = 0$.
+
+\subsection{Operadores Hermitianos}
+
+As soluções da equação diferencial resultante da Eq. \ref{eqseculargeralsturli} também tem que satisfazer condições de contorno. Em geral o problema é resolvido em um domínio e então as condições de contorno são as definições das soluções (e suas derivadas) na borda desse domínio. Suponha que em um caso 1D a solução seja no intervalo $a<x<b$, uma maneira usual para essa definição é:
+\begin{equation}
+p(x) v^* (x) \dfrac{du(x)}{dx}\biggr\rvert_a = p(x) v^* (x) \dfrac{du(x)}{dx}\biggr\rvert_b = 0. \label{condconrontsle}
+\end{equation}
+No poço quadrado e esférico infinito são exemplos com esse tipo de condição de contorno. Porém, esses limites podem ser infinitos. No problema do átomo de hidrogênio por exemplo a função de onda vai a zero quando $r \rightarrow \infty$. Outra forma menos restritiva para as condições de contorno são: 
+\begin{equation}
+p(x) v^* (x) \dfrac{du(x)}{dx}\biggr\rvert_a = p(x) v^* (x) \dfrac{du(x)}{dx}\biggr\rvert_b. \nonumber
+\end{equation}
+Veja que neste caso o valor especificado é o mesmo nos limites do intervalo. Esse tipo de condições de contorno é utilizado por exemplo em problemas com periodicidade.
+
+Vamos agora definir uma importante propriedade, que tem grande aplicação na Mecânica Quântica. Comecemos calculando a integral:
+
+De forma que:
+\begin{equation}
+\langle v \vert \mathscr{L} u \rangle = \int_a^b v^* \mathscr{L} u dx =  \int_a^b u \mathscr{L} v^* dx = \langle \mathscr{L} v \vert u \rangle
+\end{equation}
+Um operador que satisfaz essa propriedade é dito operador Hermitiano.
+
+\begin{exemplo}
+Seja $\mathscr{L} = d^2/dx^2$ e a seguinte equação secular:
+\begin{equation}
+\dfrac{d^2y}{dx^2} + n^2 y = 0.
+\end{equation}
+Encontre as autofunções e auto valores.
+\tcblower
+Claramente as soluções são seno e cosseno (veja Eq. \ref{sjwjhhhhh}): $u_n = \cos nx$ e $v_n = \sin nx$ com autovalor $n$. O intervalo do domínio deve ser escolhido de forma que as condições de contorno (Eq. \ref{condconrontsle}) sejam satisfeitas. Para estas soluções qualquer intervalo da forma $b = a + 2\pi$ é adequado. Temos então que:
+\begin{equation}
+m \cos mx \cos  nx \biggr\rvert_0^{2\pi} = -n\sin mx \sin  nx \biggr\rvert_0^{2\pi} = 0.
+\end{equation}
+\end{exemplo}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

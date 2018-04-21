@@ -1,0 +1,690 @@
+\chapter{Equações Diferenciais Ordinárias} \label{capequadifernciaordinarias}
+
+
+
+
+
+Toda grande área da física tem uma equação diferencial central. Por exemplo, as equações de \ref{dlslskjw} até \ref{eqdeschrodinger} referem-se a Lei de Newton para a Mecânica, Lei de Ampere-Maxwell e equação de Schrodinger na Mecânica Quântica. 
+\begin{eqnarray}
+\vec{F}(t) &=& m \dfrac{d^2}{dt^2}\vec{r}(t) \label{dlslskjw} \\
+ \vec{\nabla} \times \vec{B}(\vec{r},t) &=& \mu_0 \vec{J}(\vec{r},t) + \mu_0 \varepsilon_0  \dfrac{\partial^2}{\partial t^2}\vec{E}(\vec{r},t)   \\
+-i\hbar \dfrac{\partial }{\partial t} \Psi (\vec{r},t) &=& \left[ -\dfrac{\hbar^2}{2m} \nabla^2 +U(\vec{r},t) \right]   \Psi (\vec{r},t)   \label{eqdeschrodinger}
+\end{eqnarray}
+Cada equação tem suas particularidades e admitem uma certa classe de funções. Várias estratégias já foram desenvolvidas para a solução analítica delas. Porém algumas delas não tem soluções analíticas em casos mais complicados, sendo impossíveis de serem resolvidas analiticamente. Em geral, apenas em casos simples e idealizados encontramos soluções analíticas.
+
+Antes de apresentar as técnicas de soluções numéricas, vamos classificar as equações diferenciais (EDs) quanto a algumas características importantes. Consideremos $y$ como sendo a variável dependente. A maior derivada define a ordem da ED. A existência de um termo independente de $y$ caracteriza a equação como não homogênea. Se a função $y$ depende de apenas uma variável $x$, a ED é ordinária. Se $y$ depende de duas variáveis $x$ e $t$, a ED é parcial. Por exemplo:
+\begin{itemize}
+\item ED linear, primeira ordem, ordinária e homogênea: $\dfrac{dy}{dx} + y =0$.
+\item ED não linear, segunda ordem, ordinária e inhomogêna: $\dfrac{d^2 y}{dx^2} + y^2 = \sin x$.
+\item ED linear, segunda ordem, parcial e inhomogênea: $\dfrac{d^2 y}{dt^2} + \dfrac{d^2 y}{dx^2} = f(x,t)$.
+\end{itemize}
+
+
+Uma equação diferencial ordinária de primeira ordem é escrita da forma:
+\begin{equation}
+\dfrac{dy}{dt} = f(t,y). \nonumber
+\end{equation}
+O que define ela ser de primeira ordem é a derivada primeira no lado esquerdo da equação. Mesmo se $f(t,y)$ for uma função complicada, a equação anterior continua sendo de primeira ordem. Já uma EDO de segunda ordem é do tipo:
+\begin{equation}
+\dfrac{d^2 y}{dt^2} + \lambda \dfrac{dy}{dt}  = f(t,y, \dfrac{dy}{dt}). \nonumber
+\end{equation}
+%
+%
+\section{EDO de ordem 1} \label{EDOordem1lslsl}
+
+
+\subsection{Separação de variáveis}
+A forma geral de EDO linear de ordem 1 que iremos tratar neste capítulo é:
+\begin{equation}
+\dfrac{dy}{dx} = f(x,y). \nonumber
+\end{equation}
+O tipo mais simples de se resolver é quando a equação pode ter suas variáveis separadas podendo ser escrita na forma $Q(y)dy = P(x)dx$. Neste caso basta integrar para encontrarmos a solução:
+\begin{equation}
+\int_{y_0}^y P(Y)dY = \int_{x_0}^x Q(X)dX . \nonumber
+\end{equation}
+Utilizamos como variável de integração a letra em maiúscula para diferenciar dos limites de integração. Esta técnica pode ser aplicada inclusive para equação não linear.
+
+\begin{exemplo}
+\textbf{Decaimento radioativo}. Trata-se da reação nuclear de um átomo instável no qual o núcleo se divide formando outros elementos químicos. Essa reação faz com que o número de átomos $N(t)$ do elemento químico inicial diminua com uma taxa que é proporcional ao número de átomos no momento:
+\begin{equation}
+\dfrac{dN}{dt} = - \lambda N. \nonumber
+\end{equation}
+\tcblower
+Este é um exemplo de equação separável $dN / N = -\lambda dt$. Integrando dos dois lados temos $\ln N = -\lambda t + \ln N_0$, onde $N_0=N(0)$ é uma constante arbitrária que será definida pela condição inicial. Usando a propriedade de logaritmos $e^{\ln a} = a$ teremos:
+\begin{equation}
+N(t) = N_0 e^{-\lambda t}. \nonumber
+\end{equation}
+\end{exemplo}
+
+
+Neste capítulo vamos resolver problemas físicos resolvendo numericamente as equações diferenciais ordinárias (EDO) associadas. Primeiro, apresentamos as técnicas a serem utilizadas. Problemas envolvendo equações diferenciais parciais serão resolvidas no capítulo \ref{capeqdifeordinaria}.
+
+  \begin{exemplo}
+\textbf{Paraquedista}. Em agosto de 1957 David Simons foi o primeiro homem a subir mais alto que o azul do céu. Piloto da Força Aérea norte americana aposentado, ele pilotou sozinho um balão até a altitude de 30 km onde viu o céu preto, ao invés de azul, pois a atmosfera nesta altitude já é muito rarefeita para espalhar o azul. Suponha quem um paraquedista salte desta altitude. Calcule sua velocidade limite. Considere a resistência do ar como sendo uma força proporcional a velocidade ao quadrado.
+
+\tcblower
+
+Escolhemos um eixo vertical direcionado para baixo. A condição inicial é $v(t=0) = 0$ no instante em que o paraquedas é aberto. Aplicando a Lei de Newton ao paraquedista teremos:
+\begin{equation}
+m \dfrac{dv}{dt} = mg - bv^2. \label{paraquedistaww}
+\end{equation}
+A velocidade terminal é $v_t=v(t = \infty)$. Uma estimativa simples de $v_t$ pode ser obtida com a solução particular dessa EDO não homogênea fazendo $dv/dt = 0$, logo: $v_t = \sqrt{mg/b}$. A outra forma de encontrar $v_t$ é resolvendo a equação diferencial. Veja que a Eq. \ref{paraquedistaww} é não linear mas permite separação de variáveis:
+\begin{equation}
+\dfrac{dv}{g - \frac{b}{m}v^2} = dt. \nonumber
+\end{equation}
+Para fazermos a integral reescrevendo o lado esquerdo como:
+\begin{equation}
+\left( g - \dfrac{b}{m}v^2 \right)^{-1} dv = \dfrac{m}{2v_t b} \left( \dfrac{1}{v+v_t} - \dfrac{1}{v-v_t} \right)dv.   \nonumber
+\end{equation}
+Agora está mais fácil integrar:
+\begin{equation}
+\int^v \dfrac{dV}{g - \frac{b}{m}V^2} = \frac{1}{2} T \ln \dfrac{v_t + v}{v_t - v} = t, \nonumber
+\end{equation}
+onde $T = \sqrt{\frac{m}{gb}}$. Não especificamos um limite inferior na integração (que serviria para definir a constante arbitrária) pois a constante será adicionada posteriormente. Resolvendo para a velocidade teremos:
+\begin{equation}
+v(t) = v_t \dfrac{e^{2t/T} - 1}{e^{2t/T} + 1}  = v_t \dfrac{\sinh t/T}{\cosh t/T} = v_t \tanh \dfrac{t}{T}. \nonumber
+\end{equation}
+De fato, se derivarmos essa expressão obteremos a Lei de Newton (Eq. \ref{paraquedistaww}):
+\begin{equation}
+\dfrac{dv}{dt} =  g - \dfrac{b}{m}v^2. \nonumber
+\end{equation}
+%\begin{equation}
+%\dfrac{dv}{dt} = \dfrac{v_t}{T}\dfrac{\cosh t/T}{\cosh t/T} - \dfrac{v_t}{T}\dfrac{\sinh^2 t/T}{\cosh^2 t/T} = \dfrac{v_t}{T} - \dfrac{v^2}{Tv_t} = g - \dfrac{b}{m}v^2. \nonumber
+%\end{equation}
+ \end{exemplo}
+%
+%
+\subsection{EDO de ordem 1 homogênea}
+
+Seja a seguinte equação diferencial:
+\begin{equation}
+\dfrac{dy}{dt} + p(x) y = 0. \label{EDOordem1homo}
+\end{equation}
+Esta equação é homogênea. Nesta seção provaremos os seguintes resultados:
+\begin{itemize}
+\item \textbf{Teorema 1}: A solução geral de uma EDO de ordem 1 possui uma solução LI, definida a menos de uma constante.
+\end{itemize}
+LI significa linearmente independente. Duas funções $y_1$ e $y_2$ são LI quando a única solução da equação:
+\begin{equation}
+ay_1+by_2=0 \nonumber
+\end{equation}
+é $a=b=0$. O conceito de LI ou LD (linearmente dependente) é análogo ao conceito de paralelismo e perpendicularidade entre vetores. Dois vetores $\textbf{C}_1$ e $\textbf{C}_2$ são perpendiculares quando a única solução da equação: 
+\begin{equation}
+a \textbf{C}_1 + b\textbf{C}_2 = 0 \label{vetoresLI}
+\end{equation}
+é $a=b=0$. Se os vetores são paralelos podemos fazer $\textbf{C}_1 = \alpha \textbf{C}_2$ na Eq. \ref{vetoresLI} para obtermos $\alpha = -b/a$. Ou seja, obtemos uma solução onde $a$ e $b$ não precisam ser zeros. Quando duas funções são LD é como se fossem dois vetores paralelos, ou seja, uma função pode ser múltipla da outra.
+
+Vamos agora provar o teorema 1. Suponha que $y_1$ e $y_2$ são soluções da EDO homogênea de ordem 1 (Eq. \ref{EDOordem1homo} por exemplo). Logo:
+\begin{equation}
+\dfrac{y_1'}{y_1} = -p(x) = \dfrac{y_2'}{y_2}.  \nonumber
+\end{equation}
+O que implica:
+\begin{equation}
+W(y_1,y_2) = y_1'y_2 - y_1y_2' = 0. \label{vroskianoll}
+\end{equation}
+A grandeza $W(y_1,y_2)$ é chamada de wronskiano e é definida pela própria Eq. \ref{vroskianoll}. Assim, se o wronskiano de duas funções é zero é por que as duas funções são LD. Se for diferente de zero as duas funções são LI\footnote{Esse conceito é expansível para mais funções: 3 funções são LI se o wronskiano delas for zero. O mesmo vale para mais funções.}. Assim, a solução geral da Eq. \ref{EDOordem1homo} contém apenas uma função.
+  
+
+\begin{exemplo}
+As soluções da equação diferencial 
+\begin{equation}
+y'' + \omega^2 y = 0 \label{edooscilaharmosim}
+\end{equation}
+ são $y_1 = \sin \omega x$ e $y_2 = \cos \omega x$, como pode ser verificado por substituição direta. O wronskiano destas funções é:
+\begin{equation}
+W(y_1,y_2) = y_1'y_2 - y_1y_2' = 
+\begin{vmatrix}
+y_1 & y_2  \\ 
+y_1' & y_2' \\
+\end{vmatrix}
+= - \omega, \nonumber
+\end{equation}
+o que é diferente de zero. Logo $y_1$ e $y_2$ são linearmente independentes\footnote{Pode-se escrever $\sin \omega x = \pm \sqrt{1 - \cos^2 \omega x}$. Porém, como essa relação não é linear, as funções continuam sendo LI.}. Ou seja, dado que a eq. em questão é de ordem 2, a solução geral será $y = Ay_1+By_2$, sendo $A$ e $B$ constantes arbitrárias definidas pelas condições de contorno.
+\end{exemplo}
+
+
+
+\subsection{EDO de ordem 1 não homogênea} \label{solgeraldanaohomogeneea}
+
+A solução geral de uma EDO não homogênea é a solução geral da homogênea associada somada com uma solução particular da não homogênea. Por exemplo, consideremos a EDO não homogênea
+\begin{equation}
+\dfrac{dy}{dt} + p(x) y = q(x), \label{EDOordem1naohomo}
+\end{equation}
+com $q(x) \neq 0$. Podemos escrever a solução geral como $y = y_h + y_p$ onde $y_h$ é a solução geral da homogênea e $y_p$ é uma solução particular da não homogênea. A equação homogênea associada da Eq. \ref{EDOordem1naohomo} é a Eq. \ref{EDOordem1homo}, a qual contém apenas um termo por ser de ordem 1. A solução particular $y_p$ pode ser qualquer função que satisfaça a Eq. \ref{EDOordem1naohomo}. Por exemplo podemos assumir que $y_p$ seja constante no tempo, logo: $y_p' = 0$ de forma que obtemos $y_p(x) = q(x) / p(x)$.
+
+
+\begin{exemplo}
+\textbf{Circuito RL}. Neste exemplo iremos resolver o circuito RL. Aplicando a Lei das Malhas teremos:
+\begin{equation}
+L \dfrac{dI}{dt} + RI = V_0 \label{eqdifierencRLls}
+\end{equation}
+Queremos encontrar a variação temporal da corrente $I(t)$. A indutância é $L$ e a resistência $R$.
+\tcblower
+ A solução geral é:
+\begin{equation}
+I_g(t) = I_h(t) + I_p(t). \nonumber
+\end{equation}
+onde $I_h$ é a solução geral da homogênea e $I_p$ é a solução particular da não homogênea. $I_p$ é fácil achar pois basta qualquer solução particular. Podemos então considerar a solução particular que é constante no tempo, de modo que $\slfrac{dI_p}{dt}=0$. Logo, da Eq. \ref{eqdifierencRLls} temos: $I_p = \dfrac{V_0}{R}$. A eq. homogênea é:
+\begin{equation}
+L \dfrac{dI_h}{dt} + RI_h = 0, \nonumber
+\end{equation}
+que é da mesma forma da Eq. \ref{edooscilaharmosim}. A solução total fica:
+\begin{equation}
+I_g(t) = \dfrac{V_0}{R} + C \exp \left( -\dfrac{Rt}{L} \right).  \nonumber
+\end{equation}
+A constante inicial é encontrada usando o valor inicial da corrente $I(0) = 0$, o que retorna $C = -V_0/R$. Logo:
+\begin{equation}
+I(t) = \dfrac{V_0}{R} \left[ 1- \exp \left( -\dfrac{Rt}{L} \right) \right].  \nonumber
+\end{equation}
+\end{exemplo}
+
+\section{EDO de ordem 2}
+
+EDOs lineares e de segunda ordem são as mais comuns em física: Lei de Newton envolve uma segunda derivada da posição assim como a energia cinética na mecânica quântica. Já a força torna a EDO não homogênea. Nesta seção apresentamos métodos para encontrar a solução geral da não homogênea $y = y_h + y_p$ (veja seção \ref{solgeraldanaohomogeneea}).
+
+Nas EDOs de ordem 1 há uma constante arbitrária na solução devido a uma integração. Agora, como haverá duas integrações encontraremos duas constantes arbitrárias que também devem ser definidas em função das condições de contorno. 
+
+\subsection{EDO sem o termo $y$}
+
+Equações do tipo $y'' = f(y',x)$ são as mais fáceis de se resolver pois podem ser transformadas em uma EDO de ordem 1. Por exemplo seja $z = y'$, logo a EDO fica $z' = f(z,x)$ e pode ser resolvida pelos métodos da seção \ref{EDOordem1lslsl}. Uma vez encontrado $z(x)$ a solução para $y(x)$ será:
+\begin{equation}
+y(x) = \int^x z(X,C_1) dX + C_2. \nonumber
+\end{equation}
+Note as duas constantes de integração.
+
+\begin{exemplo}
+Seja $y'' = y'$ com as condições de contorno $y(0) = 1$ e $y(-\infty) = 0$. Fazendo $z = y'$ obtemos $z' = z$ que resolvemos separando as variáveis $dz /z = dx$. Integrando:
+\begin{equation}
+\int^z \dfrac{dZ}{Z} =  \int^x dX + C_1. \nonumber
+\end{equation}
+Logo $\ln z =  x + \ln C_1$. Tirando a exponencial\footnote{E novamente usando a propriedade $e^{\ln a} = a$.} obtemos $z = C_1 e^x$. A solução para $y$ fica então:
+\begin{equation}
+y(x) = \int z(X) dX +C_2 = C_1 \int^x e^X dX +C_2  = C_1 e^x + C_2. \nonumber
+\end{equation} 
+Impondo a primeira condição de contorno obtemos $C_1+C_2=1$. Já a segunda retorna $C_2=0$ já que $e^{-\infty} = 1 / e^{\infty} = 0$. Logo $C_1=1$ e a solução final fica $y(x) = Ce^x$.
+\end{exemplo}
+
+Algumas EDOs de ordem 2 não lineares também podem ser resolvidas por este método, por exemplo $y'' = y'^2$.  
+
+
+\subsection{Solução tentativa: exponencial}
+
+Uma forma simples de se obter a solução de uma EDO é usar uma solução tentativa, que consiste em testar se um dado tipo de função é solução\footnote{Claro que este método é inviável na maioria dos casos. Porém, os poucos casos em que é sucedido já valem a pena.}. Por exemplo, a EDO $ay'' + by' + cy = 0$ pode ser resolvida usando a solução tentativa $y=e^{px}$ (já que a derivada da exponencial é a exponencial). Fazendo as derivadas temos: $y' = pe^{px} = py$ e $y'' = p^2 e^{px} = p^2 y$. A EDO fica então:
+\begin{equation}
+ap^2 + bp + c = 0, \nonumber
+\end{equation}
+cujas raízes são:
+\begin{equation}
+p_{1,2} = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \nonumber
+\end{equation}
+A solução fica:
+\begin{equation}
+y = C_1e^{p_1x} + C_2e^{p_2x}. \label{soltentapotenck}
+\end{equation}
+Se $p_1>0$ ou $p_2>0$ a solução é uma exponencial real crescente, e tendem ao infinito. Se $p_1<0$ e $p_2<0$ a solução é uma exponencial descrecente e tende a zero, sendo chamada de oscilação superamortecida, como mostra a figura. Outra possibilidade é as raízes $p_{1,2}$ serem complexas que ocorre quando $b^2 - 4ac <0$. Neste caso escrevemos as raízes como $p_{1,2} = r \pm iq$ onde $r$ é a parte real, $q$ a parte imaginária e $i = \sqrt{-1}$. Da Eq. \ref{soltentapotenck} a solução fica:
+\begin{equation}
+y(x) = e^{rx} \left( C_1e^{iqx} + C_2e^{-iqx} \right) = e^{rx} \left( C_1 \cos qx + C_2 \sin qx \right).  \label{solgeralamorteoscil}
+\end{equation} 
+As exponenciais complexas se transformam em seno e cosseno usando a fórmula de Euler: 
+\begin{equation}
+e^{i\theta} = \cos \theta + i \sin \theta. \label{fordeeuler}
+\end{equation}
+Repare então que a solução da Eq. \ref{solgeralamorteoscil} é uma oscilação porém de amplitude decrescente (devido a exponencial real), como mostra a figura.
+
+
+\begin{exemplo} \label{exemcircuitRLCalternado}
+\textbf{Circuito elétrico}. A figura ilustra um circuito RLC em série com uma voltagem alternada $V(t)=V_0 \sin \omega t$. Encontre a solução para a corrente elétrica $i(t)$.
+\tcblower
+A voltagem através do resistor é $Ri$, através do indutor é proporcional a taxa de variação instantânea da corrente $Ldi/dt$ e através do capacitor é $q/C$ onde $q(t)$ é sua carga. Logo, da Lei das Malhas temos:
+\begin{equation}
+L\dfrac{di}{dt} + Ri + \dfrac{q}{C} = V_0 \sin \omega t. \nonumber
+\end{equation}
+Usando $i(t) = dq/dt$ e derivando a equação anterior temos:
+\begin{equation}
+L\dfrac{d^2i}{dt^2} + R\dfrac{di}{dt} + \dfrac{i}{C} = \omega V_0 \sin \omega t. \label{sldkjfwoiuRLChh}
+\end{equation}
+Comparando esta EDO com a do oscilador harmônico vemos que a indutância $L$ é o análogo elétrico da massa, a resistência $R$ é o análogo do amortecimento e $1/C$ é o análogo da constante de mola. Já a corrente $i$ é o análogo da posição $x(t)$. A solução geral da Eq. \ref{sldkjfwoiuRLChh} é $i(t) = i_h(t) + i_p(t)$ onde o primeiro termo é a solução geral da homogênea (Eq. \ref{sldkjfwoiuRLChh} com $\omega = 0$) e o segundo termo é uma solução particular. Usando uma solução tentativa exponencial:
+\begin{equation}
+i_h(t) = C_1 e^{p_+t} + C_2 e^{p_-t}, \nonumber
+\end{equation}
+onde $p_+$ e $p_-$ são soluções da equação quadrática:
+\begin{equation}
+p^2 + \dfrac{R}{L}p + \dfrac{1}{LC} = 0, \qquad p_{\pm} = - \dfrac{R}{2L} \pm \dfrac{1}{2L}\sqrt{R^2 - \dfrac{4L}{C}}. \label{slskjeiuembnbnbvvdd}
+\end{equation}
+Repare então que as exponenciais terão o fator $e^{-R/2L}$, que é decrescente com o tempo. Assim $i_h(t)$ decai exponencialmente com o tempo, sendo chamado de transiente (após um certo tempo, este comportamento desaparece).
+
+A longo prazo então sobra apenas a solução particular chamada de estacionária. Fazemos a seguinte solução tentativa:
+\begin{equation}
+i_p(t) = A\cos \omega t + B \sin \omega t. \nonumber
+\end{equation}
+A motivação para esta solução é o termo não homogêneo $V_0 \sin \omega t$. Diferenciando $i_p$ duas vezes e substituindo na Eq. \ref{sldkjfwoiuRLChh} temos:
+\begin{eqnarray}
+-\omega^2 L (A \cos \omega t + B \sin \omega t) + R \omega (-A \sin \omega t + B \cos \omega t) \nonumber \\
+ + \dfrac{1}{c} (A \cos \omega t + B \sin \omega t) = \omega V_0 \cos \omega t. \label{solunaohomociruRLCalternslkj}
+\end{eqnarray}
+Para esta equação ser verdade, devemos igualar os coeficientes de cosseno em ambos os lados da igualdade e fazer o mesmo para os coeficientes do seno. Temos:
+\begin{equation}
+-\omega^2 LA + \omega RB + \dfrac{A}{C} = \omega V_0, \qquad \qquad -\omega^2 LB - \omega RA + \dfrac{B}{C} = 0. \nonumber
+\end{equation}
+Da equação da direita temos:
+\begin{equation}
+A = -B \dfrac{S}{R}, \qquad \qquad S = \omega L - \dfrac{1}{\omega C}. \nonumber
+\end{equation}
+Substituindo esta expressão de $A$ na equação da esquerda, encontramos $B$ e depois $A$ novamente:
+\begin{equation}
+B = \dfrac{V_0R}{R^2 + S^2}, \qquad \qquad A = -\dfrac{V_0 S}{R^2 + S^2}. \nonumber
+\end{equation}
+Assim, encontramos a solução particular $i_p(t)$. Porém podemos reescrevê-la de uma forma mais intuitiva:
+\begin{equation}
+i_p(t) = I_0 \sin (\omega t - \phi ), \qquad I_0 = \sqrt{A^2 + B^2} = \dfrac{V_0}{\sqrt{R^2 + S^2}}, \qquad \tan \phi = -\dfrac{A}{B} = \dfrac{S}{R}. \label{formafinalcircuiRLCintuit}
+\end{equation}
+$\sqrt{R^2 + S^2}$ é chamado de impedância.
+\end{exemplo}
+
+
+\subsection{Oscilador Harmônico}
+
+A tentativa de solução exponencial também serve para equação homogênea do tipo:
+\begin{equation}
+\dfrac{d^2 y}{dx^2} = \pm s^2 y, \label{sjwjhhhhh}   
+\end{equation} 
+Supondo $y = e^{px}$ teremos $p^2 y = \pm s^2 y$. Como queremos uma solução não nula $y \neq 0$ temos que $p^2 = s^2$. No caso do sinal ser $+$ na Eq. \ref{sjwjhhhhh} temos que $p = \pm s$ e a solução fica composta de exponenciais reais:
+\begin{equation}
+y(x) = A e^{sx} + B e^{-sx}. \label{hshs44333}
+\end{equation}
+No caso do sinal ser negativo na Eq. \ref{sjwjhhhhh} temos que $p = \pm \sqrt{-s^2} = \pm is$ e a solução será composta de exponenciais complexas:
+\begin{equation}
+y(x) = A e^{isx} + B e^{-isx} = A \cos sx + B \sin sx. \label{sjhwjhwghg}
+\end{equation}
+As exponenciais complexas equivalem a senos e cossenos via fórmula de Euler (Eq. \ref{fordeeuler}). Esta é a solução do oscilador harmônico. A Eq. \ref{sjwjhhhhh} aparece muito em diversos problemas de física.
+
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+
+\begin{problema}
+Considere o exemplo \ref{capequadifernciaordinarias}.\ref{exemcircuitRLCalternado}. a) Deduza as equações \ref{slskjeiuembnbnbvvdd}. b) Deduza a Eq. \ref{solunaohomociruRLCalternslkj}. c) Mostre que a solução pode ser reescrita na forma das Eqs. \ref{formafinalcircuiRLCintuit}.
+\end{problema}
+
+
+\begin{problema}
+Encontre as soluções das equações diferenciais: a) $y'' + 3y' -4y = \sin \omega x$, b) $y'' + 3y' -4y = \cos \omega x$.
+\end{problema}
+
+
+\begin{problema}
+Uma partícula de massa $m$ e carga elétrica $q$ se move uma região de campo elétrico constante na direção $+x$ e um campo magnético também constante na direção $+z$. No tempo $t=0$ a partícula  está localizada na origem com velocidade $v \neq 0 $ na direção $y$. Determine a posição em função do tempo $\textbf{r}(t)$ nos casos: a) $B=0$ e $E \neq 0$, b) $B \neq 0$ e $E = 0$ e c) $B \neq 0$ e $E \neq 0$.
+\end{problema}
+
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\section{Solução em série}
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+\begin{problema}
+A equação diferencial de Laguerre é:
+\begin{equation}
+xL_n'' (x) +(1-x)L_n' (x) + nL_n(x) = 0. \nonumber
+\end{equation}
+a) Encontre uma solução em série escolhendo $n$ tal que a solução seja um polinômio. b) Escreva as soluções para os três menores valores possíveis de $n$.
+\end{problema}
+
+
+\begin{problema}
+A descrição quântica do efeito Stark utilizando coordenadas parabólicas leva a seguinte equação diferencial:
+\begin{equation}
+\dfrac{d}{d\xi} \left( \xi \dfrac{du}{d\xi} \right)  + \left( \dfrac{1}{2}E \xi + \alpha - \dfrac{m^2}{4 \xi} - \dfrac{1}{4} F \xi^2 \right) u = 0, \nonumber
+\end{equation}
+onde $\alpha$ é a constante de separação, $E$ é a energia total e $F$ é uma constante. A energia potencial do sistema devido ao campo elétrico é $Fz$. Usando a raíz maior da equação indicial $k^2 - m^2/4 = 0$, desenvolva uma solução em série de potência em torno de $\xi = 0$. Encontre os 3 primeiros coeficientes em termos de $a_0$, que é o menor coeficiente na seguinte série de potência $u(\xi)$:
+\begin{equation}
+u(\xi) = a_0 \xi^{m/2} \left\lbrace 1 - \dfrac{\alpha}{m+1}\xi + \left[ \dfrac{\alpha^2}{2(m+1)(m+2)} - \dfrac{E}{4(m+2)} \right] \xi^2 + ... \right\rbrace .
+\end{equation}
+\end{problema}
+
+
+
+\begin{problema}
+
+\end{problema}
+
+\begin{problema}
+
+\end{problema}
+
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\section{Métodos Numéricos}
+
+
+Os métodos analíticos são suficientes para resolver a maioria dos problemas tradicionais e simples. Porém, em alguns casos, queremos considerar algum potencial mais realíticos, ou utilizar dados experimentais como entrada, e mesmo assim, queremos uma solução razoável. As vezes Neste caso, temos que nos voltar para métodos numéricos. 
+
+O conceito de diferenciação envolve variáveis contínuas. Métodos numéricos substituem essa continuidade por um grid discreto. Por exemplo, a variável independente $x$ assumes os valores discretos: $x_0 + nh$ com $n=0,1,2,3$... Quanto menor $h$ melhor será a aproximação. Porém, quanto menor $h$ maior será o tempo também de cálculo. Um tempo muito grande inviabiliza o processo. Assim, um balanço deve ser encontrado para se determinar o valor de $h$. No resto do texto usaremos a notação $x_n = x_0 + nh$ e $y_n = y(x_n)$. Dados $x_n$ e $y_0$, o problema é achar $y_n$ para $n=1,2,3...$ 
+
+
+
+\subsection{Método de Euler}
+
+Seja a eq. diferencial $y' = f(x,y)$ com a condição inicial $y_0 = y(x_0)$. A série de Taylor
+\begin{equation}
+y_1 = y(x_0 + h) = y_0 + hy'(x_0) + \dfrac{h^2}{2!}y''(x_0) + \dfrac{h^3}{3!}y1''(x_0) + ... = \sum_n^{\infty} \dfrac{h^n}{n!}y^{(n)}(x_0) \label{expataylorderiv}
+\end{equation}
+em princípio pode retornar o valor da função em $x_0+h$ com a precisão desejada, basta calcular o número suficiente de termos na expansão. Porém, para isso é necessário que $y(x)$ seja conhecida em sua forma analítica\footnote{Neste caso, pode ser trabalhoso efetuar várias derivadas, mas programas como Mathematica, Matlab e Python podem efetuá-las de forma simbólica.}, o que nem sempre é o caso. A aproximação mais simples é considerar apenas dois termos na Eq. \ref{expataylorderiv}: $y_1 = y_0 + hf(x,y)$. De forma geral:
+\begin{equation}
+y_{n+1} = y_n + hf(x,y),    \label{metoaproeuler}
+\end{equation}
+onde os termos envolvendo $h^2$ e superiores foram desprezados. A Eq. \ref{metoaproeuler} é a definição do Método de Euler, a qual claramente contém um erro muito grande. Apesar do Método de Euler ser uma aproximação muito ruim, ela mostra o o princípio da aproximação. Para se melhorar essa aproximação, basta considerar termos envolvendo $h^n$ de ordem superiores.
+
+
+\subsection{Méto de Runge-Kutta}
+
+Método de Runge-Kutta (RK) é o nome dado a refinamentos do Método de Euler: RK de ordem $n$ considera termos até $h^n$. Novamente deve ser feito um balanço entre precisão e tempo de cálculo. Uma ordem bastante utilizada é RK de quarta ordem, que contém erro da ordem de $h^5$, definido por
+\begin{equation}
+y_{n+1} = y_n +  \dfrac{1}{6} (k_0 + 2k_1 +2k_2 + k_3),
+\end{equation}
+onde
+\begin{eqnarray}
+k_0 &=& h f(x_n, y_n), \qquad \qquad k_1 = hf \left( x_n + \dfrac{h}{2}, y_n + \dfrac{k_0}{2} \right), \nonumber \\ 
+k_2 &=&  hf \left( x_n + \dfrac{h}{2}, y_n + \dfrac{k_1}{2} \right), \qquad \qquad k_3 = h f(x_n+ h, y_n + k_2). \nonumber  
+\end{eqnarray}
+A ideia central do método RK é eliminar o erro ordem por ordem. Uma derivação detalhada destas expressões pode ser encontrada em Ralston (1960)\footnote{Ralston, A., and Wilf, H. S. (Eds.) (1960). Mathematical Methods for Digital Computers. Wiley, New York.} e Press (1992)\footnote{Press, W. H., Flannery, B. P., Teukolsky, S. A., and Vetterling, W. T. (1992). Numerical Recipes, 2nd ed. Cambridge Univ. Press, Cambridge, UK.}. Vários outros métodos de RK existem, para diferentes ordens e técnicas adicionais para melhorar a precisão. Porém, em geral, o caso de quarta ordem é suficiente. Nas linguagens de programação mais utilizadas para fins científicos já existem funções prontas que implementam o método de RK quarta ordem, como por exemplo C, Fortran, Matlab, Python, dentre outras.
+
+\subsection{EDO de ordem 2}
+
+Algumas vantagens do método RK é sua estabilidade e o fato de que apenas $x_0$ e $y_0$ são condições iniciais suficientes para iniciar o método. Além disso, equações acopladas de ordem 1 do tipo
+\begin{equation}
+\dfrac{du}{dx} = f_1(x,u,v), \qquad \qquad \dfrac{dv}{dx} = f_2(x,u,v),
+\end{equation}
+são possíveis de serem resolvidas com quantas variáveis dependentes existirem ($u$, $v$, etc...). Isso permite também resolver uma EDO de segunda ordem, uma vez convertendo-a em duas EDOs de primeira ordem acopladas. Por exemplo, suponha que queiramos resolver a equação $x'' = d^2 x/dt^2 = f(t,x)$. Podemos convertê-la em duas EDOs de primeira ordem da forma $x' = v$ e $v' = f(x,t)$, as quais então são resolvidas simultaneamente usando RK:
+\begin{equation}
+x_{n+1} = x_n + v \Delta t, \qquad \qquad v_{n+1} = v_n + f(t,x) \Delta t.
+\end{equation}
+Podemos então definir um vetor que representa o estado do sistema:
+\begin{equation}
+y_{n+1} = y_n + y' \Delta t, \qquad \qquad y = \begin{bmatrix}
+x \\
+v
+\end{bmatrix}, \qquad \qquad
+y' = \dfrac{dy}{dt} = \begin{bmatrix}
+v \\
+f(x,t)
+\end{bmatrix}.
+\end{equation}
+
+\subsection{Sistema planetário}
+
+O satélite Juno foi lançado da Terra em 2011 e após uma longa viagem entrou em órbita no planeta Jupiter. A trajetória do satélite, uma vez lançado da Terra, é determinado pela força gravitacional devido aos planetas e ao Sol. O movimento de Juno, e de qualquer astro no sistema solar (planetas, luas, asteróides, cometas, etc...) é determinado pelas forças gravitacionais exercida pelo Sol e outros planetas\footnote{A massa dos outros astros é consideravelmente menor, e por isso a força gravitacional é desprezada.}. Nesta seção vamos descrever como resolver numericamente o movimento de um astro considerando a força gravitacional devido ao Sol e os planetas.
+
+
+Da Lei de Gravitação Universal de Newton, a força gravitacional\footnote{Publicado por Isaac Newton em 1687.} entre dois corpos é:
+\begin{equation}
+\textbf{F} = G\dfrac{Mm}{r^2} \hat{\textbf{r}}. \nonumber
+\end{equation}
+onde $G$ é a cosntante gravitacional universal, $M$ e $m$ são as massas dos astros, $r$ é a distância entre ambos e $\hat{\textbf{r}}$ é o versor (módulo 1) ao longo da reta que passa pelos objetos. Temos que $r^2 = x^2+y^2$. A força que o astro exerce no sol é:
+\begin{equation}
+\textbf{F} = \dfrac{GM_s m}{x^2+y^2} \hat{\textbf{r}} = GM_s m \dfrac{x\hat{\textbf{x}}+y\hat{\textbf{y}}}{(x^2+y^2)^{3/2}}, \nonumber
+\end{equation}
+onde $M_s$ é a massa do Sol (veja tabela \ref{valores_astronomicos} para esse e outros valores astronômicos) e o astro é considerado na posição $\textbf{r}$. Logo, pela terceira Lei de Newton, a força que o sol exerce no astro é:
+\begin{equation}
+\textbf{F}_s =-\textbf{F} = -GM_s m \dfrac{x\hat{\textbf{x}}+y\hat{\textbf{y}}}{(x^2+y^2)^{3/2}}. \nonumber
+\end{equation}
+Já a força que os planetas exercem no astro é mais complicada pois temos de levar em conta a posição deles $\textbf{r}_p$:
+\begin{equation}
+\textbf{F}_p = -Gm_p m \dfrac{\hrcurs}{\rcurs} = -\dfrac{Gm_pm}{(x-x_p)^2+(y-y_p)^2} \dfrac{(x-x_p)\hat{\textbf{x}}+(y-y_p)\hat{\textbf{y}}}{\sqrt{(x-x_p)^2+(y-y_p)^2}}, \nonumber
+\end{equation}
+onde $p$ refere-se a planetas\footnote{Veja que $\textbf{F}_s=\textbf{F}_p$ com $x_p = y_p = 0$. Além disso, o sinal negativo indica que $\textbf{F}_p$ sai do astro em direção ao planeta.} e $\brcurs = \textbf{r} - \textbf{r}_p$ é o vetor separação (veja seção \ref{vetorposicadesseparacal}). Como o intuito é resolver o movimento apenas do astro consideramos que os planetas movem-se em órbitas pré-definidas. 
+
+Aplicando a Lei de Newton temos:
+\begin{equation}
+\textbf{T} = m \dfrac{d^2\textbf{r}}{dt^2}, \nonumber
+\end{equation}
+onde a força total é $\textbf{T} = \textbf{F}_s + \sum_p \textbf{F}_p$. Devido a conservação do momento angular $\textbf{L} = \textbf{r} \times \textbf{F}$, o movimento dos planetas é contido em um plano. Logo podemos considerar o movimento do astro contido nesse mesmo plano, de forma que o movimento resultado agora se torna bidimensional. Assim Lei de Newton então consiste de duas equações:
+\begin{equation}
+T_x = m_j \dfrac{d^2x}{dt^2}, \qquad \qquad T_y = m_j \dfrac{d^2y}{dt^2}. \nonumber
+\end{equation}
+As componentes da força são:
+\begin{eqnarray}
+T_x(x,y,x_p,y_p,t) &=& \hat{\textbf{x}} \cdot \left(  \textbf{F}_s - \sum_p \textbf{F}_p \right) \nonumber \\ 
+&=& - GM_s m \dfrac{x}{(x^2+y^2)^{3/2}} - Gm\sum_p m_p \dfrac{x-x_p}{\left[ (x-x_p)^2+(y-y_p)^2 \right]^{3/2}}, \label{slskjdzxcmvn} \\
+T_y(x,y,x_p,y_p,t) &=& \hat{\textbf{y}} \cdot \left( \textbf{F}_s - \sum_p \textbf{F}_p \right) \nonumber \\
+&=& - GM_s m \dfrac{y}{(x^2+y^2)^{3/2}} - Gm \sum_p m_p\dfrac{y-y_p}{\left[ (x-x_p)^2+(y-y_p)^2 \right]^{3/2}}. \label{slskjdzxcmvn33}
+\end{eqnarray}
+Todas as variáveis $x$, $y$, $x_p$ e $y_p$ dependem do tempo.
+
+
+As duas equações de ordem 2 em $T_x$ e $T_y$ são convertida em 4 equações de ordem 1:
+\begin{eqnarray}
+\dfrac{dx}{dt} &=& v_x, \qquad \qquad \dfrac{dv_x}{dt} = \dfrac{T_x}{m}, \nonumber \\
+\dfrac{dy}{dt} &=& v_y, \qquad \qquad \dfrac{dv_y}{dt} = \dfrac{T_y}{m}, \nonumber
+\end{eqnarray}
+Essas equações podem ser condensadas na forma matricial:
+\begin{equation}
+z = \begin{bmatrix}
+x \\
+y \\
+v_x \\
+v_y
+\end{bmatrix}, \qquad \qquad
+\dfrac{dz}{dt} =  \begin{bmatrix}
+v_x \\
+v_y \\
+T_x/m \\
+T_y/m
+\end{bmatrix}. \label{eqsdifksslkjwlwerrr}
+\end{equation}
+Essa forma matricial deverá ser usada na solução numérica da equação diferencial.
+
+
+
+\begin{table}[h!]
+%\setlength{\arrayrulewidth}{1.0pt}
+\arrayrulecolor{blue}
+\centering
+%\renewcommand{\arraystretch}{2.1}% Spread rows out...
+%\begin{tabular}{ >{\centering\bfseries}m{1.7in}   >{\centering}m{2.6in}  >{\centering\arraybackslash}m{1.2in} }
+\begin{tabular}{ c | c c c c}
+\hline \hline
+\textbf{Astro}  & \textbf{Massa (kg)}      &   Raio (m)         & \textbf{Raio da órbita (UA)} & \textbf{Período da órbita (dias)}  \\
+\hline
+\hline Sol        &  $1,99 \times 10^{30}$ & $6,96 \times 10^8$ & $-$ & $-$ \\
+\hline Lua        & $7,35 \times 10^{22}$  & $1,74 \times 10^6$ & $3,84 \times 10^8$ & 27,3 \\
+\hline Mercúrio   &  $3,30 \times 10^{23}$ & $2,44 \times 10^6$ & $5,79 \times 10^{10}$  & 88 \\
+\hline Vênus      &  $4,87 \times 10^{24}$ & $6,05 \times 10^6$ & $1,08 \times 10^{11}$  & 224,7 \\
+\hline Terra      &  $5,97 \times 10^{24}$ & $6,38 \times 10^6$ & $1,50 \times 10^{11}$   & 365,3 \\
+\hline Marte      &  $6,42 \times 10^{23}$ & $3,40 \times 10^6$ & $2,28 \times 10^{11}$   & 687,0 \\
+\hline
+\hline
+\end{tabular}
+\caption{UA significa Unidade astronômica, que é a unidade de distância definida como 1 UA $=$ distância média entre Terra e Sol $= 150 \times 10^6$ km.}
+\label{valores_astronomicos}
+\end{table}
+
+\begin{codigo}
+\textbf{Sistema: astro $+$ Sol.} Neste exemplo de código vamos calcular a trajetória de uma partícula (astro) sujeita a força gravitacional de outra partícula (sol). Neste caso as componentes $T_x$ e $T_y$ (Eqs. \ref{slskjdzxcmvn} e \ref{slskjdzxcmvn33}) ficam:
+\begin{eqnarray}
+T_x(x,y,x_p,y_p,t) &=& - GM_s m  \dfrac{x}{(x^2+y^2)^{3/2}}, \nonumber \\
+T_y(x,y,x_p,y_p,t) &=& - GM_s m  \dfrac{y}{(x^2+y^2)^{3/2}}. \nonumber
+\end{eqnarray}
+Como o cálculo será feito numericamente, adotamos $G  = m =1$. A condição de contorno é na verdade a condição inicial para a posição $x_0,y_0$ e velocidade $v_{x0},v_{y0}$. Para mostrar que a trajetória resultante depende da condição inicial resolvemos as Eqs. \ref{eqsdifksslkjwlwerrr} considerando $x_0=2$, $y_0=v_{x0}=0$ e $v_{y0}$ variando de 0,50 a 3,16. Para o primeiro valor a trajetória é uma elipse bem alongada, como mostra a figura \ref{figura0729}. Aumentando $V_{y0}$ a trajetória elíptica começa a ficar menos alongada até que para $v_{y0}=$ 3,16 a trajetória é praticamente uma circunferência.  O códogi que gera as figuras é:
+\lstinputlisting[language=Python]{figuras/EDO/sol_astro.py}
+\end{codigo}
+
+\begin{SCfigure}
+ \centering
+\includegraphics[width=3.0 in]{figuras/EDO/figura_729.png}
+\caption[Sistema planetário.]{Trajetória para várias condições iniciais de uma partícula (astro) sob ação da força gravitacional de outra partícula (sol) situada na origem do sistema de coordenadas. Todas as distâncias estão em unidades astronômicas.}
+\label{figura0729}
+\end{SCfigure} %acertado
+
+
+\begin{codigo}
+\textbf{Pêndulo acoplado.} Seja o sistema pêndulo-mola mostrado na figura \ref{pendulo_massa_mola}, as duas variáveis $L$ e $\theta$ são acopladas e variam com o tempo. O sistema de equações diferenciais para o movimento da massa é:
+\begin{eqnarray}
+\ddot{L} &=& (L_0 + L) \ddot{\theta}^2 - \dfrac{k}{m}L + g\cos \theta \nonumber \\
+\ddot{\theta} &=& - \dfrac{1}{L_0 + L} \left( 2 \dot{L} \dot{\theta} + g \sin \theta \right)  \nonumber
+\end{eqnarray}
+onde $L$ é o comprimento da mola, $\theta$ é o ângulo entre a mola e vertical, $k$ é a constante de mola, $m$ a massa e $L_0$ o comprimento de equilíbrio da mola. Lembre-se que $\dot{a} = da/dt$ e $\ddot{a} = d^2a/dt^2$. Resolva numericamente esse sistema e encontre $L(t)$ e $\theta (t)$.
+\tcblower
+
+Utilizamos o método de Runge Kutta de quarta ordem implementado em Python para encontrarmos as variações temporais de $L$ e $\theta$ \cite{Ayars2013}. Na figura \ref{evolucao} está o gráfico dessas duas variáveis. A trajetória da massa (contida em um plano) é um resultado interessante. As componentes $x$ e $y$ da posição em função do tempo são:
+\begin{equation}
+x(t) = [L_0 + L(t)] \sin \theta(t), \qquad y(t) = -[L_0 + L(t)] \cos \theta(t) \nonumber
+\end{equation}
+
+\begin{lstlisting}
+def spring_pendulum(y,time): #definicao da funcao
+	g0 = y[1]
+	g1 = (L0+y[0])*y[3]**2 - k/m*y[0] + gravity * math.cos(y[2])
+	g2 = y[3]
+	g3 = -(gravity * math.sin(y[2]) + 2.0*y[1]*y[3])/(L0+y[0])
+	return np.array([g0, g1, g2, g3])
+
+#Definindo o estado inicial
+y[0] = L
+y[1] = v0
+y[2] = theta0
+y[3] = omega0
+
+time = np.linspace(0,25,N) #cria o vetor do tempo
+
+#Fazendo os calculos
+answer = odeint(spring_pendulum, y, time)
+\end{lstlisting}
+
+
+O gráfico $y$ em funcao de $x$ está na figura \ref{trajetoria}. Veja que uma situação aparentemente complicada e não intuitiva produz uma trajetória suave, bonita e elegante\footnote{Note que trata-se de uma figura de Lissajous: \url{https://en.wikipedia.org/wiki/Lissajous_curve}.}. O código que resolve as equações diferenciais e gera essas figuras está no Github\footnote{\url{https://github.com/paulofreitasgomes/computationalphysics/tree/master/MecanicaClassica}.}.
+\end{codigo}
+
+\begin{figure}[!h]
+\centering
+\subfigure{a)
+\includegraphics[width=1.9 in]{figuras/EDO/pendulo_massa_mola.png}
+\label{pendulo_massa_mola}
+}
+\subfigure{b)
+\includegraphics[width=3.1 in]{figuras/EDO/evolucao.pdf}
+\label{evolucao}
+}
+\subfigure{c)
+\includegraphics[width=3.1 in]{figuras/EDO/trajetoria.pdf}
+\label{trajetoria}
+}
+\caption[Resultados numéricos para o sistema massa mola.]{\subref{pendulo_massa_mola} Ilustração de uma massa presa a uma mola com uma de suas extremidades fixa em uma superfície, ficando sob ação da gravidade. Figura retirada da Ref. \cite{Ayars2013}. \subref{evolucao} Gráfico de $L(t)$ e $\theta (t)$. \subref{trajetoria} Gráfico da posição $\vec{r}(t)$, ou seja, de $y(t)$ em função de $x(t)$. O ponto vermelho é o ponto inicial e o preto o final.}
+\end{figure}
+
+\begin{codigo}
+\textbf{Atrator de Lorentz}. O atrator de Lorentz é definido pelas equações:
+\begin{equation}
+\dfrac{dx}{dt} = \sigma (y - x), \qquad \dfrac{dy}{dt} = x (\rho - z) - y, \qquad \dfrac{dz}{dt} = xy - \beta z. \nonumber 
+\end{equation}
+
+
+\begin{lstlisting}
+def f(state, t):
+	x, y, z = state  # cria o vetor estado
+	return sigma * (y - x), x * (rho - z) - y, x * y - beta * z  # derivadas
+
+state01 = [1.0, 1.0, 1.0] #posicao inicial da particula 1
+state02 = [1.001, 1.0, 1.0] #posicao inicial da particula 2
+t = np.arange(0.0, 20.0, 0.01) #intervalo de tempo
+
+states1 = odeint(f, state01, t) #calcula a trajetoria da particula 1
+states2 = odeint(f, state02, t)#calcula a trajetoria da particula 2
+\end{lstlisting}
+
+
+Na figura \ref{graficolorentz2} está a trajetória de duas partículas determinada pelas Eqs. de Lorentz. A única diferença entre as duas é a posição inicial: $y_0=z_0=1.0$ para ambas mas $x_0=1.0$ para uma e $x_0 = 1.001$ para outra.
+\end{codigo}
+
+\begin{SCfigure}
+ \centering
+\includegraphics[width=4.0 in]{figuras/EDO/graficolorentz2.pdf}
+\caption[Solução numérica das equações diferenciais do atrator de Lorentz.]{Trajetória de duas partículas (uma em vermelho outra em azul) determinadas pelas Eqs. de Lorentz. O círculo preto representa o ponto inicial e os quadrados os pontos finais. A posição inicial da partícula em vermelho é $(0.0;0.0;0.0)$ e da azul $(0.001;0.0;0.0)$.}
+\label{graficolorentz2}
+\end{SCfigure} %acertado
+
+
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=DarkGreen!75!black,title=Um pouco de história.]
+\textbf{Missões Voyager 1 e 2} As sondas espaciais Voyager 1 e 2 foram lançadas em 1977 com o objetivo de explorar os planetas mais externos do sistema solar (de Jupiter em diante). 
+
+The Voyager mission was designed to take advantage of a rare geometric arrangement of the outer planets in the late 1970s and the 1980s which allowed for a four-planet tour for a minimum of propellant and trip time. This layout of Jupiter, Saturn, Uranus and Neptune, which occurs about every 175 years, allows a spacecraft on a particular flight path to swing from one planet to the next without the need for large onboard propulsion systems. The flyby of each planet bends the spacecraft's flight path and increases its velocity enough to deliver it to the next destination. Using this "gravity assist" technique, first demonstrated with NASA's Mariner 10 Venus/Mercury mission in 1973-74, the flight time to Neptune was reduced from 30 years to 12.
+
+While the four-planet mission was known to be possible, it was deemed to be too expensive to build a spacecraft that could go the distance, carry the instruments needed and last long enough to accomplish such a long mission. Thus, the Voyagers were funded to conduct intensive flyby studies of Jupiter and Saturn only. More than 10,000 trajectories were studied before choosing the two that would allow close flybys of Jupiter and its large moon Io, and Saturn and its large moon Titan; the chosen flight path for Voyager 2 also preserved the option to continue on to Uranus and Neptune.
+
+Voyager 2 launched on August 20, 1977, from Cape Canaveral, Florida aboard a Titan-Centaur rocket. On September 5, Voyager 1 launched, also from Cape Canaveral aboard a Titan-Centaur rocket.
+
+Between them, Voyager 1 and 2 explored all the giant planets of our outer solar system, Jupiter, Saturn, Uranus and Neptune; 48 of their moons; and the unique system of rings and magnetic fields those planets possess.
+
+Closest approach to Jupiter occurred on March 5, 1979 for Voyager 1; July 9, 1979 for Voyager 2.
+
+Closest approach to Saturn occurred on November 12, 1980 for Voyager 1; August 25, 1981 for Voyager 2.
+
+Closest approach to Uranus occurred on January 24, 1986 by Voyager 2.
+
+Closest approach to Neptune occurred on August 25, 1989 by Voyager 2.
+
+The Voyager spacecraft are the third and fourth human spacecraft to fly beyond all the planets in our solar system. Pioneers 10 and 11 preceded Voyager in outstripping the gravitational attraction of the Sun but on February 17, 1998, Voyager 1 passed Pioneer 10 to become the most distant human-made object in space.
+
+Dada a grande distância () é necessário que todo percurso seja feito utilizando apenas a gravidade do sol e dos planetas, sem uso de foguetes. Matematicamente isso é um problema de 3 corpos: calcular a trajetória de um corpo com massa $m_1$ sujeito a força gravitacional de outros dois corpos com massas $M_s$ e $M_p$ muito maiores que $m_1$. As of August 2017, Voyager 1 was at a distance of 20.8 billion kilometers (139.3 AU) from the Sun.
+
+Voyager 2 was at a distance of 17.2 billion kilometers (115	AU).
+
+The cost of the Voyager 1 and 2 missions -- including launch, mission operations from launch through the Neptune encounter and the spacecraft's nuclear batteries (provided by the Department of Energy) -- is $865 million. NASA budgeted an additional $30 million to fund the Voyager Interstellar Mission for two years following the Neptune encounter.
+
+Michael Andrew Minovitch (born c. 1936)[1] is an American mathematician who produced spacecraft trajectories enabling a craft to gain velocity by travelling close to a planet orbiting the sun. His own personal gravity assist technique was developed in the early 1960s when he was a UCLA graduate student and working summers at NASA's Jet Propulsion Laboratory in Pasadena, CA.[2][3] In 1961 Minovitch began using the fastest available computer at the time, the IBM 7090, to solve the three-body problem. He ran simulations and developed his own solution by 1962.[1]
+
+Early studies of comets in the late 19th century showed that their orbits were quite different after they had made a close approach to Jupiter. This indicated that a transfer of energy had occurred during the encounter.
+
+The first mission to use a gravity assist was Pioneer 10, which increased its velocity from 52,000 km/h to 132,000 km/h as it passed by Jupiter in December, 1973.[4][5]
+
+The Mariner 10 probe was the first spacecraft to use the gravitational slingshot effect to reach another planet, passing by Venus on February 5, 1974, on its way to becoming the first spacecraft to explore Mercury.
+
+Excited by UCLA's new IBM 7090 computer, the fastest on Earth at the time, Minovitch decided to take on the hardest problem in celestial mechanics: the "three body problem"
+
+
+The three bodies it refers to are the Sun, a planet and a third object such as an asteroid or comet all travelling through space with their gravities acting on each other. The problem is predicting exactly how the gravity of the Sun and the planet will influence the third object's trajectory. 
+Minovitch had shown that as a craft flew close to a planet orbiting the Sun, it would steal some of the planet's orbital speed, and be accelerated away from the Sun. Such acceleration, without using a single drop of rocket propellant seemed too good to be true, and Minovitch's critics were quick to try to discredit him.
+
+Without funds for further computer time, and in a bid to persuade Nasa to embrace his discovery, he drew up by hand hundreds of theoretical mission trajectories to the outer planets. Among them was one very special flight path that would become the Voyagers' trajectory.
+
+It would take another summer intern called Gary Flandro to identify the opportunity.
+
+A spacecraft engineer, grounded in the hard realities of spaceflight, Flandro knew that any mission to the outer planets would have to be flown as fast as possible, otherwise the craft might not last long enough to reach its destination.
+
+So in the summer of 1965, he began to look at whether the solution to the three-body problem could be put to practical use in exploring the outer planets. He started by drawing graphs of where these planets were going to be in the coming years.
+
+And to his surprise, the plots revealed that Jupiter, Saturn, Uranus and Neptune would all be on the same side of the Solar System in the late 1970s.
+
+Using a solution to the three-body problem, a single mission, launching from Earth in 1977, could sling a spacecraft past all four planets within 12 years. Such an opportunity would not present itself again for another 176 years.
+
+With further lobbying from Minovitch and high level intervention from Maxwell Hunter, who advised the president on US space policy, Nasa eventually embraced Minovitch's slingshot propulsion and Flandro's idea for a "grand tour" of the planets.
+
+Minovitch also recognized that the more distant planet could be utilized in the same manner to change the trajectory without rocket propulsion and catapult it to another more distant planet in a process that could be continued indefinitely.  Once the vehicle is launched from Earth, it became possible to achieve unlimited interplanetary space travel to explore the entire Solar System without using any rocket propulsion beyond that needed for the initial escape from Earth.  Thus, the new theory of space travel that Minovitch invented during the summer of 1961 could be represented by a non-stop multiplanetary trajectory having the form P1 ? P2 ? P3 ? ··· ? PN where P1 represents the launch planet, P2, P3, ... ,PN-1 represents N-2 intermediate ?gravity propulsion planets? and PN represents the final planet or target body in the trajectory.  It is achieved by applying the mathematical solution of the Restricted Three-Body Problem serially to determine the precise approach trajectory to each successive flyby planet Pi (i = 2, 3, ... N-1) such that its gravitational field will catapult the vehicle to the next planet Pi+1 in the series.  It is a problem much more difficult than the classical Restricted Three-Body Problem because there are N-1 flybys instead of only one, and each flyby had to have a distance of closest approach to the center to each planet greater than the planet?s radius to avoid crashing into the planet?s surface.  The theory represented one of the most elegant and sophisticated applications of analytical mechanics ever conceived, and one of the most mathematically difficult to solve.  At that time, (1961) the much easier Restricted Three-Body Problem for motion through the Solar System was unsolved and regarded as one of the most difficult of all the unsolved problems of celestial mechanics.  Minovitch received confirmation that he solved the much more difficult problem of determining gravity propelled interplanetary trajectories necessary to implement his new theory of space travel near the end of April 1962. 
+
+The gravity propelled trajectories and their names that were made possible by this new theory of space travel were: Earth-Venus-Mercury (Mariner 10); Earth-Jupiter-Interstellar (Pioneer 10); Earth-Jupiter-Saturn-Interstellar (Pioneer 11); Earth-Jupiter-Saturn-Interstellar (Voyager 1); Earth-Jupiter-Saturn-Uranus-Neptune-Interstellar (Voyager 2); Earth-Jupiter-Out-Of-Ecliptic (Ulysses); and the low launch-energy mission, Earth-Venus-Earth-Earth-Jupiter (Galileo).
+\end{tcolorbox}
+
+\begin{SCfigure}
+ \centering
+\includegraphics[width=4.0 in]{figuras/EDO/graficolorentz2.pdf}
+\caption[Voyager 1.]{Imagem da lua Io de Jupiter tirada pela sonda espacial Voyager 1 em 1979 a uma distância de 800 mil km. O círculo no centro da imagem é região vulcânica Prometheus. Fonte: Nasa\footnote{\url{https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/vg1_1636836.html} Voyager 1 Image ID number: FDS 16368.36.}.}
+\label{graficolorentz2}
+\end{SCfigure} %acertado
+
+fonte da figura da voyager
+\url{https://en.wikipedia.org/wiki/File:Voyager_2_path.svg}
+
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=DarkGreen!75!black,title=Um pouco de história.]
+\textbf{Leonhard Paul Euler} (1707 - 1783) foi um matemático e físico suíço de língua alemã. Viveu a maior parte da vida em São Petersburgo, na Rússia, e em Berlim. Fez inúmeras e importantes descobertas em várias áreas como matemática (análise, teoria dos números, dos grafos), mecânica, dinâmica de fluidos, óptica, astronomia, lógica e até teoria da música (tem duas das equações que mudaram o mundo, veja tabela \ref{equacoesquemudaramomundo}). Introduziu muitas das terminologias da matemática moderna. Por exemplo ele foi o primeiro que utilizou o conceito de função e a representou por $f(x)$. Euler também cunhou o número $i$ como sendo $\sqrt{-1}$, o número $e$ como a base de $\ln$ e a nomenclatura para as funções trigonométricas. Euler é considerado um dos grandes matemáticos de todos os tempos, assim como Isaac Newton, Arquimedes e Carl Friedrich Gauss. Foi um dos mais prolíficos matemáticos, calcula-se que toda a sua obra reunida teria entre 60 e 80 volumes, além de ter trabalhado intensamente com outros grandes nomes como Fermat e d'Alembert. Uma declaração atribuída a Pierre-Simon Laplace manifestada sobre Euler na sua influência sobre a matemática: "Leiam Euler, leiam Euler, ele é o mestre de todos nós".
+\end{tcolorbox}

@@ -1,0 +1,993 @@
+\chapter{Análise de Fourier}  \label{capnallisefourier}
+
+
+
+Na natureza há inúmeros fenômenos periódicos que assim requerem funções periódicas para sua descrição. O termo Análise de Fourier é o termo genérico dado as diferentes aplicações envolvendo senos e cossenos: séries, transformada, solução de equações diferenciais, etc... Todos os códigos de todas as figuras apresentadas neste capítulo estão disponíveis no Github: \url{https://github.com/paulofreitasgomes/Math_Methods_for_Physics/tree/master/Fourier_Analysis}.
+
+\section{Expansão em séries}
+
+Uma função periódica definida no intervalo $0<x<L$ pode ser escrita como uma série de Fourier:
+\begin{equation}
+f(x) = \dfrac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos nx  + \sum_{n=1}^{\infty} b_n \sin nx   \label{seriefoueirseconss}
+\end{equation}
+Os coeficientes são dados por:
+\begin{eqnarray}
+a_n &=& \dfrac{1}{\pi} \int_0^{2 \pi} f(x) \cos nx dx, \label{coeficiascofou} \\
+b_n &=& \dfrac{1}{\pi} \int_0^{2 \pi} f(x) \sin nx dx, \qquad n = 0, 1, 2, ... \label{coefisenofouier}
+\end{eqnarray}
+O requisito para que essas definições sejam válidas é que $f(x)$ satisfaça as condições de Dirichlet (seja contínua por partes ou quadraticamente integrável)\footnote{Uma outra forma de entender essa descrição é dizer que $f(x)$ é um elemento do espaço de Hilbert de infinitas dimensões tendo as funções ortogonais $\cos$ e $\sin$ como base (pois eles formam um conjunto completo). As expansões dos coeficientes $\alpha_n$ e $\beta_n$ são as projeções de $f(x)$ com os elementos da base, análogo ao produto escalar de dois vetores.}. Uma função qualquer $f(x)$ pode ser expandida em senos e cossenos pois estas funções trigonométricas formam um conjunto completo: 
+\begin{eqnarray}
+\int_{x_0}^{x_0+2\pi} \cos mx \cos nx  dx  &=& \left\{
+\begin{array}{rl}
+ \pi \delta_{m,n}& \text{se } m \neq 0  \\
+\\
+ 2\pi& \text{se } n = m = 0
+\end{array} 
+ \right. 
+ \nonumber \\
+ \int_{x_0}^{x_0+2\pi} \sin mx \sin nx  dx  &=& \left\{
+\begin{array}{rl}
+ \pi \delta_{m,n}& \text{se } m \neq 0  \\
+\\
+ 0 & \text{se } m = 0
+\end{array} 
+\right.  \label{conjcomplesenos} \\
+\int_{x_0}^{x_0+2\pi} \sin mx  \cos nx  dx  &=& 0  \nonumber 
+\end{eqnarray}
+Essas equações valem para qualquer $x_0$, mas em geral usa-se $x_0=-\pi$. A função $\delta_{m,n}$ é a chamada delta de Kronecle definida como:
+\begin{equation}
+\delta_{m,n} = \left\{
+\begin{array}{rl}
+ 0& \text{se } m \neq n  \\
+\\
+1& \text{se } n = m
+\end{array} 
+ \right. \label{deltacroneckle}
+\end{equation}
+
+\begin{exemplo} \label{exemondaquadrada}
+Seja a função de onda quadrada definida como:
+\begin{equation}
+f(x) = \left\{
+\begin{array}{rl}
+ 0& \text{se } -\pi < x < 0  \\
+\\
+h& \text{se } 0 < x < \pi
+\end{array} 
+ \right.  \label{exempondaquadrada}
+\end{equation}
+Encontre a expansão em séries de Fourier.
+
+\tcblower
+
+Os coeficientes serão:
+\begin{eqnarray}
+a_0 &=& \dfrac{1}{\pi} \int_0^{\pi} h dt = h, \nonumber \\
+a_n &=& \dfrac{1}{\pi} \int_0^{\pi} h \cos nt dt = 0, \quad n = 1, 2, 3, ..., \nonumber \\ 
+b_n &=& \dfrac{1}{\pi} \int_0^{\pi} h\sin nt dt = \dfrac{h}{n\pi} (1-\cos n\pi) = \left\{
+\begin{array}{rl}
+ \dfrac{2h}{n\pi}& \text{se } n \text{ímpar}  \\
+\\
+0& \text{se } n \text{par}
+\end{array} 
+ \right. \nonumber
+\end{eqnarray}
+ A expansão resultante fica:
+ \begin{equation}
+ g(x) = \dfrac{h}{2} + \dfrac{2h}{\pi}\sum_{n \quad \text{ímpar}}^{\infty} \dfrac{\sin nx}{n} = \dfrac{h}{2} + \dfrac{2h}{\pi} \left( \sin x + \dfrac{\sin 3x}{3} + \dfrac{\sin 5x}{5} + ...\right). \label{expansaoondaquadrada}
+ \end{equation}
+ Como todos os termos decaem com $n^{-1}$ temos que a série é condicionalmente convergente. O gráfico de $f(x)$ juntamente com a expansão $g_q(x)$ para $q=2$ e $q=10$ termos está na figura \ref{square_series2}. 
+\end{exemplo}
+%
+\begin{SCfigure}
+ \centering
+\includegraphics[width=4.2 in]{figuras/Fourier/square_series2.pdf}
+\caption{Figura referente ao exemplo \ref{capnallisefourier}.\ref{exemondaquadrada}. Gráfico de $f(x)$ da Eq. \ref{exempondaquadrada} e da expansão $g_q(x)$ da Eq. \ref{expansaoondaquadrada} com $q=2$ e $q=10$ termos.}
+\label{square_series2}
+\end{SCfigure} 
+
+\begin{exemplo}
+Seja uma função definida como:
+\begin{equation}
+f(x) = \left\{
+\begin{array}{rl}
+ -\frac{1}{2}(\pi + x)  & \text{se } -\pi < x < 0  \\
+\\
+ +\frac{1}{2}(\pi - x)& \text{se } 0 < x < \pi
+\end{array} 
+ \right.  \nonumber
+\end{equation}
+Calcule a expansão em série de Fourier de $f(x)$. 
+\tcblower
+A expansão em série é dada pela Eq. \ref{seriefoueirseconss} e os coeficientes são dados pelas Eqs \ref{coeficiascofou} e \ref{coefisenofouier} onde o intervalo de integração é determinado pelo intervalo de validade de $f(x)$. Calculando primeiro os coeficientes do cosseno temos\footnote{A integração de uma função em um intervalo composto pode ser dividida em duas integrações nos intervalos intermediários, como está na Eq. \ref{integracaocompostoa}. Outras integrais trigonométricas também estão na seção \ref{apendiceintegraislkjs}.}:
+\begin{eqnarray}
+a_n &=& \dfrac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos nx dx, \nonumber \\
+&=& - \dfrac{1}{\pi} \int_{-\pi}^0 \frac{1}{2}(\pi + x) \cos nx dx +  \dfrac{1}{\pi} \int_0^{\pi} \frac{1}{2}(\pi - x) \cos nx dx, \nonumber \\
+&=& - \dfrac{1}{2\pi}   \left( \pi  \int_{-\pi}^0  \cos nx dx +  \int_{-\pi}^0 x \cos nx dx \right) + \dfrac{1}{2\pi}  \left(   \int_0^{\pi} \pi \cos nx dx - \int_0^{\pi} x \cos nx dx \right). \nonumber
+\end{eqnarray}
+Vamos resolver as integrais mais fáceis primeiro:
+\begin{equation}
+\int_{-\pi}^0  \cos nx dx = \dfrac{1}{n} \sin nx \biggr\rvert_{-\pi}^0 = 0, \qquad \qquad \int_0^{\pi}  \cos nx dx = \dfrac{1}{n} \sin nx \biggr\rvert_0^{-\pi} = 0. \nonumber
+\end{equation}
+O coeficiente $a_n$ fica então:
+\begin{equation}
+a_n = - \dfrac{1}{2\pi} \left( \int_{-\pi}^0 x \cos nx dx + \int_0^{\pi} x \cos nx dx  \right) = - \dfrac{1}{2\pi} \left( I_1 + I_2  \right).  \nonumber
+\end{equation}
+Em ambas as integrais $I_1$ e $I_2$ precisamos calcular $\int x \cos nx dx$ e para isso vamos fazer integração por partes. Seja $u = x$ e $dv  = \cos nx dx$, logo $v = (\sin nx)/n$ e $du = dx$. Usando essas definições na Eq. \ref{inteporpartes} temos:
+\begin{equation}
+\int x \cos nx dx = x \dfrac{\sin nx}{n} - \int x \dfrac{\sin nx }{n} dx = \dfrac{x}{n} \sin nx + \dfrac{\cos nx}{n^2}. \nonumber
+\end{equation}
+Logo:
+\begin{eqnarray}
+I_1 &=& \int_{-\pi}^0 x \cos nx dx = \left( \dfrac{x}{n} \sin nx + \dfrac{\cos nx}{n^2} \right) \biggr\rvert_{-\pi}^0 = \dfrac{1}{n^2} \cos nx \biggr\rvert_{-\pi}^0  = \dfrac{1}{n^2} \left[ 1 - (-1)^n \right], \nonumber \\
+I_2 &=& \int_0^{-\pi} x \cos nx dx = \left( \dfrac{x}{n} \sin nx + \dfrac{\cos nx}{n^2} \right) \biggr\rvert_0^{-\pi} = \dfrac{1}{n^2} \cos nx \biggr\rvert_0^{-\pi}  = \dfrac{1}{n^2} \left[ (-1)^n -1 \right]. \nonumber
+\end{eqnarray}
+uma vez que $\cos (-n\pi) = 1$ para $n$ par e $-1$ para $n$ ímpar. Agora o coeficiente $a_n$ fica:
+\begin{eqnarray}
+a_n = - \dfrac{1}{2\pi} \left\lbrace \dfrac{1}{n^2} \left[ 1 - (-1)^n \right] + \dfrac{1}{n^2} \left[ (-1)^n -1 \right] \right\rbrace = - \dfrac{1}{2\pi n^2}  \left[ 1 - (-1)^n + (-1)^n -1 \right] = 0. \nonumber
+\end{eqnarray}
+Ou seja, a função não tem termos em cosseno, sendo então uma função ímpar. 
+
+Vamos agora calcular o coeficiente $b_n$ dos termos de cosseno, cujo procedimento é totalmente análogo ao cálculo de $a_n$:
+\begin{eqnarray}
+b_n &=& \dfrac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin nx dx, \nonumber \\
+&=& - \dfrac{1}{\pi} \int_{-\pi}^0 \frac{1}{2}(\pi + x) \sin nx dx +  \dfrac{1}{\pi} \int_0^{\pi} \frac{1}{2}(\pi - x) \sin nx dx =  \dfrac{1}{2\pi} (-I_3 + I_4). \nonumber
+\end{eqnarray}
+A primeira integral é:
+\begin{equation}
+I_3 = \int_{-\pi}^0 (\pi + x) \sin nx dx = \pi \int_{-\pi}^0 \sin nx dx + \int_{-\pi}^0 x \sin nx dx = \pi I_5 + I_6,
+\end{equation}
+onde
+\begin{eqnarray}
+I_5 &=& \int_{-\pi}^0 \sin nx dx = -\dfrac{\cos nx}{n}\biggr\rvert_{-\pi}^0 =  \dfrac{\cos nx}{n}\biggr\rvert_0^{-\pi} = \dfrac{(-1)^n - 1}{n}, \nonumber \\
+I_6 &=& \int_{-\pi}^0 x \sin nx dx = \left( - x\dfrac{\cos nx}{n} - \dfrac{1}{n^2} \sin nx \right) \biggr\rvert_{-\pi}^0 = \left(  x\dfrac{\cos nx}{n} + \dfrac{1}{n^2} \sin nx \right) \biggr\rvert_0^{-\pi}  \nonumber \\
+&=& \pi \dfrac{(-1)^n}{n}. \nonumber
+\end{eqnarray}
+De forma que $I_3$ fica:
+\begin{equation}
+I_3 = \pi\dfrac{(-1)^n - 1}{n} - \pi \dfrac{(-1)^n}{n} = -\dfrac{\pi}{n}. \nonumber
+\end{equation}
+O cálculo de $I_4$ é análogo:
+\begin{equation}
+I_4 = \int_0^{\pi} (\pi - x) \sin nx dx = \pi I_7 - I_8.  \nonumber
+\end{equation}
+ As integrais $I_7$ e $I_8$ são do mesmo tipo que $I_5$ e $I_6$, diferindo apenas os limites:
+ \begin{equation}
+I_7 = \int_0^{\pi} \sin nx dx =    \dfrac{1-(-1)^n}{n}, \qquad \qquad I_8 = \int_0^{-\pi} x \sin nx dx = - \pi \dfrac{(-1)^n}{n}.
+\end{equation}
+Logo $I_4 = \dfrac{1}{2\pi} \left[ \pi \dfrac{1-(-1)^n}{n} +\pi \dfrac{(-1)^n}{n} \right] = \dfrac{1}{2n}$.
+Assim o coeficiente $b_n$ fica:
+\begin{equation}
+b_n = \dfrac{1}{2\pi} (-I_3 + I_4) = \dfrac{1}{2n} + \dfrac{1}{2n} = \dfrac{1}{n}. \nonumber
+\end{equation}
+A expansão em série fica com termos apenas em seno:
+\begin{equation}
+f(x) = \sum_{n=1}^{\infty} \dfrac{\sin nx}{n}. \nonumber
+\end{equation}
+\end{exemplo}
+
+
+
+
+\subsection{Séries de Fourier Complexas}
+
+
+Uma função complexa $f(z)$ também pode ser expressa em séries de Fourier:
+\begin{equation}
+f(z) = \sum_{n = -\infty}^{\infty} d_n z^n
+\end{equation}
+A relação com séries de senos e cossenos é direta quando consideramos $\vert z \vert = 1$ de forma que $z = e^{i\theta}$. Nesse caso:
+\begin{eqnarray}
+f(z) &=& \sum_{n = -\infty}^{\infty} c_n e^{in\theta} \label{expnsfourcommo1} \\
+ &=& \sum_{n = -\infty}^{\infty} c_n \cos n\theta + i \sin n\theta. \nonumber 
+\end{eqnarray}
+Além disso pode-se também encontrar os coeficientes $c_n$ da Eq. \ref{expnsfourcommo1} multiplicando por $e^{-im\theta}$ em ambos os lados e integrando de 0 a $2\pi$:
+\begin{equation}
+\int_0^{2\pi} f(z) e^{-im\theta} d\theta = \sum_{n = -\infty}^{\infty} c_n \int_0^{2\pi} e^{-im\theta} e^{in\theta}  d\theta. \nonumber
+\end{equation}
+Agora usamos a propriedade:
+\begin{equation}
+\int_0^{2\pi} e^{-im\theta} e^{in\theta}  d\theta = 2\pi \delta_{m,n}. \label{akskjwjhexpo}
+\end{equation}
+onde $\delta_{m,n}$ é a delta de Croncle (Eq. \ref{deltacroneckle}). Logo só resta o termo $m=n$ da somatória que resulta em:
+\begin{equation}
+c_n = \dfrac{1}{2\pi} \int_0^{2\pi} f(z) e^{-in\theta} d\theta. \nonumber
+\end{equation} 
+
+
+\subsection{Mudança de intervalo}
+
+Em todas as integrações até agora usamos um intervalo de comprimento $2\pi$ pois seno e cosseno são periódicas nesse intervalo. Porém, é possível expandir uma função periódica em outro intervalo também em séries de Fourier. Suponha que o intervalo em questão tenha comprimento $2L$. Fazendo a troca de $x$ por $\pi x/L$, a expansão e os coeficientes ficam\footnote{Veja que para $-L < x < L$ o comprimento do intervalo de $\pi x/L$ também é $2\pi$.}:
+\begin{eqnarray}
+f(x) &=& \dfrac{a_0}{2} + \sum_{n=1}^{\infty} \left[ a_n \cos  \dfrac{n\pi x }{L} + b_n \sin  \dfrac{n\pi x }{L} \right],  \nonumber \\
+a_n &=& \dfrac{1}{L} \int_{-L}^{L} f(x) \cos \dfrac{n\pi x }{L} dx, \qquad n = 0, 1, 2, 3, ..., \nonumber \\
+b_n &=& \dfrac{1}{L} \int_{-L}^{L} f(x) \sin \dfrac{n\pi x }{L} dx, \qquad n = 1, 2, 3, ... \nonumber \\
+\end{eqnarray} 
+Novamente, o intervalo de integração não é essencial, apenas o seu comprimento. Qualquer intervalo $(x_0,x_0 + 2L)$ serve.
+%
+%
+\subsection{Propriedades}
+
+Como visto acima, séries de Fourier são adequadas para expansão de funções periódicas, já que seno e cosseno são periódicos. Porém, além de serem periódicas, cosseno é uma função par e seno uma função ímpar\footnote{Função par satisfaz $f(x) = f(-x)$ enquanto para função ímpar tem-se $f(x) = -f(-x)$.}. Assim, o coeficiente $a_n$ da Eq. \ref{coeficiascofou} será zero se $f(x)$ for uma função ímpar. Da mesma forma $b_n$ será zero se $f(x)$ for par. Ou seja, uma expansão de Fourier de uma função par só tem os termos de cosseno e de uma função ímpar só há os termos de seno.
+
+Outra propriedade das séries de Fourier é que ela é a expansão da função periódica no intervalo de periodicidade. Já fora do intervalo a expansão não é válida.
+
+Outra característica positiva das séries de Fourier é que ela pode lidar com funções contendo descontinuidades. Obviamente, quanto mais termos são considerados na expansão melhor é a aproximação. Porém, um fator merece atenção. Na figura está o gráfico da série de Fourier para a onda dente de serra com 4, 6 e 10 termos. Veja que em todas há um erro superestimado da função perto do limite $x=\pi$. Isso é chamado de fenômeno de Gibbs e é inerente a séries de Fourier. A adição de mais termos na expansão não diminui esse erro para cima, apenas o aproxima da borda do intervalo.
+
+Outra aplicação de séries de Fourier está na solução de equações diferenciais lineares não homogêneas. Por exemplo o termo fonte pode ser expandido em séries de Fourier. Assim a equação pode ser resolvida considerando cada termo da expansão em específico. A solução geral é então a soma de todas as soluções, usando o princípio da superposição\footnote{Uma das grandes dificuldades de se resolver equações diferenciais não lineares é que o princípio da superposição nao vale.}. É como se encontrássemos a resposta do sistema para o modo fundamental e os harmônicos\footnote{O modo fundamental e os harmônicos já existiam? Ou eles foram criados na expansão em séries de Fourier?}.
+
+
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=DarkGreen!75!black,title=Um pouco de história.]
+  \textbf{Jean Baptiste Joseph Fourier}. Foi um matemático francês nascido em 1768 em Auxerre e morreu em Paris em 1830. Depois de sua graduação em um colégio militar em Paris, Fourier se tornou professor em 1795. Em 1808, depois de suas descobertas em matemática em séries e integrais, ele foi nomeado Barão por Napoleão. Em 1822 seu livro \textit{Teoria Analítica do Calor} foi publicado e inspirou Ohm e suas novas descobertas sobre eletricidade.
+\end{tcolorbox}
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+
+\begin{problema}
+ Um pêndulo simples consiste em uma massa $m$ suspensa por uma haste sem massa de comprimento $L$. Mostre que para pequenas oscilações, $\theta$ e o deslocamento $x$ são funções senoidais com o tempo, ou seja, movimento harmônico simples. Dica: escreva a equação diferencial referente a Lei de Newton $\textbf{F} = m \textbf{a}$ para a partícula. Use a aproximação $\sin \theta \approx \theta$, válida quando $\theta$ é pequeno e mostre que $\theta = A \sin \omega t$ é solução de sua equação. Quais os significados de $A$ e $\omega$? 
+\end{problema}
+
+\begin{problema}
+Calcule a série de Fourier para cada função $f(x)$: 
+
+a)
+\begin{equation}
+f(x) = \left\{
+\begin{array}{rl}
+ 0& \text{se } -\pi < x < 0  \\
+\\
+x& \text{se } 0 < x < \pi
+\end{array} 
+ \right.  \nonumber
+\end{equation}
+
+b) $f(x) = 1 + x$ para $-\pi < x < \pi$. 
+
+c)\begin{equation}
+f(x) = \left\{
+\begin{array}{rl}
+ -1& \text{se } -L < x < 0  \\
+\\
+1& \text{se } 0 < x < L
+\end{array} 
+ \right.  \nonumber
+\end{equation}
+
+d) $f(x) = \cosh ax$.
+ \label{skskwjkqwerty}
+\end{problema}
+
+
+\begin{problema}
+a) Resolva o problema usando série para qualquer amplitude inicial $\theta_0$. b) Mostre que o período é:
+\begin{equation}
+T = T_0 \left( 1+ \dfrac{1}{16}\theta_0^2 + \dfrac{11}{3072}\theta_0^4+...\right), \nonumber
+\end{equation}
+onde $T_0$ é o período para pequenas oscilações\footnote{Veja I. Singh, P. Arun, F. Lima \textit{Fourier analysis of nonlinear pendulum oscillations}, Revista Brasileira de Ensino de Física \href{http://dx.doi.org/10.1590/1806-9126-RBEF-2017-0151}{\textbf{40}, n. 1, e1305 (2018)}.}.
+\end{problema}
+
+\begin{problema}
+Expanda $f(x) = \sin kx$ onde $k \in \mathbb{R}$, ou seja, $k$ é um número real.
+\end{problema}
+
+\begin{problema}
+Calcule a frequência aparente de uma onda sonora representada por:
+\begin{equation}
+p(t) = \sum_{n=1}^{\infty} \dfrac{\cos 60 n \pi t}{100 (n-3)^2 + 1}.
+\end{equation}
+Dica: cada termo de seno ou cosseno possui sua frequência angular característica. Em uma série haverá uma frequência dominante quando houver uma amplitude dominante.
+\end{problema}
+
+\begin{problema}
+{\color{red}\Keyboard} Faça um gráfico análogo ao gráfico da figura \ref{square_series2} porém agora usando a função dente de serra\footnote{Veja por exemplo: \url{https://en.wikipedia.org/wiki/Sawtooth_wave} e \url{https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.signal.sawtooth.html}.}.
+% \href{https://en.wikipedia.org/wiki/Sawtooth_wave}{Sawtooth_wave} e \href{https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.signal.sawtooth.html}{scipy.signal.sawtooth}.}.
+\end{problema}
+
+
+\begin{problema} \label{probserimul}
+$\bigstar$ A função delta de Dirac $\delta(\phi_1-\phi_2)$ é definida pela propriedade integral:
+\begin{equation}
+I = \int_{-\pi}^{\pi} f(\phi_2) \delta(\phi_1-\phi_2) d\phi_2 = f(\phi_1). \label{deiwkjalkjsdfggg}
+\end{equation}
+Mostre que $\delta(\phi_1-\phi_2)$ dado por $\delta(\phi_1-\phi_2) = \dfrac{1}{2\pi}  \sum_m^{\infty} e^{im(\phi_1 - \phi2)}$ satisfaz a Eq. \ref{deiwkjalkjsdfggg}. Dica 1: escreva $f(\phi_2)$ como uma série de Fourier. Dica 2: veja Eq. \ref{proddeseries}.
+\end{problema}
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\section{Transformada de Fourier}
+
+Em física é comum encontrarmos pares de funções relacionadas por uma integral como:
+\begin{equation}
+F(\alpha) = \int_a^b f(t) K(\alpha, t) dt.
+\end{equation}
+A função $F(\alpha)$ é chamada de transformada integral de $f(t)$ e o \textit{kernel} é a função $K(\alpha, t)$. Note que trata-se de uma transformação de espaço já que a função original $f$ é em função de $t$ e a função transformada $F$ está no espaço $\alpha$. A primeira propriedade importante desta transformada é sua linearidade:
+\begin{eqnarray}
+\int_a^b \left[  c_1 f_1(t) + c_2 f_2(t) \right]  K(\alpha, t) dt &=& c_1 \int_a^b f_1(t) K(\alpha, t) dt + c_2 \int_a^b f_2(t) K(\alpha, t) dt, \nonumber \\
+&=& c_1 F_1(\alpha) + c_2 F_2(\alpha). \nonumber
+\end{eqnarray}
+
+A segunda propriedade importante é a existência de uma transformação inversa. Por exemplo, representemos a transformada integral pelo símbolo $\textsterling$ $\mathcal{L}$. Logo $F(\alpha) =\mathcal{L} f(t)$. A função inversa é tal que: $f =\mathcal{L}^{-1} F$. A existência de $\mathcal{L}^{-1}$ muitas vezes é a chave para a utilidade de transformada integral. Por exemplo, uma das grandes aplicações é facilitar a resolução de um problema complicado. Aplicando a transformada o problema fica simples no espaço transformado. Depois de encontrado a solução neste espaço aplica-se a transformada inversa para se obter a solução no espaço original.
+
+Dentre as transformadas integrais uma das mais utilizadas é a transformada de Fourier (FT, do inglês \textit{Fourier Transform}) definida como\footnote{A constante $\sqrt{2\pi}$ é uma escolha. Outras formas são possíveis.}:
+\begin{equation}
+F(\omega) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} f(t) e^{i \omega t} dt. \label{definitransfouier}
+\end{equation}
+Veja que o \textit{kernel} é a exponencial complexa $e^{i \omega t}$. Outros dois \textit{kernels} muito utilizados são as partes real e imaginária dessa exponencial. Todas essas integrais existem se $f$ for uma função absolutamente integrável\footnote{Ou seja: $\int_{-\infty}^{\infty} \vert f(t) \vert < \infty$.}.
+
+\begin{exemplo}
+Encontre a FT da função:
+\begin{equation}
+f(t) = \left\{
+\begin{array}{rl}
+ 1,& \text{se } \vert t \vert < 1,  \\
+\\
+0,& \text{se } \vert t \vert >1.
+\end{array} 
+ \right.  \nonumber
+\end{equation}
+
+\tcblower
+
+Aplicando a definição (Eq. \ref{definitransfouier}) temos:
+\begin{equation}
+F(\omega) = \dfrac{1}{\sqrt{2\pi}} \int_{-1}^1 e^{i \omega t} dt = \dfrac{1}{\sqrt{2\pi}} \dfrac{e^{i\omega t}}{i\omega}\biggr\rvert_{-1}^1 = \dfrac{e^{i\omega} - e^{-i\omega} }{i\omega \sqrt{2\pi}} =
+\sqrt{\dfrac{2}{\pi}} \dfrac{\sin \omega}{\omega}
+\end{equation}
+\end{exemplo}
+
+
+A TF inversa é muito semelhante a definição da própria TF:
+\begin{equation}
+f(t) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} F(\omega) e^{-i \omega t} dt.  \nonumber
+\end{equation}
+
+
+
+\subsection{TF de seno e cosseno e $\delta$ de Dirac}
+
+Transformada de Fourier tem grandes aplicações na física, por exemplo a distribuição espacial da carga eletrônica em um átomo pode ser obtida pela FT da amplitude dos raios-X espalhados. Além disso, como exemplo de aplicação na própria matemática, a função $\delta$ de Dirac pode ser expressa em função de TF:
+\begin{equation}
+\delta (x) = \lim_{n \rightarrow \infty} \dfrac{1}{2\pi} \int_{-n}^{+n} e^{-i kx} dk   =  \dfrac{1}{2\pi} \int_{-\infty}^{\infty} e^{-i kx} dk. \nonumber
+\end{equation}
+Dessa relação, o caso mais geral é:
+\begin{equation}
+\delta (x-x_0) =  \dfrac{1}{2\pi} \int_{-\infty}^{\infty} e^{-i k(x-x_0)} dk. \label{aslkjdfjwkj}
+\end{equation}
+
+
+A TF no espaço tridimensional é direta:
+\begin{eqnarray}
+F( \textbf{k} ) &=& \dfrac{1}{(2\pi)^{3/2}} \int_{-\infty}^{\infty} f(\textbf{r}) e^{i \textbf{k} \cdot \textbf{r}} d^3r \nonumber \\
+f( \textbf{r} ) &=& \dfrac{1}{(2\pi)^{3/2}} \int_{-\infty}^{\infty} F(\textbf{k}) e^{-i \textbf{k} \cdot \textbf{r}} d^3k \nonumber
+\end{eqnarray} 
+Em física é muito utilizado a TF de $f(\textbf{r})$ sendo $\textbf{r}$ a coordenada espacial. Neste caso $\textbf{k}$ é o número de onda no espaço recíproco.
+
+A definição da transformada de Fourier induz a definição de outros dois tipos de transformadas chamadas de transformadas de Fourier cosseno e Fourier seno:
+\begin{equation}
+F_c(\omega) = \sqrt{\dfrac{2}{\pi}} \int_{-\infty}^{\infty} f_c(t) \cos \omega t dt, \qquad  F_s(\omega) = \sqrt{\dfrac{2}{\pi}} \int_{-\infty}^{\infty} f_s(t) \sin \omega t dt \label{transfouriersenocosseno}
+\end{equation}
+As transformadas inversas são obtidas apenas trocando de lugar as funções:
+\begin{equation}
+f_c(t) = \sqrt{\dfrac{2}{\pi}} \int_{-\infty}^{\infty} F_c(\omega)  \cos \omega t dt, \qquad f_s(t)  = \sqrt{\dfrac{2}{\pi}} \int_{-\infty}^{\infty}  F_s(\omega) \sin \omega t dt \nonumber
+\end{equation}
+
+\subsection{Equações Diferenciais}
+
+Uma das aplicações de TF é na solução de equações diferenciais e para isso precisamos de sua derivada. Da Eq. \ref{definitransfouier}, a derivada da TF é:
+\begin{eqnarray}
+\dfrac{dF_1(\omega)}{dt} &=& \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \dfrac{df}{dt} e^{i \omega t} dt =  \dfrac{e^{i \omega t}}{\sqrt{2\pi}} f(t)\biggr\rvert_{-\infty}^{\infty} - \dfrac{i \omega}{\sqrt{2\pi}} \int_{-\infty}^{\infty} f(t) e^{i \omega t} dt \nonumber \\
+&=& -i \omega F(\omega) \label{derivaTF}
+\end{eqnarray}
+Utilizamos a integral por partes (Eq. \ref{inteporpartes}) e também o fato de que $\lim_{t\to\infty} f(t) = 0$\footnote{A parte alguns casos específicos, essa condição é um dos requisitos para que a TF de $f(t)$ exista.}. O resultado para a derivada de TF pode ser generalizada para $n$ derivadas:
+\begin{equation}
+\dfrac{d^n F_1(\omega)}{dt^n} = (-i \omega)^n F(\omega) \nonumber
+\end{equation}
+Esse resultado mostra o poder da transformada de Fourier: a derivada no espaço $t$ corresponde a uma multiplicação no espaço $\omega$. Isso a torna muito útil na solução de equações diferenciais.
+
+\begin{exemplo}
+Seja o oscilador harmônico forçado definido pela equação:
+\begin{equation}
+\dfrac{d^2 y}{dt^2} + \Omega^2 y = A \cos (\omega_0 t). \label{wuwuwywywy}
+\end{equation}
+Encontre a solução $y(t)$ utilizando TF.
+\tcblower
+A expressão de $y$ dada por uma TF e sua derivada são:
+\begin{equation}
+y(t) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} Y(\omega) e^{i \omega t} d\omega, \qquad \dfrac{d^2 y}{dt^2} = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \dfrac{d^2 }{dt^2} \left[  Y(\omega) e^{i \omega t}\right]  d\omega = -\omega^2 y(t). \label{sksjwjwjwjhwh}
+\end{equation}
+Porém, temos também de expressar o termo não homogêneo como uma transformada também: 
+\begin{equation}
+\cos (\omega_0 t) = f(t) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} F(\omega) e^{i \omega t} d\omega. \label{sksjwnwhwy}
+\end{equation}
+Abrindo o cosseno em exponenciais complexas (Eq. \ref{eqlalksjejwh}) e tirando a inversa teremos que:
+\begin{eqnarray}
+F(\omega) &=& \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \cos (\omega_0 t) e^{-i \omega t} dt = \dfrac{1}{2\sqrt{2\pi}} \int_{-\infty}^{\infty} (e^{i\omega_0 t} + e^{-i\omega_0 t}) e^{-i \omega t} dt \nonumber \\
+&=& \dfrac{1}{2\sqrt{2\pi}} \left[  \int_{-\infty}^{\infty} e^{-i(\omega - \omega_0)t} d\omega + \int_{-\infty}^{\infty} e^{-i(\omega_0+ \omega)t} dt \right] = \dfrac{\pi}{\sqrt{2\pi}} \left[ \delta (\omega - \omega_0) + \delta (\omega + \omega_0)\right] \nonumber
+\end{eqnarray}
+Na última passagem usamos a Eq. \ref{aslkjdfjwkj} para expressar $\delta (\omega \pm \omega_0)$. Logo, usando esse $F(\omega)$ na Eq. \ref{sksjwnwhwy} teremos:
+\begin{equation}
+\cos  (\omega_0 t) = \dfrac{1}{2} \int_{-\infty}^{\infty}  e^{i \omega t} \left[ \delta (\omega - \omega_0) + \delta (\omega + \omega_0)\right] d\omega. \label{oiuytgmn}
+\end{equation}
+A equação diferencial fica então:
+\begin{equation}
+\dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} Y(\omega) (\Omega^2 - \omega^2) e^{i \omega t} dt = \dfrac{A}{2} \int_{-\infty}^{\infty}  e^{i \omega t} \left[ \delta(\omega - \omega_0) + \delta(\omega + \omega_0) \right]  d\omega. \nonumber
+\end{equation}
+Igualando os integrandos:
+\begin{equation}
+Y(\omega) =  \sqrt{\dfrac{\pi}{2}} \dfrac{A}{\Omega^2 - \omega^2}  \left[ \delta(\omega - \omega_0) + \delta(\omega + \omega_0) \right]  \nonumber
+\end{equation}
+Para obtermos a solução basta tirar a TF jogando $Y(\omega)$ na Eq. \ref{sksjwjwjwjhwh}:
+\begin{eqnarray}
+y(t) &=& \dfrac{A}{2} \int_{-\infty}^{\infty} \dfrac{e^{i \omega t}}{\Omega^2 - \omega^2}  \left[ \delta(\omega - \omega_0) + \delta(\omega + \omega_0) \right] d\omega = \dfrac{A}{2} \dfrac{e^{i \omega_0 t} +e^{-i \omega_0 t} }{\Omega^2 - \omega_0^2}  \nonumber \\
+&=& \dfrac{A}{\Omega^2 - \omega_0^2} \cos (\omega_0 t), \nonumber
+\end{eqnarray}
+onde usamos novamente o cosseno em exponenciais complexas (Eq. \ref{eqlalksjejwh}) e o resultado
+\begin{equation}
+\int_{-\infty}^{\infty} \dfrac{\delta(\omega \pm \omega_0)}{\Omega^2 - \omega^2} e^{i \omega t} d\omega = \dfrac{e^{\mp i \omega_0 t}}{\Omega^2 - \omega_0^2}. \label{slkwjerlkjsdf}
+\end{equation}
+\end{exemplo}
+
+\subsection{Representação de momento}
+
+Uma das aplicações de TF é a conexão entre a representação de posição e de momento em Mecânica Quântica. Nesta seção mostramos como ir de uma para outra. Tradicionalmente a Equação de Schrodinger 1D é resolvida em termos da função de onda $\psi (x)$ onde $x$ é a posição. Neste caso temos as duas propriedades:
+\begin{equation}
+\int_{-\infty}^{\infty} \vert \psi(x) \vert^2 dx = 1, \qquad \langle x \rangle = \int_{-\infty}^{\infty} \psi^*(x) x \psi(x) dx
+\end{equation}
+A equação da esquerda diz que a partícula tem que estar em algum lugar! Já a equação da direita é a forma de se calcular o valor esperado para $x$, ou seja, a posição mais provável para a partícula. Já na representação de momento temos que $g(p)$ é a função de onda em função do momento e as mesmas propriedades tem que ser satisfeitas:
+\begin{equation}
+\int_{-\infty}^{\infty} \vert g(p) \vert^2 dp = 1, \qquad \langle p \rangle = \int_{-\infty}^{\infty} g^*(p) p g(p) dp
+\end{equation}
+A função $g(p)$ é então calculada como a transformada de Fourier de $\psi(x)$, tanto no caso 1D quanto em 3D:
+\begin{equation}
+g(p) = \dfrac{1}{\sqrt{2\pi\hbar}} \int_{-\infty}^{\infty} \psi(x) e^{-ipx/\hbar}dx, \qquad g(\textbf{p}) = \dfrac{1}{(2\pi\hbar)^{3/2}} \iiint\displaylimits_{-\infty}^{\infty} \psi(\textbf{r}) e^{-i\textbf{p} \cdot \textbf{r} /\hbar}d^3r \label{definireprmomeo}
+\end{equation}
+
+\begin{exemplo}
+Átomo de Hidrogênio. A solução para a função de onda do átomo de hidrogênio no estado fundamental é:
+\begin{equation}
+\psi (\textbf{r}) = \sqrt{\dfrac{1}{\pi a_0^3}} e^{r/a_0},
+\end{equation}
+onde $a_0$ é o raio de Bohr. Calcule essa função de onda na representação de momento.
+\tcblower
+Da definição (Eq. \ref{definireprmomeo}) temos:
+\begin{equation}
+g(\textbf{p}) = \sqrt{\dfrac{1}{\pi a_0^3}} \dfrac{1}{(2\pi\hbar)^{3/2}} \iiint\displaylimits_{-\infty}^{\infty} \exp \left(  r/a_0 -i\textbf{p} \cdot \textbf{r} /\hbar \right)  d^3r = \dfrac{2^{3/2}}{\pi}  \dfrac{\sqrt{a_0^3 \hbar^5} }{(a_0^2p^2 + \hbar^2)^2},
+\end{equation}
+onde usamos a Eq. \ref{inteporpartes} direita.
+\end{exemplo}
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\begin{problema}
+Calcule a Transformada de Fourier de todas as funções do problema  \ref{capnallisefourier}.\ref{skskwjkqwerty}.
+\end{problema}
+
+
+%
+\begin{problema}
+Mostre que as transformadas de Fourier seno e cosseno (Eqs. \ref{transfouriersenocosseno}) de $e^{-at}$ são:
+\begin{equation}
+g_s(\omega) = \sqrt{\dfrac{2}{\pi}} \dfrac{\omega}{\omega^2 + a^2}, \qquad \qquad g_c(\omega) = \sqrt{\dfrac{2}{\pi}} \dfrac{a}{\omega^2 + a^2}.
+\end{equation}
+\textit{Dica:} integre por partes duas vezes.
+\end{problema}
+%
+
+\begin{problema}
+Deduza a Eq. \ref{slkwjerlkjsdf}.
+\end{problema}
+
+
+\begin{problema}
+Mostre que:
+\begin{equation}
+\int_0^{\infty} \dfrac{1-\cos \omega \pi}{\omega} \sin \omega d\omega = \dfrac{\pi}{2}, \qquad \qquad \int_0^{\infty} \dfrac{1-\cos \omega \pi}{\omega} \sin \pi \omega d\omega = \dfrac{\pi}{4}. \nonumber
+\end{equation}
+\end{problema}
+
+\begin{problema}
+a) Seja $f(x) = \sin x$ para $0<x<\pi$ e $f(x)=0$ fora desse intervalo. Encontre a expansão em série de $f(x)$. Dica: expanda $\sin x$ em uma série de Fourier. b) Mostre que o resultado pode ser escrito como:
+\begin{equation}
+f(x) = \dfrac{1}{\pi} \int_0^{\infty} \dfrac{\cos \varphi x + \cos \varphi (x - \pi)}{1-\varphi^2} d\varphi. \nonumber
+\end{equation}
+\end{problema}
+
+\begin{problema} \label{slskjpacogausmecli}
+$\bigstar \bigstar$ Uma partícula livre em mecânica quântica é describa pela onda plana:
+\begin{equation}
+\psi_k (x,t) = \exp \left( ikx -i\dfrac{\hbar k^2}{2m}t \right). \nonumber
+\end{equation}
+A solução geral será a superposição de ondas com momentos diferentes balanceada por peso $\varphi(k)$:
+\begin{equation}
+\Psi (x,t) = \int_{-\infty}^{+\infty} \varphi(k) \psi_k(x,t) dk. \nonumber
+\end{equation}
+a) Encontre os pesos $\varphi(k)$ dado que $\Psi(x,0) = e^{-x^2/2a^2}$. b) Usando o resultado do item a), encontre $\Psi(x,t)$ por integração direta.
+\end{problema}
+
+%\begin{problema}
+%
+%\end{problema}
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+
+\section{Transformada de Laplace}
+
+A outra transformada também utilizada em física é a Transformada de Laplace (TL) definida como:
+\begin{equation}
+f(s) = \mathscr{L} \left\lbrace  F(t) \right\rbrace  = \lim_{a \rightarrow \infty} \int_0^{a} e^{-st} F(t)dt = \int_0^{\infty} e^{-st} F(t)dt, \qquad \qquad t > 0. \label{definiTL}
+\end{equation}
+A TL é mais instável do que a TF, já que vários detalhes podem fazer com que não exista a integral, como por exemplo $t<0$. Por exemplo não existe a TL de $F(t)  = e^{t^2}$ já que a integral correspondente diverge. Porém, para algumas funções pode ser que a integral $\int_0^{\infty} F(t)dt$ não exista mas que a TL exista. Neste caso $F(t)$ tem chamada ordem exponencial. Porém, como a TF, a TL é linear:
+\begin{equation}
+\mathscr{L} \left\lbrace  aF_1(t) + bF_2(t) \right\rbrace =  \int_0^{\infty} e^{-st} \left[  aF_1(t) + bF_2(t) \right]  dt = a\mathscr{L} \left\lbrace  F_1(t) \right\rbrace  + b \mathscr{L}\left\lbrace  F_2(t) \right\rbrace. \nonumber  
+\end{equation}
+
+Uma generalização da TL é substituir $s$ por $s-a$. Nesse caso:
+\begin{equation}
+f(s-a) = \int_0^{\infty} e^{-(s-a)t} F(t)dt = \int_0^{\infty} e^{at} e^{-st} F(t)dt = \mathscr{L} \left\lbrace e^{at} F(t) \right\rbrace. \label{ssjhwqqaz}
+\end{equation}
+
+Outra modificação possível é a translação que consiste em multiplicar $f(s)$ por $e^{-bs}$:
+\begin{equation}
+e^{-bs} f(s) =  \int_0^{\infty} e^{-s(b+t)} F(t)dt = \int_b^{\infty} e^{-s\tau } F(\tau - b)d\tau   \label{setranlaplace2}
+\end{equation}
+onde $\tau = t+b$. Porém, assumindo $F(t) = 0$ para $t<0$ implica que $F(\tau - b) = 0$ para $0<\tau < b$. Assim podemos estender o limite inferior da última integral na Eq. \ref{setranlaplace2} para 0. Logo:
+\begin{equation}
+e^{-bs} f(s) =  \int_0^{\infty} e^{-s\tau } F(\tau - b)d\tau  = \mathscr{L} \left\lbrace  F(t-b) \right\rbrace. \nonumber
+\end{equation}
+
+
+
+\subsection{TL de funções elementares}
+
+Quando existe a TL é uma operação direta. Por exemplo, da definição (Eq. \ref{definiTL}), temos os casos:
+\begin{eqnarray}
+\mathscr{L} \left\lbrace  1 \right\rbrace &=&  \int_0^{\infty} e^{-st} dt = -\dfrac{e^{-st}}{s}\biggr\rvert_0^{\infty} = \dfrac{1}{s},  \\
+\mathscr{L} \left\lbrace  e^{+kt} \right\rbrace &=&  \int_0^{\infty} e^{-st} e^{kt} dt = \dfrac{e^{(k-s)t}}{k-s}\biggr\rvert_0^{\infty} =\dfrac{1}{s - k}, \qquad \qquad s > k. \label{laplaceekt} \\
+\mathscr{L} \left\lbrace  e^{-kt} \right\rbrace &=&  \int_0^{\infty} e^{-st} e^{-kt} dt = -\dfrac{e^{-(k+s)t}}{k+s}\biggr\rvert_0^{\infty} =\dfrac{1}{s + k}. \nonumber \\
+\end{eqnarray}
+Lembrando que em ambos os casos o denominador deve ser positivo. Escrevendo seno e cosseno hiperbólico em função das exponenciais (Eqs. \ref{cossenohiper}) e usando os dois resultados acima obtemos facilmente suas transformadas de Laplace:
+\begin{eqnarray}
+\mathscr{L} \left\lbrace  \cosh kt \right\rbrace &=& \frac{1}{2}\mathscr{L} \left\lbrace  e^{kt}+ e^{-kt} \right\rbrace = \dfrac{1}{2} \left( \dfrac{1}{s-k}  + \dfrac{1}{s+k} \right) = \dfrac{s}{s^2-k^2}, \label{laplacecoshkt} \\
+\mathscr{L} \left\lbrace  \sinh kt \right\rbrace &=& \frac{1}{2}\mathscr{L} \left\lbrace  e^{kt}- e^{-kt} \right\rbrace = \dfrac{1}{2} \left( \dfrac{1}{s-k}  - \dfrac{1}{s+k} \right) = \dfrac{k}{s^2-k^2}. \label{laplacesinhkt}
+\end{eqnarray}
+As expressões são válidas para $s>k$, de modo que as integrais sejam finitas.
+
+
+As transformadas de seno e cosseno podem ser encontradas substituindo as Eqs. \ref{cosopesensdfosr} nas transformadas de $\sinh$ e $\cosh$:
+\begin{equation}
+\mathscr{L} \left\lbrace  \cos kt \right\rbrace = \int_0^{\infty} e^{-st} \cos ktdt =\dfrac{s}{s^2+k^2}, \qquad \qquad \mathscr{L} \left\lbrace  \sin kt \right\rbrace = \dfrac{k}{s^2+k^2}, \label{laplacesenocosseno}
+\end{equation}
+também válidas para $s>0$. E se diferenciarmos $\mathscr{L} \left\lbrace  \cos kt \right\rbrace$ em relação a $k$ obtemos:
+\begin{equation}
+\mathscr{L} \left\lbrace t \sin kt \right\rbrace = \int_0^{\infty} e^{-st} t\sin ktdt =\dfrac{2sk}{(s^2+k^2)^2}. \label{ealkjsdtletsin}
+\end{equation}
+Outro resultado útil é\footnote{$\Re (z)$ é a parte real do número complexo $z$.}
+\begin{equation}
+\mathscr{L} \left\lbrace  t^ka^{-at} \right\rbrace = \int_0^{\infty} t^ka^{-at}e^{-st} dt = \dfrac{k!}{(s+a)^{k+1}}, \qquad \Re (s+a) > 0. \label{reslaplaclwww} 
+\end{equation}
+
+
+
+Por último vale mencionar a convolução de TL ou Teorema da Convolução. Sejam duas TL: 
+\begin{equation}
+f_1(s) = \mathscr{L} \left\lbrace  F_1(t) \right\rbrace, \qquad \qquad f_2(s) = \mathscr{L} \left\lbrace  F_2(t) \right\rbrace.
+\end{equation}
+A convolução (ou Teorema de Faltung) diz que:
+\begin{equation}
+f_1(s) f_2(s) = \mathscr{L} \left\lbrace  \int_0^t F_1(t-z) F_2(z) dz \right\rbrace = \left\lbrace  F_1 * F_2  \right\rbrace 
+\end{equation}
+Tirando a inversa temos:
+\begin{equation}
+\mathscr{L}^{-1} \left\lbrace f_1(s) f_2(s) \right\rbrace = \int_0^t F_1(t-z) F_2(z) dz.
+\end{equation}
+
+
+\subsection{Derivadas}
+
+Como a TF, uma das grandes aplicações da TL é na solução de equações diferenciais. Por exemplo aplicando a TL transforma equações diferenciais acopladas com coeficientes constantes em um sistema de equações algébricas. A TL de $F'(t)$ (derivada de $F(t)$) é, integrando por partes:
+\begin{eqnarray}
+\mathscr{L} \left\lbrace  F'(t) \right\rbrace  &=& \int_0^{\infty} e^{-st} \dfrac{dF(t)}{dt} dt = e^{-st} F(t)\biggr\rvert_0^{\infty} - s \int_0^{\infty} e^{-st} F(t) dt \nonumber \\
+&=&  s\mathcal{L} \left\lbrace  F(t) \right\rbrace  - F(0)
+\end{eqnarray}
+A TL da derivada de uma função nada mais é do que a TF da função vezes o parâmetro $s$ subtraído da função avaliada em zero\footnote{Lembrando que $F(0) = F(+0)$, ou seja, o zero deve ser calculado pelo lado positivo.}. Aplicando novamente esse resultado a TL das outras derivadas pode ser calculada diretamente:
+\begin{eqnarray}
+\mathscr{L} \left\lbrace  F^{(2)}(t) \right\rbrace  &=&   s^2\mathscr{L} \left\lbrace  F(t) \right\rbrace  - sF(0) - F'(0) \nonumber \\
+\mathscr{L} \left\lbrace  F^{(n)}(t) \right\rbrace  &=&   s^n\mathscr{L} \left\lbrace  F(t) \right\rbrace - s^{n-1}F(t) -  s^{n-2}F'(t) - ... - F^{(n-1)}(0) \nonumber 
+\end{eqnarray}
+A TL da derivada de uma função substitui a derivada por uma multiplicação, como a TF. 
+
+A transformação de Laplace das derivadas é aplicada na solução de equações diferenciais. Em geral, usando TL pode resultar em uma solução mais direta e simples da ED.
+
+\begin{exemplo}
+Resolva $y'' + 4y' + 4y = t^2 e^{-2t}$ com as condições iniciais $y(0) = y_0 = 0$ e $y'(0) = y_0' = 0$.
+\tcblower
+Usando as transformadas das derivadas, a TL da ED é $s^2 Y - sy_0 - y_0' + 4sY - 4y_0 + 4Y = \mathcal{L} \left\lbrace   t^2 e^{-2t}\right\rbrace$, onde $\mathscr{L} \left\lbrace  y(t) \right\rbrace = Y(s)$. Usando a Eq. \ref{reslaplaclwww} temos que:
+\begin{equation}
+\mathscr{L} \left\lbrace   t^2 e^{-2t}\right\rbrace = \dfrac{2}{(s+2)^3}. \label{sksjwiwuppp}
+\end{equation}
+Usando esse resultado e as condições iniciais temos $(s^2+4s+4)Y = 2/(s+2)^3$, ou $Y (s) = \dfrac{2}{(s+2)^5}$, já que $s^2 + 4s + 4 = (s+2)^2$. Precisamos agora achar a TL inversa. Novamente usando a Eq. \ref{reslaplaclwww} temos que:
+\begin{equation}
+y(t) = \dfrac{2t^4 e^{-2t}}{4!}. \nonumber
+\end{equation}
+A solução encontrada é apenas uma solução particular que satisfaz as condições iniciais.
+\end{exemplo}
+
+
+
+
+
+\subsection{Transformada da $\delta$ de Dirac}
+
+
+A TL da $delta$ de Dirac é direta:
+\begin{equation}
+\mathscr{L} \left\lbrace  \delta (t-a) \right\rbrace = \int_0^{\infty} \delta (t-a) e^{-st} dt = e^{-sa}, \qquad a > 0.
+\end{equation}
+Esta transformada é utilizada na solução de equações diferenciais envolvendo a função $\delta$.
+
+\begin{exemplo}
+Resolva $y'' + \omega^2 y = \delta(t-t_0)$ para a seguinte condição inicial $y_0 = y_0' = 0$.
+\tcblower
+Tirando a TL desta equação temos $(s^2 + \omega^2) Y = \mathscr{L} \left\lbrace  \delta (t-t_0) \right\rbrace = e^{-st_0}$, onde $Y = \mathscr{L} \left\lbrace  y \right\rbrace$. Logo temos $Y = \dfrac{e^{-st_0}}{s^2+ \omega^2}$.
+
+Esta é a transformada da função seno deslocada (Eqs. \ref{ssjhwqqaz} e \ref{laplacesenocosseno}), de forma que a solução é:
+\begin{equation}
+y(t) = \dfrac{1}{\omega} \sin \omega (t-t_0), \qquad \qquad t>t_0.
+\end{equation}
+\end{exemplo}
+
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\begin{problema}
+a) Usando a Eq. \ref{laplaceekt}, prove as Eqs. \ref{laplacecoshkt} e \ref{laplacesinhkt}. b) Deduza a Eq. \ref{sksjwiwuppp}.
+\end{problema}
+
+\begin{problema}
+a) Calcule a transformada de Laplace de $\sin kt$ e $\cos kt$ (veja Eqs. \ref{laplacesenocosseno}). b) Deduza a Eq. \ref{ealkjsdtletsin}.
+\end{problema}
+
+\begin{problema}
+Usando a Eq. \ref{laplaceekt}, deduza os seguintes resultados:
+\begin{equation}
+\mathscr{L} \left\lbrace  \dfrac{e^{-at} - e^{-bt}}{b-a} \right\rbrace = \dfrac{1}{(s+a)(s+b)}, \qquad \qquad \mathscr{L} \left\lbrace  \dfrac{ae^{-at} - be^{-bt}}{a-b} \right\rbrace = \dfrac{s}{(s+a)(s+b)},
+\end{equation}
+ambos válidos para $\Re (s+a) >0$ e $\Re (s+b) >0$.
+\end{problema}
+
+\begin{problema}
+Deduza os seguintes resultados:
+\begin{equation}
+\mathscr{L} \left\lbrace  e^{-at} \sin bt  \right\rbrace = \dfrac{b}{(s+a)^2+ b^2}, \qquad \qquad \mathscr{L} \left\lbrace  e^{-at} \cos bt \right\rbrace = \dfrac{s+a}{(s+a)^2+ b^2},
+\end{equation}
+ambos válidos para $\Re (s+a) > \Im (b)$. \textbf{Dica}: substitua $a$ por $a+ib$ na Eq. \ref{laplaceekt} e depois por $a-ib$. Some e subtraia os resultados.
+\end{problema}
+
+
+\begin{problema}
+Resolva as seguintes equações diferenciais usando Transformada de Laplace. a) $y'' + 4y' +4y = e^{-2t}$ com $y_0 = 0$ e $y_0' = 4$. b) $y''  + y = \sin t$ com $y_0 = 1$ e $y_0' = 1$. c) $y'' -y = e^{-t} - 2te^{-t}$ com $y_0 =1$ e $y_0' = 2$. d) $y'' + 4y' +5y = 2e^{-2t} \cos t$ com $y_0 = 0$ e $y_0' = 3$.
+\label{eqdiferelaplacelsls}
+\end{problema}
+
+\begin{problema}
+Mostre que:
+\begin{equation}
+\int_0^{\infty} \dfrac{e^{-t \sqrt{3}}}{t}  \sin 2t \cos t dt = \dfrac{\pi}{4}.
+\end{equation}
+\end{problema}
+
+
+\begin{problema}
+Resolva as seguintes equações diferenciais usando a TL da $\delta$ de Dirac: a) $y'' + 2y' + y = \delta(t-t_0)$. b) $y'' + 2y' + 10y =  \delta(t-t_0)$. c) $y'''' -y = \delta(t-t_0)$.
+\label{problemalaplaceeqdiferedelta}
+\end{problema}
+
+
+
+\begin{problema}
+$\bigstar \bigstar \quad$ Transformada de Laplace pode ser utilizada na solução genérica do problema de uma partícula carregada sob ação de campos magnético e elétrico\footnote{Dica: M. L. Medeiros, A. C. Santos \textit{Sobre a Dinâmica de Partículas Carregadas em Campos Elétrico e Magnético}, Revista Brasileira de Ensino de Física \href{http://dx.doi.org/10.1590/1806-9126-RBEF-2016-0180}{\textbf{39}, n. 1, 1302 (2017)}.}. Seja uma partícula de massa $m$ e carga $q$ em uma região contendo um campo magnético $\textbf{B} = B \hat{\textbf{z}}$ e elétrico $\textbf{E}$. No instante $t=0$ a posição da partícula é a origem $\textbf{r}(0) = (0,0,0)$. Considerando a força de Lorentz $\textbf{F} = q\textbf{E} + q\textbf{v} \times \textbf{B}$, mostre que a segunda Lei de Newton resulta nas seguintes equações de movimento:
+\begin{equation}
+\dfrac{d^2 x}{dt^2} = \dfrac{q}{m} \left( \dfrac{dy}{dt}B + E_x \right), \qquad \dfrac{d^2 y}{dt^2} = -\dfrac{q}{m} \left( \dfrac{dx}{dt}B - E_y \right), \qquad \dfrac{d^2 z}{dt^2} = -\dfrac{q}{m}E_z. \nonumber
+\end{equation}
+b) Por integração direta mostre que $z(t) = v_3 t + (qE_3t^2)/(2m)$. c) Mostre que:
+\begin{eqnarray}
+s^2 \chi_1 (s) - v_1 = \dfrac{q}{m} \left( B s \chi_2 (s) + \dfrac{E_1}{s}  \right), \nonumber \\
+s^2 \chi_2 (s) - v_2 = -\dfrac{q}{m} \left( B s \chi_1 (s) - \dfrac{qE_2}{s}  \right), \nonumber
+\end{eqnarray}
+onde $\chi_1(s)$ e $\chi_2(s)$ são as transformadas de Laplace de $x(t)$ e $y(t)$. d) Considere $\omega_0 = qB/m$ e $\gamma_k = qE_k/m$, com $k=1,2$. Encontre $\chi_1(s)$ e $\chi_2(s)$ e após efetuar a transformada inversa mostre que:
+\begin{eqnarray}
+x(t) &=& \dfrac{1}{\omega_0^2} \left( A_1 - C_2 \cos \omega_0 t + C_1 \sin \omega_0 t \right), \nonumber \\
+y(t) &=& \dfrac{1}{\omega_0^2} \left( A_2 - C_1 \cos \omega_0 t + C_2 \sin \omega_0 t \right), \nonumber
+\end{eqnarray}
+onde
+\begin{equation}
+A_1 = \gamma_2 + (\gamma_1 t + v_2) \omega_0, \qquad A_2 = \gamma_1 - (\gamma_2 t + v_1) \omega_0, \qquad C_k = (-1)^k \gamma_k  v_k \omega_0. \nonumber
+\end{equation}
+
+
+
+\end{problema}
+
+
+%
+%\begin{problema}
+%
+%\end{problema}
+
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=DarkGreen!75!black,title=Um pouco de história.]
+\textbf{Pierre-Simon}, Marquês de Laplace (1749 - 1827) foi um matemático, astrônomo e físico francês que organizou a astronomia matemática, resumindo e ampliando o trabalho de seus predecessores nos cinco volumes do seu Mécanique Céleste (Mecânica Celeste) (1799-1825). Esta obra-prima traduziu o estudo geométrico da mecânica clássica usada por Isaac Newton para um estudo baseado em cálculo, conhecido como mecânica física. Ele também formulou a equação de Laplace. A transformada de Laplace aparece em todos os ramos da física matemática. O operador diferencial laplaciano $(\nabla^2)$ é nomeado em sua homenagem. Laplace foi também quem primeiro formulou os chamados Harmônicos Esféricos em 1783 (antigamente chamado de coeficientes de Laplace). Em 1785 Laplace usou pela primeira vez a Transformada de Laplace para resolver uma equação diferencial a qual Euler e Lagrande tentaram antes. Quando questionado por Napoleão Bonaparte por que não mencionou Deus em seu livro sobre Astronomia, Laplace respondeu: "Não precisei dessa hipótese".
+\end{tcolorbox}
+
+
+
+
+\section{Transformada de Fourier Discreta (DFT)} \label{secatransfdfoueksa}
+
+Usando a relação de Euler $e^{i \theta} = \cos \theta + i \sin \theta$ podemos reescrever a Eq. \ref{seriefoueirseconss} como:
+\begin{equation}
+f(x) = \sum_{k = -\infty}^{\infty} \gamma_k \exp \left( i\dfrac{2\pi kx }{L} \right) \label{skwiwjwuwjuwu}
+\end{equation}
+Os coeficientes serão:
+\begin{equation}
+\gamma_k = \dfrac{1}{L} \int_0^L f(x) \exp \left(- i\dfrac{2\pi kx }{L} \right)dx  \label{gammakconti}
+\end{equation}
+
+A série de Fourier vale para funções periódicas, ou seja, ela contem uma parte que se repete em toda sua extensão. Quando queremos analisar uma função que não é periódica, também podemos usar série de Fourier. Em geral, precisa-se analisar apenas uma parte da função. Criamos então uma outra função que é essa parte repetida, sendo então periódica. E ai podemos usar tranquilamente a série de Fourier.
+
+
+
+Em alguns casos a função $f(x)$ não é contínua, por exemplo, quando vem de medidas experimentais. Neste caso devemos fazer o cálculo numérico da transformada. Usando a regra do trapézio para integração numérica, $\gamma_k$ da Eq. \ref{gammakconti} fica:
+\begin{equation}
+\gamma_k = \dfrac{1}{N} \left[ \frac{1}{2} f(0) + \frac{1}{2} f(L) + \sum_{n=1}^{N-1} f(x_n) \exp \left( -i \dfrac{2 k \pi  x_n}{L} \right) \right], \label{inteaproximtr} 
+\end{equation}
+onde as posições $x_n$ da amostra são da forma:
+\begin{equation}
+x_n = \dfrac{n}{N}L \label{slskdjfwlkj}
+\end{equation}
+Mas $f(x)$ é periódica logo $f(0) = f(L)$. Assim:
+\begin{equation}
+\gamma_k = \dfrac{1}{N} \sum_{n=0}^{N-1} f(x_n) \exp \left( -i \dfrac{2 k \pi  x_n}{L} \right) \label{ksjwjwjwjw}
+\end{equation}
+Essa fórmula pode ser usada para o cálculo de $\gamma_k$ em um computador. $f(x)$ pode ser uma música (ou qualquer sinal sonoro) amostrado em intervalos regulares em uma taxa de alguns milhares de vezes por segundo. Fazendo $y_n = f(x_n)$ e usando a Eq. \ref{slskdjfwlkj} podemos reescrever a Eq. \ref{ksjwjwjwjw} como:
+\begin{equation}
+\gamma_k = \dfrac{1}{N} \sum_{n=0}^{N-1} y_n \exp \left( -i \dfrac{2k \pi  n}{N} \right) \label{ksjwjwqqqw}
+\end{equation}
+Repare que essa fórmula é mais eficiente pois não é necessário as posições $x_n$ nem o comprimento $L$. 
+
+Assim, a Transformada Discreta de Fourier (DFT, do inglês \textit{Discrete Fourier Transform}\footnote{Iremos utilizar os acrônimos resultados da expressão em inglês por serem os mais populares em todo os países, incluso o Brasil.}) é definida como:
+\begin{equation}
+c_k = \sum_{n=0}^{N-1} y_n \exp \left( -i \dfrac{2k \pi  n}{N} \right) \label{ksjmmmmw}
+\end{equation}
+Apesar desta equação ter sido deduzida usando a regra do Trapézio (uma aproximação simples de integração), a expressão de $c_k$ é exata. O inverso é obtido apenas trocando de lugar $c_k$ e $y_k$. Desta forma, uma vez obtido experimentalmente $y_k$ pode-se calcular $c_k$ e voltar para $y_k$ livremente. E é necessário calcular $c_k$ apenas até $k= N-1$ para recuperar as amostras. 
+
+Veja que na Eq. \ref{ksjmmmmw} o somatório vai até $N-1$ com valores positivos apenas de $n$, ao contrário da Eq. \ref{skwiwjwuwjuwu}, onde o somatório tem valores negativos e vai até infinito, adequado para o cálculo numérico. Essas expressões servem para $f(x)$ real ou complexo.
+
+Suponha que $y_n$ seja real e calculemos $c_k$ para $\frac{1}{2}N < k < N$. Por exemplo escrevamos $k = N-r$ com $1 < r < \frac{1}{2}N$. Logo:
+\begin{eqnarray}
+c_{N-r} &=& \sum_{n = 0}^{N-1} y_n \exp \left[ -i \dfrac{2 (N-r) \pi  n}{N} \right] = \sum_{n = 0}^{N-1} y_n \exp \left( -2i\pi n \right) \exp \left( -i \dfrac{2 \pi r n}{N} \right) \nonumber \\
+&=&  \sum_{n = 0}^{N-1} y_n  \exp \left( -i \dfrac{2 \pi r n}{N} \right) = c_r^*
+\end{eqnarray}
+já que $\exp \left( -2i\pi n \right)=1$ para qualquer $n$ inteiro. Ou seja, $c_{N-1} = c_1^*$, $c_{N-2} = c_2^*$, e assim sucessivamente. Isto significa que quando calculamos a DFT de uma função $y_n$ real precisamos calcular $c_k$ apenas até $k=\frac{1}{2}N$. A outra metade é apenas o complexo conjugado da primeira. Se $N$ é par, precisamos calcular apenas os $\frac{1}{2}N+1$ primeiros coeficientes. Se $N$ é ímpar, precisamos calcular apenas os $\frac{1}{2}(N+1)$ primeiros coeficientes. 
+
+\subsection{DFT inversa} 
+
+Se a definição de DFT for uma função, será possível obter uma função inversa: dado os coeficientes $c_k$ calcular as amostras $y_n$?. Vamos fazer um somatório de $c_k$ e usar sua DFT da Eq. \ref{ksjmmmmw}:
+ Seja o somatório:
+\begin{eqnarray}
+\sum_{k=0}^{N-1} c_k \exp \left( i \dfrac{2k \pi  n}{N} \right) &=& \sum_{k=0}^{N-1} \sum_{p=0}^{N-1} y_p c_k \exp \left( -i \dfrac{2k \pi p}{N} \right) \exp \left( i \dfrac{2k \pi  n}{N} \right), \nonumber  \\
+&=&  \sum_{p=0}^{N-1} y_p \sum_{k=0}^{N-1} \exp \left[ i \dfrac{2k \pi  (n-p)}{N} \right]. \label{exponeninversfour}
+\end{eqnarray}
+Agora precisamos calcular a exponencial na Eq. \ref{exponeninversfour}. Para isso, temos que usar algumas propriedades da função exponencial.
+
+A soma finita de uma série geométrica é $s_k = \sum_{k=0}^{N-1} a^k = \dfrac{1-a^N}{1-a}$ onde $a$ é a razão. Seja $a=e^{2i\pi m /N}$, sendo $m$ inteiro e obteremos:
+\begin{equation}
+\sum_{k=0}^{N-1} e^{2i\pi k m /N} = \dfrac{1-e^{2i\pi m }}{1-e^{2i\pi m /N}} = 0, \nonumber
+\end{equation}
+já que $e^{2i\pi m} =1$ para qualquer $m$ inteiro e então o numerador se anula. O problema é quando $m=0$ o que também anula o denominador\footnote{E nunca podemos dividir por zero.}. Mas se $m=0$ a soma original fica $\sum_{k=0}^{N-1} 1 = N$. Logo:
+\begin{equation}
+\sum_{k=0}^{N-1} e^{2i\pi k m /N} = \left\{
+\begin{array}{rl}
+N  & \text{se } m = 0 \text{ou múltiplo de} N   \\
+0  & \text{caso contrário} 
+\end{array} 
+\right.  \label{poslsksksksgo}
+\end{equation}
+
+Agora podemos usar a Eq. \ref{poslsksksksgo} para calcular a exponencial da Eq. \ref{exponeninversfour}. Vamos assumir que $0<n<N$. Comparando as duas expoenenciais temos que $m = n - p$. Como $n$ e $p$ são menores que $N$, $m$ não poderá ser múltiplo de $N$, mas poderemos ter $m=0$ se $n = p$. Assim a exponencial na Eq. \ref{exponeninversfour} será $N$ quando $n = p$ e zero caso contrário, o que implica que a soma em $p$ resulta em apenas um termo diferente de zero, aquele que $p=n$, logo:
+\begin{equation}
+\sum_{k=0}^{N-1} c_k \exp \left( i \dfrac{2k \pi  n}{N} \right) =  Ny_n. 
+\end{equation}
+Invertendo essa equação temos:
+\begin{equation}
+y_n = \dfrac{1}{N} \sum_{k=0}^{N-1} c_k \exp \left( i \dfrac{2k \pi  n}{N} \right). \label{DFTinversa}
+\end{equation}
+Esta é a DFT inversa, é a volta da Eq. \ref{ksjmmmmw}: se tivermos os coeficientes $c_k$ podemos calcular as amostras $y_n$. E não é uma aproximação, a Eq. \ref{DFTinversa} é exata. Repare que precisamos apenas até o coeficiente $c_k$ com $k=N-1$ para recuperar as amostras.
+
+A DFT foi definida usando um método numérico simples (Regra do Trapézio) para fazer a integração (veja Eq. \ref{inteaproximtr}). Porém, calculando a inversa mostramos que as amostras originais podem ser obtidas de forma exata. Isso implica que apesar da regra do Trapézio ser uma aproximação grosseira, a definição da DFT é exata, independente do método numérico escolhido.
+
+
+\begin{codigo}
+Uma implementação simples da Eq. \ref{ksjmmmmw} de $N$ amostras reais $y_n$ para todo $k$ no intervalo $0 \leq k \leq \frac{1}{2}N$ é:
+\lstinputlisting[language=Python]{figuras/Fourier/dft_2.py}
+Veja que uma função \verb|dft| é definida para o cálculo da transformada. Em seguida um arquivo contendo o sinal sonoro é importado e depois a função é chamada. Repare que a exponencial utilizada no código é definida dentro do módulo cmath o qual é adequado para operações com números complexos. O vetor $c$ também é gerado com formato complexo. Como os coeficientes $c_k$ são complexos é necessário graficar o módulo deles. Na figura \ref{graficoDFT} estão representados os gráficos do sinal sonoro em vermelho e da amplitude (módulo) de sua TFD ($c_k$) em azul.
+\end{codigo}
+
+\begin{SCfigure}
+ \centering
+\includegraphics[width=3.7 in]{figuras/Fourier/graficoDFT.pdf}
+\caption{Gráfico de um sinal sonoro $y_k$ em vermelho e de sua transformada de Fourier discreta $c_k$ em azul. O código está no Github: {\small \url{https://github.com/paulofreitasgomes/Math_Methods_for_Physics/tree/master/Fourier_Analysis}}.}
+\label{graficoDFT}
+\end{SCfigure} 
+
+
+\subsection{Interpretação física}
+
+Matematicamente, a Transformada de Fourier está definida pelas equações da seção anterior. Por exemplo, não foi necessário definir a unidade do eixo $x$ no gráfico da figura \ref{graficoDFT}. Porém, em termos de física, qual é a utilidade desse tratamento? Em física, séries e transformada de Fourier tem uma grande aplicação. Quando uma função qualquer é escrita como uma série de Fourier significa que essa função pode ser escrita como um conjunto de senos ou cossenos, que são funções oscilatórias. Ou seja, a função tem componentes oscilatórias. O termo da expansão que tiver o maior coeficiente é a frequência dominante da função em questão. A transformada dá direto esses coeficientes permitindo identificar quais frequências estão presentes. É comum um gráfico presente em aparelhos de som como sendo um analisador de sinal mostrando diferentes barras oscilando conforme a música. Cada barra é uma frequência e a altura da barra mostra a intensidade de cada frequência presente na música. Essa intensidade é exatamente os coeficientes $c_k$ obtidos a partir da TFD.
+
+A curva em vermelho no gráfico da figura \ref{graficoDFT} representa o sinal sonoro. Já a curva em azul é  TFD a qual representa as frequências presentes no sinal. O eixo horizontal é o $k$ e é proporcional a frequência de oscilação. Repare que há uma frequência dominante próximo de $k=0$ e outras duas frequências menos intensas próximos de $k=50$ e $k=100$. Esses dois últimos são múltiplos (harmônicos) do primeiro. Assim, se ouvíssemos esse sinal sonoro seria apenas uma frequência constante. A oscilação aleatória em volta do sinal (curva em vermelho) é o ruído do sinal sonoro. Vemos então que a TF é nada mais que um analisador de espectros que retorna as frequências dominantes do sinal original.
+
+
+\begin{SCfigure}
+ \centering
+    \begin{tikzpicture}[x={(1cm,0.5cm)},z={(0cm,1cm)},y={(1cm,-0.2cm)}]
+
+        %repere
+        \draw[->] (0,-pi,0) --++ (6,0,0) node[above right] {Frequência};
+        \draw[->] (0,-pi,0) --++ (0,6.5,0) node[right] {Tempo};
+        \draw[->] (0,-pi,0) --++ (0,0,1.5) node[above] {Magnitude};
+
+        \draw [dashed] (1,0,0.2) --++ (4,0,0);          
+        \foreach \y in {1,2,...,5}{
+            %sinusoides
+            \draw[blue] plot[domain = -pi:+pi, samples = 300] 
+            (\y,\x,{0.2*cos(10*\y/2*(\x) r)});
+            \draw[blue] (\y,-pi-0.15,0) node [left]{$f_{\y}$};
+            \draw[red] (\y,0,{0.2*cos(10*\y/2*(0) r)}) node {\textbf{.}};
+        }
+
+        %sinc
+        \draw[red, thick] plot[domain = -pi:+pi, samples = 2000] 
+        (0,\x,{0.02*sin(50*(\x) r)/(\x))});
+
+    \end{tikzpicture}
+\caption{Ilustração da conexão entre frequência e tempo através da DFT.}
+\label{DFT_tf}
+\end{SCfigure} 
+%%
+\subsection{Transformada de Fourier Rápida}
+
+%O conceito matemático da transformada de Fourier está bem definido nas equações da seção \ref{secatransfdfoueksa}. Porém para aplicações práticas como analisador de espectros por exemplo é necessário implementar o cálculo dessas equações em um tempo razoável. Por exemplo um sinal de 45 mil amostras é necessário para representar um sinal de cerca de um segundo apenas. Em muitos casos dados com muito mais pontos são utilizados e as definições apresentadas podem levar muito tempo para o cálculo. Assim, é necessário um método mais eficiente de cálculo da TFD. E de fato tal técnica existe e é chamada de Transformada de Fourier Rápida (ou popularmente FFT, do inglês \textit{Fast Fourier Transform}), descoberta por Carl Friedrich Gauss\footnote{Repare no nome dos métodos quadratura de Gauss, eliminação de Gauss, método de Newton-Gauss e agora da FFT. Gauss descobriu muito de física computacional mais de um século antes do desenvolvimento do computador.} em 1985 e popularizada por Cooley e Tukey\footnote{J. Cooley and J. Tukey \textit{An algorithm for the machine calculation of complex Fourier series}, Mathematics of Computation 19, 297-301 (1965).}. Para fins didáticos, representamos a transformada rápida de Fourier de uma função $y(t)$ como sendo:
+%\begin{equation}
+%\Gamma (\omega) = \mathscr{F} \left\lbrace y(t) \right\rbrace. \nonumber 
+%\end{equation}
+
+A FFT é mais simples quando o número de amostras é uma potência de 2: $N = 2^m$ com $m$ inteiro. Seja a DFT definida pela Eq. \ref{ksjmmmmw}, vamos dividi-la em dois grupos\footnote{Sempre podemos fazer essa divisão se $N = 2^m$.} o primeiro com os termos $n$ pares e o segundo com os termos $n$ ímpares. Se $n$ é par temos que $n = 2r$ com $r=0,... \frac{1}{2}N-1$ e o grupo dos pares fica:
+\begin{equation}
+E_k = \sum_{r=0}^{\frac{1}{2}N-1} y_{2r} \exp \left( -i \dfrac{2k \pi  2r}{N} \right) = \sum_{r=0}^{\frac{1}{2}N-1} y_{2r} \exp \left( -i \dfrac{2k \pi  r}{\frac{1}{2}N} \right).
+\end{equation}
+Isto é outra DFT com $N/2$ amostras ao invés de $N$. Da mesma forma para o grupo de $n$ ímpar tempos $n = 2r+1$:
+\begin{eqnarray}
+\sum_{r=0}^{\frac{1}{2}N-1} y_{2r+1} \exp \left( -i \dfrac{2k \pi  (2r+1)}{N} \right) &=& e^{ -2ik\pi /N}  \sum_{r=0}^{\frac{1}{2}N-1} y_{2r+1} \exp \left( -i \dfrac{2k \pi  r}{\frac{1}{2}N} \right) \nonumber \\
+&=&e^{ -2ik\pi /N} O_k,
+\end{eqnarray}
+onde $O_k$ é outra DFT com $N/2$ amostras. Logo, a DFT total é:
+\begin{equation}
+c_k = E_k + e^{ -2ik\pi /N} O_k, \label{defiicaosllnFFT}
+\end{equation}
+que nada mais é a soma de duas DFT $E_k$ e $O_k$ da mesma função da qual $c_k$ é DFT. A diferença é que $E_k$ e $O_k$ são DFTs com metade das amostras porém duplamente mais espaçadas do que $c_k$. A constante $e^{ -2ik\pi /N}$ é chamada de fator \textit{twiddle}. Ou seja, a Eq. \ref{defiicaosllnFFT} nos diz que podemos obter a DFT de $c_k$ fazendo duas DFTs com metade dos pontos. Em seguida, aplica-se novamente a Eq. \ref{defiicaosllnFFT} para calcular a DFT tanto de $E_k$ quanto de $O_k$, dividindo cada uma em dois blocos, resultando em 4 DFTs com um quarto das amostras originais. Aplica-se novamente a Eq. \ref{defiicaosllnFFT} para essas 4 DFTs, resultando em 8, que aplicando novamente resulta em 16. E assim sucessivamente, até que se chegue em DFT de apenas um ponto, que da Eq. \ref{ksjmmmmw} é:
+\begin{equation}
+c_0 = \sum_{n=0}^0 y_n e^0 = y_0
+\end{equation} 
+Ou seja, a DTF de uma amostra apenas é a própria amostra. Fazendo o processo reverso, começando pela amostra, multiplicando pelo fator de twiddle em cada junção de blocos, etapa por etapa, chega-se a $c_k$ da Eq. \ref{defiicaosllnFFT}. Esse é o mode de se fazer a FFT. 
+
+Conceitualmente a FFT é equivalente com a DFT, como deveria ser. O objetivo da FFT é ser mais rápido, e de fato o é. Na primeira etapa do processo temos $N$ amostras, cada uma sendo a DFT dela mesma. Na segunda etapa as amostras são agrupadas em pares e $N/2$ DFTs são realizadas com dois coeficientes cada, ou seja $N$ coeficientes são calculados (como na primeira etapa). Na terceira etapa haverá $N/4$ DFTs de 4 coeficientes cada, de modo que $N$ coeficientes são calculados novamente. Em todas as etapas sempre haverá $N$ coeficientes calculados. Após $m$ etapas será calculado a DFT de $2^m$ amostras cada, fazendo no total $N = 2^m$ amostras. Ou seja: $m = \log_2 N$. O número total de coeficientes a serem calculados é $N$ em $m$ etapas: $Nm = N \log_2 N$, o que é muito melhor do que os $N^2/2$ coeficientes da definição original. Por exemplo para um milhão de amostras a definição original resulta em $N^2/2=5\times 10^{11}$ operações, o que não é prático em um computador comum. Já a FFT resulta em $N \log_2 N = 2 \times 10^7$ operações, um número factível.
+
+Como bônus, a FFT também pode ser aplicada para a DFT inversa (Eq. \ref{DFTinversa}) que tem a mesma forma que a DFT, a menos de um sinal.
+
+
+%
+\begin{SCfigure}
+ \centering
+\includegraphics[width=3.7 in]{figuras/Fourier/grafico_FFT_sine2.pdf}
+\caption{Superior: gráfico de $y(t) = \sin (\omega t)$. Inferior: gráfico da Transformada Rápida de Fourier de $y(t)$.}
+\label{grafico_FFT_sin2}
+\end{SCfigure} 
+
+
+
+\begin{exemplo}
+Calcule e grafique a transformada de Fourier de $y(x) = \sin \omega t$.
+\tcblower
+Neste exemplo vamos implementar computacionalmente o cálculo da transformada rápida $\Gamma (\omega)$ da função seno utilizando o módulo Numpy na plataforma Python. O resultado está na figura \ref{grafico_FFT_sin2}. O módulo Numpy contém as definições de vetores e inúmeras funções matemáticas adequadas para aplicação nesses vetores. Dentre elas há o pacote \verb|numpy.fft|\footnote{\url{https://docs.scipy.org/doc/numpy-1.13.0/reference/routines.fft.html}.} que contém as funções de Transformada Rápida de Fourier prontas para serem aplicadas. 
+\end{exemplo}
+
+\subsubsection{Processamento de imagens}
+
+Transformada Rápida de Fourier é amplamente utilizada no processamento digital de imagens. 
+
+Transformada de Fourier pode ser usada para diminuir a resolução de uma imagem, formando um borrão. Da mesma forma pode ser usada para fazer o processo inverso: do borrão recuperar a imagem nítida\footnote{Esse recurso é muito explorado em filmes}. Vamos ilustrar esse processo. 
+
+Suponha que tenhamos uma figura em preto e branco em uma dimensão. O caso real de uma figura colorida em duas dimensões segue o mesmo raciocínio, apenas a matemática fica mais carregada. Por simplicidade, vamos começar com um exemplo simples. A figura então pode ser representada por uma função simples $a(x)$ que determina o brilho no ponto $x$. Para se criar um borrão é necessário definir uma função que o determina: $f(x)$. Se $f(x)$ é uma função espalhada, a figura ficará borrada. Podemos definir então a figura transformada como:
+\begin{equation}
+b(x) = \int_0^L a(x') f(x-x')dx', \nonumber
+\end{equation}
+onde $L$ é o tamanho da figura. Vamos expandir essa função em uma série de Fourier:
+\begin{equation}
+b(x) = \sum_{k=-\infty}^{\infty} \tilde{b}_k \exp \left( \dfrac{2\pi i kx}{L} \right). \nonumber
+\end{equation}
+Os coeficientes são encontrados pela integral:
+\begin{eqnarray}
+\tilde{b}_k &=& \dfrac{1}{L} \int_0^L b(x) \exp \left( -\dfrac{2\pi i kx}{L} \right) dx = \dfrac{1}{L} \int_0^L \int_0^L a(x') f(x-x') \exp \left( -\dfrac{2\pi i kx}{L} \right) dx' dx, \nonumber \\
+&=&  \dfrac{1}{L} \int_0^L \int_0^L a(x') f(x-x') \exp \left( -\dfrac{2\pi i k(x-x')}{L} \right) \exp \left( -\dfrac{2\pi i kx'}{L} \right) dx' dx, \nonumber \\
+&=&  \dfrac{1}{L} \int_0^L  a(x') \exp \left( -\dfrac{2\pi i kx'}{L} \right)  \int_{-x'}^{L-x'} f(X) \exp \left( -\dfrac{2\pi i kX}{L} \right)  dX dx. \nonumber
+\end{eqnarray}
+Repare que usamos a definição de $b(x)$ e também $X=x-x'$. Vamos considerar $f(x)$ como sendo uma repetição do trecho $0<x<L$ tanto para $-x$ quanto para $+x$, infinitas vezes.
+
+\subsubsection{Processamento de música}
+
+Transformada de Fourier é muito aplicada no processamento e análise de música e sinais sonoros em geral. Apresentamos aqui uma pequena introdução desta área. Começamos definindo a notação a ser utilizada. Como esperado, vamos utilizar funções senoidais definidas como:
+\begin{equation}
+x(n) = A \cos (\omega n T + \phi), \nonumber
+\end{equation}
+onde $A$ é a amplitude, $\omega = 2\pi f_0$ é a frequência angular em rads/segundo, $f$ é a frequência em Hz, $\phi$ é a fase inicial em radianos, $n$ é o indice do tempo (como o tempo é discreto o tempo é $t_n$), $T=1/f_s$ é o período de amostragem (do inglês \textit{sampling}) e $f_s$ é a frequência de amostragem\footnote{Repare que há duas frequências: $f_0$ determina a duração total do sinal e $f_s$ é o número de pontos contidos no sinal sonoro.}. Por exemplo, uma forma de definir um seno usando essa notação em Python é:
+\begin{lstlisting}
+A, f0 = 0.5, 100
+phi, fs = math.pi/2, 44100
+t = np.arange(-.003, .003, 1.0/fs)
+x = A * np.cos(2*math.pi*f0*t+phi)
+\end{lstlisting}
+Já um sinal complexo é escrito da forma:
+\begin{equation}
+\bar{x} (n) = A\exp (\omega n T + \phi) = A e^{\phi} e^{\omega n T}. \nonumber
+\end{equation}
+Como esperado: $x(n) = \operatorname{Re} \left[ \bar{x} (n)  \right]$. A transformada de Fourier Discreta (Eq. \ref{ksjmmmmw}) é então: $X(k) = \sum_{n=0}^{N-1} x(n)\exp(-2\pi i k n/N)$ onde $k = 0, 1, 2, ..., N-1$ é exatamente o índice da frequência. O resultado da transformada é um número complexo $X(k) = r e^{i \theta}$ e o módulo $r$ (também chamado de magnitude) retorna o gráfico da intensidade em função da frequência, mostrando qual frequência está contida no sinal $x(n)$. Já a fase tem uma interpretação física mais complicada. Dessa forma pode-se analisar sinais de áudio de instrumentos musicais por exemplo. Para ilustrar com exemplos aqui utilizamos o pacote desenvolvido pelo professor Xavier Serra (e colaboradores) da Universitat Pompeu Fabra em Barcelona (\url{https://www.upf.edu/web/mtg/sms-tools}) o qual mantém um curso \textit{on line} sobre processamento digital de áudio: \url{https://www.coursera.org/learn/audio-signal-processing} disponível na plataforma \textit{Coursera}. Trata-se de um curso completo com aulas, exemplos, exercícios além de todos os códigos estarem disponíveis. Todos os arquivos relacionados estão no Github do autor: \url{https://github.com/MTG/sms-tools}. Na figura \ref{spectrum_oboe} a análise do som de um oboé. Na parte de cima está o som original, no meio está a amplitude $r = \vert X(k) \vert$ da transformada e na parte de baixo está a fase $\theta$. Veja que na figura da amplitude pode-se ver quais frequências estão presentes no som. A mesma análise é feita para o som de um violino, apresentado na figura \ref{spectrum_violino}. Veja que as frequências são diferentes. 
+
+
+\begin{figure}[!h]
+\centering
+\subfigure{a)
+\includegraphics[width=3.0 in]{figuras/Fourier/spectrum_oboe.pdf}
+\label{spectrum_oboe}
+}
+\subfigure{b)
+\includegraphics[width=3.0 in]{figuras/Fourier/spectrum_violino.pdf}
+\label{spectrum_violino}
+}
+\caption[Transformada de Fourier do oboé e violino.]{ Análise do som de um instrumento musical. No gráfico de cima está o som original. No gráfico do meio está a amplitude da transformada de Fourier, mostrando as frequências. No gráfico de baixo está a fase. \subref{spectrum_oboe} Oboé. \subref{spectrum_violino} Violino. Fonte: \url{https://github.com/MTG/sms-tools}.}
+\end{figure}
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+
+\begin{problema}
+{\color{red}\Keyboard} Calcule a transformada rápida de Fourier da função $y(t) = \cos \omega t$ e faça o gráfico, como na figura \ref{grafico_FFT_sin2}.
+\end{problema}
+
+\begin{problema}
+{\color{red}\Keyboard} Refaça o gráfico da figura \ref{spectrum_oboe} com o som de outros dois instrumentos. Use alguns dos sons disponíveis no curso do Prof. Xavier Serra: \url{https://github.com/MTG/sms-tools/tree/master/sounds}.
+\end{problema}
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+

@@ -1,0 +1,691 @@
+\chapter{Funções especiais}  \label{capitulofuncoesespeciais}
+
+
+\begin{flushright}
+\begin{small}
+{\color{blue}\textit{
+Richard Gervais: There was a time that everything in the universe was once crunched into something smaller than an atom ...
+
+Stephen Colbert: But you dont know that. You're just believing Stephen Hawking and that's a matter of faith in his abilities. You dont know it yourself, you're accepting that because someone told you.
+
+RG: Well, yeah... But science is constantly proved all the time. If we take any fiction book and destroy it, in a thousand years' time that wouldn't come back just as it was. Whereas if we took every science book, every fact, and destroy them all, in a thousand years they'd all be back. Because all the same tests would give the same results.
+
+SC: That's good. That's really good.}}  \\
+\textbf{Stephen Colbert show.}
+\end{small}
+\end{flushright}
+
+\section{Funções de Bessel}
+
+
+
+Funções de Bessel aparecem em uma grande variedade de problemas físicos. Por exemplo a parte espacial da equação de Helmholtz e da equação de onda em coordenadas cilíndricas leva a funções de Bessel como soluções. Já as mesmas equações em coordenadas esféricas levam as chamadas funções de Bessel esféricas. Vibrações de uma superfície analisadas em coordenadas cilíndricas $R(r)e^{in\varphi}$ leva a funções de Bessel para $R(r)$ tendo o inteiro $n$ como parâmetro. A aproximação WKB, muito utilizada em mecânica quântica, também envolve funções de Bessel.
+
+Funções de Bessel na verdade é um nome genérico para um conjunto de funções. Há várias convenções diferentes utilizadas tanto para a notação quanto para a definição de algumas dessas funções. Para fins didáticos vamos adotar aqui a notação definida na tabela \ref{funcoesdebessel}.
+
+\begin{table}[h!]
+\setlength{\arrayrulewidth}{1.0pt}
+\centering
+\arrayrulecolor{blue}
+\renewcommand{\arraystretch}{2.0}% Spread rows out...
+\begin{tabular}{ c | c | c }
+\hline \hline
+Nome  & Primeiro tipo & Segundo tipo  \\
+\hline Função de Bessel &  $J_{\nu}$  & $Y_{\nu}$  \\
+\hline Função de Hankel &  $H_{\nu}^{(1)} = J_{\nu} + iY_{\nu}$  & $H_{\nu}^{(2)} = J_{\nu} -i Y_{\nu}$ \\
+\hline Função de Bessel modificada &  $I_{\nu}$  & $K_{\nu}$  \\
+\hline Função de Bessel esférica &  $j_{\nu}$  & $y_{\nu}$  \\
+\hline Função de Hankel esférica &  $h_{\nu}^{(1)} = j_{\nu} + iy_{\nu}$  & $h_{\nu}^{(2)} = j_{\nu} -i y_{\nu}$ \\
+\hline Função de Bessel esférica modificada &  $i_{\nu}$  & $k_{\nu}$  \\
+\hline
+\hline
+\end{tabular}
+\caption[Funções de Bessel]{Nomes dos diversos tipos de funções de Bessel. As funções da coluna do meio são do primeiro tipo e da coluna da direita do segundo tipo. Também é muito utilizado a notação $N_{\nu}$ e  $n_{\nu}$ no lugar de $Y_{\nu}$ e $y_{\nu}$.}
+\label{funcoesdebessel}
+\end{table}
+
+
+Há várias formas de se encontrar as funções de Bessel. Uma delas é a partir da equação diferencial
+\begin{equation}
+x^2 Z_{\nu}'' + x Z_{\nu}' + (x^2 - \nu^2) Z_{\nu} = 0, \label{eqdebesselgenerica}
+\end{equation}
+onde $\nu$ não precisa ser inteiro e $x$ é uma variável admensional\footnote{É comum usar $\nu$ como índice não inteiro e reservar $n$ para o índice inteiro.}. Assim, qualquer função $Z_{\nu}$ que satisfaça esta equação diferencial é chamada de função de Bessel. Se o argumento é $x=kr$ (comum em vários problemas de física) a equação fica:
+\begin{equation}
+r^2 \dfrac{d^2}{dr^2} Z_{\nu}(kr) + r \dfrac{d^2}{dr^2}Z_{\nu}(kr) + (k^2r^2 - \nu^2) Z_{\nu}(kr) = 0. \label{skwjwuiedjk}
+\end{equation}
+Um desses casos é equação de Helmholtz $\nabla^2\psi + k^2 \psi = 0$ escrita em coordenadas cilíndricas, que também resulta na equação acima.
+
+
+A equação diferencial de Bessel é de ordem 2, logo admite duas soluções LI. A primeira é a função de Bessel $J_n(x)$ e a segunda é chamada de função de Neumann, ou Bessel de segundo tipo:
+\begin{equation}
+Y_{\nu} = \dfrac{\cos (\nu \pi) J_{\nu} (x) - J_{-\nu} (x) }{\sin \nu \pi}
+\end{equation}
+Assim, a solução geral da equação de Bessel é:
+\begin{equation}
+Z_{\nu}(x) = A J_{\nu} (x) + B Y_{\nu} (x). \label{solbesseprimetipo}
+\end{equation}
+Na figura \ref{bessel_functions} está o gráfico com as primeiras funções $J_n$ e $Y_n$.
+
+
+
+
+
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=DarkGreen!75!black,title=Um pouco de história.]
+  \textbf{Friedrich Wilhelm Bessel}. Astrônomo alemão (1784-1846). Com 20 anos de idade, ele refez o cálculo da órbita do cometa Halley, o que valeu para ele um posto de trabalho em um observatório. Nesta época, Bessel desenvolveu as funções que leva seu nome em seu trabalho de refirnar cálculos astronômicos. Bessel fez também a primeira medida de paralaxe da estrela Cygni 61 (6 anos luz distante de nós) em 1838, provando de forma definitiva que a Terra está em movimento de translação em torno do Sol, de acordo com a teoria de Nicolau Copérnico. Bessel também calculou as irregularidades da órbita de Urano, o que contribuiu para a descoberta de Netuno por Leverrier e J. C. Adams, de acordo com a Mecânica Clássica de Newton.
+\end{tcolorbox}
+
+
+\begin{figure}[!h]
+\centering
+\subfigure{a)
+\includegraphics[width = 3.0 in]{figuras/fespeciais/bessel_functions.pdf}
+\label{bessel_functions} 
+}
+\subfigure{b)
+\includegraphics[width = 3.0 in]{figuras/fespeciais/spherical_bessel_functions.pdf}
+\label{spherical_bessel_functions}
+} 
+\caption{\subref{bessel_functions} Funções de Bessel $J_n(x)$ e $Y_n(x)$ para $n=1$, 2. \subref{spherical_bessel_functions} Funções de Bessel esférica $j_n(x)$ e $y_n(x)$ para $n=1$, 2.}
+\end{figure}
+
+
+
+\subsection{Solução em série}
+
+Vamos resolver a Eq. \ref{eqdebesselgenerica} por séries usando supondo $y(x) = \sum_{\lambda=0}^{\infty} a_{\lambda} x^{k+\lambda}$. Diferenciando e inserindo $y(x)$ na Eq. \ref{eqdebesselgenerica} temos:
+ \begin{equation}
+ \sum_{\lambda=0}^{\infty} a_{\lambda} (k+\lambda) (k+\lambda -1) x^{k+\lambda} +  \sum_{\lambda=0}^{\infty} a_{\lambda} (k+\lambda)  x^{k+\lambda} + \sum_{\lambda=0}^{\infty} a_{\lambda}  x^{k+\lambda + 2} - \sum_{\lambda=0}^{\infty} a_{\lambda} n^2 x^{k+\lambda} = 0. \label{eqcoefjslwkejppp}
+ \end{equation}
+ Resolver uma equação diferencial por séries consiste em encontrar os coeficientes $a_{\lambda}$ usando a Eq. \ref{eqcoefjslwkejppp}. Quando um polinômio é igual a zero, todos os seus coeficientes tem que ser zeros. Temos então que analisar todos os termos. Começamos com o primeiro, que consiste em $\lambda = 0$ (coeficiente de $x^0$). Calculando esse termo e igualando a zero temos:
+ \begin{equation}
+ a_0 [k(k-1) + k - n^2] = 0. \nonumber
+ \end{equation}
+ Porém, assumimos que $a_0 \neq 0$ logo resulta que $k^2 - n^2 = 0$. As soluções são $k = \pm n$.
+ 
+ Agora consideramos o termo $x^{k+1}$ e igualando seu coeficiente a zero obtemos $a_1(k+1-n)(k+1+n) = 0$. Porém essa equação não é satisfeita por $k = \pm n$, e temos então de impor $a_1=0$. O próximo termo é $x^{k+\lambda}$ com $\lambda = 2$, depois com $\lambda = 3$, e assim sucessivamente. Fazemos então $\lambda = j$ no primeiro, segundo e quarto termo da Eq. \ref{eqcoefjslwkejppp} e $\lambda = j-2$ no terceiro termo. Fazendo o coeficiente de $x^{k+j}$ igual a zero temos (veja problema \ref{capitulofuncoesespeciais}.\ref{prob1besselssd}):
+ \begin{equation}
+ a_j [(n+j)(n+j-1)+(n+j)-n^2] + a_{j-2} = 0. \label{coeficeienzeroxkj}
+\end{equation}  
+A relação de recorrência fica então:
+\begin{equation}
+a_j = -\dfrac{a_j}{(j+2)(2n+j+2)}.  \nonumber
+\end{equation}
+A relação de recorrência é mais útil em função de $a_0$:
+\begin{equation}
+a_{2p} = (-1)^p \dfrac{a_0 n!}{2^{2p} p! (n+p)!}. \label{relacorecorrenxibessel}
+\end{equation}
+Agora podemos obter a solução, inserindo os coeficientes na solução tentativa:
+\begin{eqnarray}
+y(x) &=& a_0 x^n \left[ 1 - \dfrac{n! x^2}{2^2 1! (n+1)!} + \dfrac{n! x^4}{2^4 2! (n+2)!} + ... \right] , \nonumber \\
+&=& a_0 2^n n! \sum_{j=0}^{\infty} \dfrac{(-1)^j}{j! (n+j)!} \left( \dfrac{x}{2} \right)^{n+2j}. \label{sseriefinalbessel} 
+\end{eqnarray}
+A menos da constante, a série da função de Bessel é escrita como:
+\begin{equation}
+J_n(x) = \sum_{s=0}^{\infty} \dfrac{(-1)^s}{s! (s+n)!} \left( \dfrac{x}{2} \right)^{n+2s}. \label{sserie2ddfinalbessel} 
+\end{equation}
+
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=4.2 in]{figuras/fespeciais/Bessel_Functions.png}
+%\label{Bessel_Functions}
+%\caption{Gráfico das funções de Bessel do primeiro tipo $J_n(x)$.}
+%\end{figure}
+
+
+\subsection{Outras funções} \label{ssublsjankehkk}
+
+Várias outras funções de Bessel podem ser definidas também. Por exemplo as funções de Hankel estão definidas na tabela \ref{funcoesdebessel}. A utilidade dessas funções reside em suas propriedades assintóticas, aplicadas por exemplo na propagação de ondas esféricas ou cilíndricas. Como $J_{\nu}$ e $Y_{\nu}$ formam um conjunto completo, as funções de Hankel não podem ser inteiramente novas, por isso elas são definidas em função de $J_{\nu}$ e $Y_{\nu}$.
+
+
+
+Dessas definições pode-se mostrar que:
+\begin{eqnarray}
+J_{\nu} (z) &=& \dfrac{1}{2} \left[ H_{\nu}^{(1)} (z) + H_{\nu}^{(2)} (z) \right], \nonumber \\ 
+Y_{\nu} (z) &=& \dfrac{1}{2i} \left[ H_{\nu}^{(1)} (z) - H_{\nu}^{(2)} (z) \right]. \nonumber
+\end{eqnarray}
+Temos também as seguintes propriedades:
+\begin{equation}
+H_{\nu}^{(1)} (z) = e^{-i\nu \pi} H_{-\nu}^{(1)} (z), \qquad H_{\nu}^{(2)} (z) = e^{i\nu \pi} H_{-\nu}^{(2)} (z). \nonumber
+\end{equation}
+Usando essas expressões pode-se mostrar que:
+\begin{equation}
+J_{-\nu} (z) = \dfrac{1}{2} \left[ e^{i\nu \pi} H_{\nu}^{(1)} (z) + e^{-i\nu \pi}H_{\nu}^{(2)} (z) \right]. \label{alskdjfkwiuwppp}
+\end{equation}
+
+Tem-se ainda as chamadas função de Bessel modificada. Comecemos com a equação de difusão:
+\begin{equation}
+\nabla^2\psi - k^2 \psi = 0 \nonumber
+\end{equation}
+que é muito parecida com a Eq. de Helmholtz. Fazendo o desenvolvimento análogo ao que levou a Eq. \ref{skwjwuiedjk} teremos:
+\begin{equation}
+\rho^2 \dfrac{d^2}{	d \rho^2} \Gamma_{\nu} (k\rho) + \rho \dfrac{d}{	d \rho} \Gamma_{\nu} (k\rho) - ( k^2 \rho^2 - \nu^2) \Gamma_{\nu} (k\rho) = 0 \label{eqzzzdkskanllll}
+\end{equation}
+A diferença é que o $+$ antes do parênteses virou $-$. Na prática, a Eq. de Helmholtz pode ser transformada na Eq. de difusão fazendo $k\rightarrow ik$, o que também leva a Eq. \ref{skwjwuiedjk} para a Eq. \ref{eqzzzdkskanllll} de forma que $\Gamma_{\nu} (k\rho) = Z_{\nu} (ik\rho)$ (veja Eq. \ref{solbesseprimetipo}). Ou seja, as soluções $\Gamma_{\nu} (k\rho)$ são funções de Bessel com argumento imaginário. Por convenção e conveniência, define-se então:
+\begin{equation}
+\Gamma_{\nu} (k\rho) = I_{\nu} (x)   \equiv  i^{-\nu} J_{\nu} (ix) \label{definifunImodi}
+\end{equation}
+onde fizemos $x = k\rho$. Dessa definição, podemos escrever as formas: 
+\begin{equation}
+I_{\nu} (x) = \exp \left( -\frac{1}{2}\nu \pi i \right)   J_{\nu} (xe^{i\pi/2}), \qquad
+I_{\nu} (x) = \sum_{s=0}^{\infty} \dfrac{1}{s! (s+\nu)! } \left( \dfrac{x}{2} \right)^{2s+\nu}.  \label{expreIdlkjmodifica}
+\end{equation}
+
+
+%\begin{eqnarray}
+%I_{\nu} (x)   = \exp \left( -\frac{1}{2}\nu \pi i \right)   J_{\nu} (xe^{i\pi/2}) \quad &\therefore& \quad  \nonumber  I_{\nu-1} (x)- I_{\nu+1} (x) = \dfrac{2\nu}{x}  I_{\nu} (x)  \\
+%I_{\nu} (x) = \sum_{s=0}^{\infty} \dfrac{1}{s! (s+\nu)! } \left( \dfrac{x}{2} \right)^{2s+\nu} \quad &\therefore& \quad I_{-\nu} (x) = \sum_{s=0}^{\infty} \dfrac{1}{s! (s-\nu)! } \left( \dfrac{x}{2} \right)^{2s-\nu}
+%\end{eqnarray}
+
+
+\subsection{Funções de Bessel esféricas}
+
+
+
+Quando a equação de Helmholtz é separada em coordenadas esféricas a parte radial fica da forma:
+\begin{equation}
+r^2 \dfrac{d^2R}{dr^2} + 2r \dfrac{dR}{dr}  + \left[  \kappa^2 r^2 - n(n+1) \right] R = 0 \label{edfdfdfdfdfd}
+\end{equation}
+$n(n+1)$ é uma constante de separação. Esta equação é semelhante mas não é a equação de Bessel. Se fizermos a separação:
+\begin{equation}
+R(\kappa r) = \dfrac{Z(\kappa r)}{\sqrt{\kappa r}}   \nonumber
+\end{equation}
+a Eq. (\ref{edfdfdfdfdfd}) fica:
+\begin{equation}
+r^2 \dfrac{d^2Z}{dr^2} + 2r \dfrac{dZ}{dr}  + \left[  \kappa^2 r^2 - \left( n+\frac{1}{2}\right)^2  \right] Z = 0   \label{lkjjhyuuioo}
+\end{equation}
+que é a equação de Bessel para $Z$ de ordem $n+\frac{1}{2}$ de forma que $Z(\kappa r) =J_{n+\frac{1}{2}} (\kappa r)$. Assim, formalmente, $Z(\kappa r)$ será uma combinação linear entre $J_{n+\frac{1}{2}}$ e $Y_{n+\frac{1}{2}}$. 
+\begin{equation}
+G(r) = Aj_n(\kappa r) + By_n(\kappa r) \label{soleqbesseesferica}
+\end{equation}
+as quais são definidas da seguinte forma:
+\begin{equation}
+j_n(x) = \sqrt{\dfrac{\pi}{2x}} J_{n+1/2} (x),  \qquad \qquad y_n(x) = \sqrt{\dfrac{\pi}{2x}} Y_{n+1/2} (x)   = (-1)^{n+1} \sqrt{\dfrac{\pi}{2x}} J_{-n-1/2} (x) \nonumber
+\end{equation}
+onde $n$ é um inteiro. Na figura \ref{spherical_bessel_functions} está o gráfico com as primeiras funções $j_n$ e $y_n$. Além disso, as função de Haenkel esféricas são definidas como:
+\begin{eqnarray}
+h_n^{(1)} &=& \sqrt{\dfrac{\pi}{2x}} H_{n+1/2}^{(1)} (x) = j_n(x) + i y_n(x), \nonumber \\
+h_n^{(2)} &=& \sqrt{\dfrac{\pi}{2x}} H_{n+1/2}^{(2)} (x) = j_n(x) - i y_n(x). \nonumber
+\end{eqnarray}
+
+Trabalhando as relações de recorrências e expressão em série de $J_n$ e $Y_n$, pode-se mostrar que as expressões em série de $j_n$ e $y_n$ são:
+\begin{eqnarray}
+j_n(x) &=& 2^n x^n \sum_{s=0}^{\infty} \dfrac{(-1)^s (s+n)!}{s! (2s+2n+1)} x^{2s}, \nonumber \\
+y_n(x) &=& \dfrac{(-1)^{n+1}}{2^n x^{n+1}} \sum_{s=0}^{\infty} \dfrac{(-1)^s (s-n)!}{s! (2s-2n)} x^{2s}. \nonumber 
+\end{eqnarray}
+
+Já as relações de recorrência são:
+\begin{eqnarray}
+\dfrac{d}{dx} \left[ x^{n+1} f_n(x) \right] &=& x^{n+1} f_{n-1}(x), \nonumber \\
+\dfrac{d}{dx} \left[ x^{-n} f_n(x) \right] &=& -x^{-n} f_{n+1}(x), \nonumber 
+\end{eqnarray}
+onde $f_n$ pode ser $j_n$, $y_n$, $h_n^{(1)}$ e $h_n^{(2)}$. Usando essas relações, pode-se provar por indução matemática que:
+\begin{eqnarray}
+j_n(x) &=& (-1)^n x^n \left( \dfrac{1}{x} \dfrac{d}{dx} \right)^n \left( \dfrac{\sin x}{x}\right), \label{proindjnslkj} \\  
+y_n(x) &=& -(-1)^n x^n \left( \dfrac{1}{x} \dfrac{d}{dx} \right)^n \left( \dfrac{\cos x}{x}\right), \label{prssndynslkj} \\  
+h_n^{(1)}(x) &=& -i(-1)^n x^n \left( \dfrac{1}{x} \dfrac{d}{dx} \right)^n \left( \dfrac{e^{ix}}{x}\right), \label{pkskndh1nslkj} \\  
+h_n^{(2)}(x) &=& i(-1)^n x^n \left( \dfrac{1}{x} \dfrac{d}{dx} \right)^n \left( \dfrac{e^{-ix}}{x}\right). \label{pkndh2nslkj}   
+\end{eqnarray}
+
+\begin{exemplo} \label{exeesfeparconfiinfin}
+\textbf{Partícula em uma esfera}. Vamos considerar a descrição quântica de uma partícula confinada em uma esfera de raio $a$. O potencial que a esfera sente é:
+\begin{equation}
+V(r) = \left\{
+\begin{array}{rl}
+0 & \text{se } r \leq a  \\
+\\
+ \infty& \text{se } r > a
+\end{array} 
+ \right. \nonumber
+\end{equation}
+As condições de contorno são: (i) $\psi ( r\leq a)$ deve ser finito e (ii) $\psi (a) = 0$. Encontre o valor mínimo da energia $E$ para o qual há uma solução válida da Eq. de Schrodinger.
+\tcblower
+Como o potencial só depende da coordenada esférica $r$, podemos desprezar a dependência angular. Esta partícula deve obedecer a Eq. de Schrodinger\footnote{$\hbar = h/(2\pi)$ e $m$ é a massa da partícula.} independente do tempo. Para $r \leq a$ temos:
+\begin{equation}
+-\dfrac{\hbar^2}{2m} \nabla^2 \psi = E \psi, \label{eqschrodparesferinfinito}
+\end{equation}
+logo
+\begin{equation}
+\dfrac{d^2R}{dr^2} + \dfrac{2}{3} \dfrac{dR}{dr} + \left[ k^2 - \dfrac{n(n+1)}{r^2} \right] R = 0, \nonumber
+\end{equation}
+onde $k^2 = 2mE/\hbar^2$. Veja que essa equação é idêntica a Eq. \ref{edfdfdfdfdfd} cujas soluções são da forma da Eq. \ref{soleqbesseesferica}. Porém, como queremos o valor mínimo de energia vamos usar $n=0$ de forma que a solução para nosso problema é:
+\begin{equation}
+R(r) = Aj_0 (kr) + B y_0 (kr). \label{solbessesfepocoinfi}
+\end{equation}
+Porém, na origem a função $y_n$ diverge, então ela deve ser descartada. Para satisfazer a condição de contorno (ii) temos que $j_0(ka)=0$. Isto limita os valores possíveis de $k$, consequentemente, os valores de energia $E$ também ficam limitados a valores discretos. Ou seja, a energia é quantizada. O menor valor para os zeros de $j_0$ é $\pi$, logo $k_1a=\pi$ o que implica:
+\begin{equation}
+E_1 = \dfrac{h^2}{8ma^2}, \nonumber
+\end{equation}
+como sendo o menor valor possível para a energia. Veja que o resultado é semelhante a energia mínima de uma partícula confinada em uma caixa retangular de lados $a$, $b$ e $c$: $E_1 = (h^2/8m)(1/a^2+1/b^2+1/c^2)$.
+\end{exemplo}
+
+
+\subsubsection{Funções de Bessel esféricas modificadas}
+
+
+Da mesma forma que existem as funções de Bessel modificadas $I_{\nu}$ e $K_{\nu}$ (veja problema \ref{capitulofuncoesespeciais}.\ref{profunbessmodisegun}), existem também as funções de Bessel esféricas modificadas $i_{\nu}$ e $k_{\nu}$. A equação diferencial que as definem é:
+\begin{equation}
+r^2 \dfrac{d^2R}{dr^2} + 2r \dfrac{dR}{dr}  - \left[  \kappa^2 r^2 + n(n+1) \right] R = 0 \label{edf22222fdfd}
+\end{equation}
+Repare que esta equação difere da Eq. \ref{edfdfdfdfdfd} apenas pelo sinal de $\kappa^2 r^2$. Seguindo a analogia, as soluções desta equação são definidas como:
+\begin{equation}
+i_n(x) = \sqrt{\dfrac{\pi}{2x}} I_{n+1/2} (x),  \qquad \qquad k_n(x) = \sqrt{\dfrac{\pi}{2x}} K_{n+1/2} (x) \nonumber
+\end{equation}
+
+
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+    
+
+
+\begin{problema} \label{prob1besselssd}
+a) Obtenha a Eq. \ref{coeficeienzeroxkj}. b) Obtenha a relação de recorrência \ref{relacorecorrenxibessel}. c) Obtenha a expressão final da série \ref{sseriefinalbessel}.
+\end{problema}
+
+
+\begin{problema}
+Mostre as seguintes relações de recorrência:
+\begin{equation}
+\dfrac{d}{dx} \left[ x^{-n} J_n(x) \right] = -x^{-n} J_{n+1} (x), \qquad \qquad \dfrac{n}{x}J_n(x) - J_{n+1}(x) = J_n'(x). \nonumber
+\end{equation}
+Dica: faça $s \rightarrow s-1$ na Eq. \ref{sserie2ddfinalbessel} para $J_{n+1}(x)$.
+\end{problema}
+
+\begin{problema}
+Mostre que a) $Y_{-n} (x) = (-1)^n Y_n(x)$ e b) $Y_0'(x) = -Y_1(x)$.
+\end{problema}
+
+
+\begin{problema}
+Mostre que em coordenadas cilíndricas, a Eq. de Helmholtz $\nabla^2\psi + k^2 \psi = 0$ se reduz a equação de Bessel. A Eq. de Helmholtz é a parte espacial da equação de onda.
+\end{problema}
+
+\begin{problema}
+a) Obtenha a Eq. \ref{eqzzzdkskanllll} a partir da Eq. de difusão. b) Mostre que esta equação pode ser obtida fazendo $k\rightarrow ik$ na Eq. de Helmholtz.
+\end{problema}
+
+\begin{problema}
+a) Mostre que as expressões da Eq. \ref{expreIdlkjmodifica} são compatíveis com a definição da Eq. \ref{definifunImodi}.
+b) Mostre também que:
+\begin{equation}
+ I_{-\nu} (x) = \sum_{s=0}^{\infty} \dfrac{1}{s! (s-\nu)! } \left( \dfrac{x}{2} \right)^{2s-\nu}
+\end{equation}
+\end{problema}
+
+\begin{problema} \label{profunbessmodisegun}
+A Eq. \ref{eqzzzdkskanllll} é de segunda ordem e aceita uma segunda solução independente além de $I_{\nu}(x)$. A flexibilidade é grande e assim a definição dessa função é uma questão de conveniência. Uma forma de se definir é:
+\begin{equation}
+K_{\nu}(x) \equiv \dfrac{\pi}{2} i^{\nu+1} H_{\nu}^{(1)} (ix) = \dfrac{\pi}{2} i^{\nu+1} \left[ J_{\nu} (ix) + i N_{\nu} (ix) \right]. \nonumber 
+\end{equation}
+$I_{\nu}(x)$ e $K_{\nu}(x)$ são as funções de Bessel modificadas do primeiro e segundo tipo. a) Mostre que $K_{\nu}(x)$ é real se $x$ for real. b) Mostre que pode-se escrever também:
+\begin{equation}
+K_{\nu}(x) = \dfrac{\pi}{2} \dfrac{I_{-\nu}(x)-I_{\nu}(x)}{\sin (\nu \pi)}. \nonumber
+\end{equation}
+\end{problema}
+
+\begin{problema} \label{rprofunbessesfern0e1}
+Calcule as funções de Bess esféricas $j_n$ $y_n$, $h^{(1)}$ e $h^{(2)}$ para $n=$ 0 e 1.
+\end{problema}
+
+\begin{problema}
+$\bigstar$ Mostre que:
+\begin{eqnarray}
+\cos x &=& J_0(x) + 2\sum_{n=1}^{\infty} (-1)^n J_{2n} (x), \nonumber \\
+\sin x &=&  2\sum_{n=1}^{\infty} (-1)^{n+1} J_{2n+1} (x). \nonumber
+\end{eqnarray}
+\end{problema}
+
+\begin{problema}
+$\bigstar$ Deduza a Eq. \ref{proindjnslkj}. b) Deduza a Eq. \ref{prssndynslkj}.
+\end{problema}
+
+
+\begin{problema}
+$\bigstar$ Deduza a Eq. \ref{pkskndh1nslkj}. b) Deduza a Eq. \ref{pkndh2nslkj}.
+\end{problema}
+
+\begin{problema}
+$\bigstar$ Deduza a Eq. \ref{alskdjfkwiuwppp}.
+\end{problema}
+
+
+
+
+\begin{problema}
+$\bigstar$ Deduza a relação de completeza da função de Bessel esférica:
+\begin{equation}
+\int_0^{+\infty} j_n(ar) j_n(br) r^2 dr = \dfrac{\pi}{2a^2} \delta (a-b). \nonumber
+\end{equation}
+Dica: P. Ugincius, \textit{Am. J. Phys.} 40, 1690 (1972).
+\end{problema}
+
+
+\begin{problema}
+\textbf{Funções de Bessel esféricas modificadas}.Mostre que $i_n(x)$ e $k_n(x)$ satisfazem a Eq. \ref{edf22222fdfd}.
+\end{problema}
+
+\begin{problema}
+Deduza as seguintes relações de recorrência:
+\begin{eqnarray}
+i_{n-1}(x) - i_{n+1}(x) = \dfrac{2n+1}{x}i_n(x) \quad &\therefore&  \quad k_{n-1}(x) - k_{n+1}(x) = -\dfrac{2n+1}{x}k_n(x) \nonumber \\
+\dfrac{d}{dx} i_n(x) &=& \dfrac{1}{2n+1} \left[  ni_{n-1}(x) +(n+1)i_{n+1}(x) \right]  \nonumber  \\
+\dfrac{d}{dx} k_n(x) &=& -\dfrac{1}{2n+1} \left[  nk_{n-1}(x) +(n+1)k_{n+1}(x) \right]  \nonumber  
+\end{eqnarray}
+\end{problema}
+
+
+\begin{problema}
+$\bigstar \bigstar$ Uma função $\mathscr{H}$ é chamada de cilíndrica quando ela satisfaz as seguintes propriedades:
+\begin{eqnarray}
+\mathscr{H}_{\nu -1} (z) + \mathscr{H}_{\nu +1} (z) &=& \dfrac{2\nu}{z}  \mathscr{H} (z), \nonumber \\
+\mathscr{H}_{\nu -1} (z) - \mathscr{H}_{\nu +1} (z) &=& 2\dfrac{d\mathscr{H}}{dz}. \nonumber
+\end{eqnarray}
+onde $\nu$ e $z$ são números complexos. Prove que as funções de Bessel $J_n$, $Y_n$, $H_n^{(1)}$, $H_n^{(2)}$ são funções cilíndricas\footnote{Dica: G. N. Watson \textit{A Treatise on the Theory of the Bessel Functions}, Cambridge University Press (1944), pág. 82.}.
+\end{problema}
+
+\begin{problema}
+$\bigstar \bigstar$ Seja:
+\begin{equation}
+\int z^{\nu + 1} f(z) \mathscr{M}_{\nu} (z) dz = z^{\nu + 1} \left[ A(z) \mathscr{M}_{\nu} (z) + B(z) \mathscr{M}_{\nu+1} (z) \right], \nonumber
+\end{equation}
+onde $A(z)$ e $B(z)$ são coeficientes e $\mathscr{M}_{\nu} (z)$ é uma função cilíndrica, ou seja, pode ser $J_n$, $Y_n$, $H_n^{(1)}$, $H_n^{(2)}$ ou uma combinação linear dessas funções. Mostre que\footnote{Dica: G. N. Watson \textit{A Treatise on the Theory of the Bessel Functions}, Cambridge University Press (1944), pág. 132. Este resultado foi obtido primeiramente em 1868.}
+\begin{equation}
+f(z) = B''(z) + \dfrac{2\nu + 1}{z} B'(z) + B(z). \nonumber 
+\end{equation}
+\end{problema}
+
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\section{Polinômios de Legendre}
+
+Polinômios de Legendre são funções que aparecem em diversos problemas de física, por exemplo, nos harmônios esféricos e expansão do potencial elétrico e gravitacional e satisfazem a seguinte equação diferencial:
+\begin{equation}
+\dfrac{d}{dx} \left[ (1-x^2) \dfrac{dP}{dx} \right] + n(n+1)P = 0. \label{eqdiferedefinpolilegendre}
+\end{equation}
+Em física, é comum encontrar esta equação em termos de $\theta$, sendo $x = \cos \theta$. Nesta forma temos:
+\begin{equation}
+\dfrac{1}{\sin \theta}\dfrac{d}{d\theta} \left[ \sin \theta \dfrac{dP}{d\theta} \right] + n(n+1)P = 0. \nonumber
+\end{equation}
+As soluções dessa equação podem ser encontradas de diversas formas. Uma delas é através da fórmula de Rodrigues\footnote{O fator $\dfrac{1}{2^l l!}$ foi escolhido para que $P_l(1) = 1$.}:
+\begin{equation}
+P_l(x) = \dfrac{1}{2^l l!} \left( \dfrac{d}{dx} \right)^l (x^2 - 1)^l. \label{polinolegendrodires}
+\end{equation}
+Veja que $P_l(x)$ é um polinômio de ordem $l$ em $x$ no qual $l$ é um inteiro não negativo (inclui o zero). Os primeiros polinômios de Legendre são:
+\begin{eqnarray}
+P_0 = 1, \qquad \qquad P_1 = x, \qquad \qquad P_2 = \frac{1}{2}(3x^2 - 1), \label{pripolilegensr} \\
+P_3 = \frac{1}{2} ( 5x^3 - 3x), \qquad \qquad P_4 = \frac{1}{8} ( 35x^4 - 30x + 3). \nonumber
+\end{eqnarray}
+
+Outra forma de encontrar esses polinômios é usar a função geradora:
+\begin{equation}
+\Phi(x,h) = \dfrac{1}{\sqrt{1-2xh + h^2}}, \qquad \vert h \vert < 1. \label{funcaogeradorporllegende}
+\end{equation}
+A propriedade importante dessa função é que:
+\begin{equation}
+\Phi(x,h) = P_0(x) +hP_1(x) + h^2P_2(x)+ \cdot \cdot \cdot = \sum_{l=0}^{\infty} h^l P_l(x). \label{fungerapolegenepxpans}
+\end{equation}
+A prova de que os $P_l$ dessa equação são de fato os polinômios de Legendre envolve duas coisas: 1) mostrar que $P_l(1)=1$ e que esses $P_l$ satisfazem a equação de Legendre. 
+
+A função geradora é muito útil na obteção de relações de recorrência. Alguns exemplos são:
+\begin{eqnarray}
+lP_l(x) &=& (2l-1)xP_{l-1}(x) - (l-1)P_{l-2}(x), \nonumber \\
+lP_l(x) &=& xP_l'(x) - P_{l-1}'(x), \label{relrecorenciaPlegen} \\
+lP_{l-1}(x) &=& P_l'(x) -x P_{l-1}'(x). \nonumber
+\end{eqnarray}
+
+\subsection{Potencial eletrostático}
+
+Uma das aplicações de Polinômios de Legendre é na aproximação do potencial Coulombiano gerado por uma distribuição de cargas elétrica. Consideremos a figura que mostra uma distribuição arbitrária onde cada elemento de carga é indicado pelo vetor $\textbf{r}'$. Queremos calcular o potencial na posição $\textbf{r}$ no caso em que $r << r'$, ou seja, quando queremos o potencial muito longe da distribuição de carga\footnote{Mas não muito longe onde o potencial é zero.}. Esta aproximação é amplamente aplicada em situações onde a distribuição de carga ocupa um pequeno volume.
+
+O potencial de uma distribuição de cargas $\rho$ é:
+\begin{equation}
+V(\textbf{r}) = \dfrac{1}{4\pi \epsilon_0} \int \dfrac{1}{\rcurs} \rho(\textbf{r}') d\tau', \nonumber
+\end{equation}
+onde $\brcurs = \textbf{r} - \textbf{r}'$ é vetor separação e $r'$ é a variável de integração. Da lei dos cossenos:
+\begin{equation}
+\rcurs = r^2 + (r')^2 - 2rr' \cos \theta = r^2 \left[ 1 + \left( \dfrac{r'}{r} \right)^2 - 2 \left( \dfrac{r'}{r} \right) \cos \theta \right], \nonumber  
+\end{equation}
+onde $\theta$ é o ângulo entre $\textbf{r}$ e $\textbf{r}'$. Dado a aproximação que estamos fazendo podemos escrever
+\begin{equation}
+\rcurs = r \sqrt{1 + \varepsilon}, \qquad \varepsilon =  \left( \dfrac{r'}{r} \right) \left( \dfrac{r'}{r} - 2 \cos \theta \right). \nonumber
+\end{equation}
+Assim, quando $r>>r'$ temos $\varepsilon << 1$. Usando a expansão binomial:
+\begin{equation}
+\dfrac{1}{\rcurs} = \dfrac{1}{r \sqrt{1+ \varepsilon}} = \dfrac{1}{r} \left( 1 - \dfrac{1}{2}\varepsilon + \dfrac{3}{8}\varepsilon^2 - \dfrac{5}{16}\varepsilon^3 + \cdot \cdot \cdot \right). \nonumber  
+\end{equation}
+Substituindo de volta a expressão de $\varepsilon$:
+\begin{eqnarray}
+\dfrac{1}{\rcurs} &=& \dfrac{1}{r} \left[ 1 - \dfrac{1}{2} \left( \dfrac{r'}{r} \right) \left( \dfrac{r'}{r} - 2 \cos \theta \right) +\dfrac{3}{8} \left( \dfrac{r'}{r} \right)^2 \left( \dfrac{r'}{r} - 2 \cos \theta \right)^2 - \dfrac{5}{16} \left( \dfrac{r'}{r} \right)^3 \left( \dfrac{r'}{r} - 2 \cos \theta \right)^3 \cdot \cdot \cdot \right], \nonumber \\
+&=&  \dfrac{1}{r} \left[ 1 + \left( \dfrac{r'}{r} \right) \cos \theta + \left( \dfrac{r'}{r} \right)^2 \left( \dfrac{3\cos^2 \theta - 1}{2} \right) + \left( \dfrac{r'}{r} \right)^3 \left( \dfrac{5\cos^3 \theta - 3\cos \theta}{2} \right) + \cdot \cdot \cdot \right]. \nonumber
+\end{eqnarray}
+Analisando os coeficientes na última expressão vemos que eles são na verdade os Polinômios de Legendre:
+\begin{equation}
+\dfrac{1}{\rcurs} = \dfrac{1}{r} \sum_{n=0}^{\infty} \left( \dfrac{r'}{r} \right)^n P_n(\cos \theta). \nonumber
+\end{equation} 
+Agora podemos montar a expressão final para o potencial:
+\begin{equation}
+V(\textbf{r}) = \dfrac{1}{4\pi \epsilon_0} \sum_{n=0}^{\infty} \dfrac{1}{r^{n+1}} \int (r')^n P_n(\cos \theta) \rho (\textbf{r}') d\tau'. \nonumber
+\end{equation}
+Veja que $r$ sai da integral pois não depende de $r'$. Esta expressão para o potencial é conhecida como expansão multipolar. O primeiro termo $n=0$ é a contribuição do monopolo (decai com $1/r$). O segundo termo $n=1$ é o dipolo, o terceiro $n=3$ é o quadrupolo, o quarto o octopolo, e assim sucessivamente. Esta expansão é exata (somatório até o infinito) porém sua utilidade prática está em considerar apenas alguns termos, suficiente para que o resultado seja dentro do desejado.
+
+
+
+\subsection{Polinômios associados de Legendre}
+
+Uma outra função que também aparece em física é a solução da equação diferencial
+\begin{equation}
+(1-x^2) y'' - 2xy' + \left[ l(l+1) - \dfrac{m^2}{1-x^2} \right] y = 0 \label{eqdiferpoliassoclegend}
+\end{equation}
+que pode ser escrita como:
+\begin{equation}
+P_l^m (x) = (1-x^2)^{m/2} \dfrac{d^m}{dx^m} P_l(x). \label{defipoliassocilegendr}
+\end{equation} 
+Assim, as funções $P_l^m (x)$ receberam o nome de polinômios associados de Legendre.
+
+\begin{SCfigure}
+ \centering
+\includegraphics[width=3.0 in]{figuras/fespeciais/potencial_expansao.png}
+\caption{Potencial de uma carga pontual calculada em uma posição arbitrária.}
+\label{potencial_expansao}
+\end{SCfigure} 
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+    
+
+
+\begin{problema} 
+a) Mostre que no caso geral 3D, considerando $r_1>r_2$ e usando a Lei dos cossenos, podemos escrever:
+\begin{equation}
+\dfrac{1}{\vert \textbf{r}_1 - \textbf{r}_2 \vert}  = \dfrac{1}{r_1} \left[ 1 + \left( \dfrac{r_2}{r_1} \right)^2 - 2\left( \dfrac{r_2}{r_1} \right) \cos \theta \right]^{-1/2}. \nonumber  
+\end{equation}
+Dica: coloque em evidência $r_1 = \vert \textbf{r}_1 \vert$.
+b) Usando a função geradora $g(t,x)$, mostre que:
+\begin{equation}
+\dfrac{1}{\vert \textbf{r}_1 - \textbf{r}_2 \vert}  = \dfrac{1}{r_1} \sum_{n=0}^{+\infty} P_n(\cos \theta) \left( \dfrac{r_2}{r_1} \right)^n . \nonumber  
+\end{equation}
+\end{problema}
+
+\begin{problema}
+a) Seja uma função expandida em polinômios de Legendre: $f(x) = \sum a_n P_n(x)$. Mostre que:
+\begin{equation}
+\int_{-1}^{+1} \left[ f(x) \right]^2 dx = \sum_{n=0}^{+\infty} \dfrac{2a_n^2}{2n+1}. \nonumber 
+\end{equation}
+b) Seja $f(x) = \arcsin x$. Calcule os coeficientes $a_n$ da expansão.
+\end{problema}
+
+\begin{problema}
+Considerando $r>n$, mostre que:
+\begin{equation}
+\int_{-1}^{+1} x^{2r} P_{2n}(x) dx = \dfrac{2^{2n+1} (2r)!(r+n!)}{(2r+2n+1)!(r-n)!}. \nonumber
+\end{equation}
+\end{problema}
+
+
+\begin{problema}
+Considere $\alpha=2xh -h^2$ na função geradora $\Phi(x,h)$ da Eq. \ref{funcaogeradorporllegende}. Expanda $(1-\alpha)^{-1/2}$ em potências de $\alpha$ e depois substitua de volta $\alpha=2xh -h^2$. Dessa forma, recupere os primeiros termos da expansão da Eq. \ref{fungerapolegenepxpans}.
+ \end{problema}
+ 
+ 
+ \begin{problema}
+ Uma esfera de raio $R$ centrada na origem possui uma densidade de carga elétrica dada por:
+ \begin{equation}
+ \rho(r,\theta) = k \dfrac{R}{r^2} (R-3r) \cos \theta,
+ \end{equation}
+ onde $k$ é uma constante. Encontre o primeiro termo diferente de zero da expansão multipolar para o potencial ao longo do eixo $z$.
+ \end{problema}
+
+
+
+\begin{problema}
+Usando $x = \cos \theta$ mostre que a Eq. \ref{eqdiferpoliassoclegend} pode ser escrita como:
+\begin{equation}
+\dfrac{1}{\sin \theta} \dfrac{d}{d \theta} \left( \sin \theta \dfrac{dy}{d \theta} \right) + \left[ l(l+1) - \dfrac{m^2}{\sin^2 \theta} \right] y = 0. \nonumber
+\end{equation}
+\end{problema}
+
+
+\begin{problema}
+Mostre que a Eq. \ref{defipoliassocilegendr} pode ser escrita como:
+\begin{equation}
+P_l^m (x) = \dfrac{(1-x^2)^{m/2}}{2^l l!} \dfrac{d^{l+m}}{dx^{l+m}} (x^2-1)^l.
+\end{equation}
+Dica: use a fórmula de Rodrigues.
+\end{problema}
+
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\section{Conjunto completo}
+
+Dois vetores são ditos ortogonais se um é perpendicular ao outro: $\textbf{A} \cdot \textbf{B} = 0$. Em um espaço de $n$ dimensões essa equação fica\footnote{Usamos $x_1=x$, $x_2=y$, $x_3=z$, $x_4=w$, ...} $\sum_i^n A_i B_i = 0$. Esse mesmo conceito de ortogonalidade pode ser aplicado para funções onde o somatório é trocado por uma integral e o número de dimensões se converte em um intervalo. A definição é: duas funções $A(x)$ e $B(x)$ são ortogonais em um intervalo $(a,b)$ se
+\begin{equation}
+\int_a^b A^*(x) B(x) dx = 0, \nonumber
+\end{equation}
+onde $A^*$ é o complexo conjugado de $A$. No caso de funções reais o complexo conjugado é a própria função.
+
+Suponha agora que tenhamos um conjunto de funções $A_n(x)$ com $n=1,2,3,...$. Esse conjunto será ortogonal se:
+\begin{equation}
+\int_a^b A_n^*(x) A_m(x) dx = \left\{
+\begin{array}{rl}
+ 0& \text{se  } n \neq m  \\
+\\
+ C & \text{se  } n = m
+\end{array} 
+\right. \nonumber
+\end{equation}
+onde $C \neq 0$ é uma constante diferente de zero. No caso de $C=1$ temos que o conjunto é normalizado, além de ser ortogonal. Nesse caso é chamado de conjunto ortogonal. Essa constante é exatamente a constante de normalização já que a função definida como $B(x) = A(x)/C$ terá módulo 1. Veja que essa definição segue a analogia com o caso de vetores onde o módulo é $A^2 = \textbf{A} \cdot \textbf{A}$.
+
+
+
+\subsection{Polinômios de Legendre}
+
+
+Os polinômios de Legendre formam um conjunto ortogonal. Para construir a relação de ortogonalidade vamos primeiro mostrar que a integral em diferentes polinômios é zero. Escrevemos a Eq. \ref{eqdiferedefinpolilegendre} para $P_n$ e multiplicamos por $P_m$. Depois fazemos o contrário: escrevemos a mesma equação para $P_m$ e multiplicamos por $P_n$. Por fim subtraimos uma da outra:
+\begin{equation}
+P_m \dfrac{d}{dx} \left[ (1-x^2)P_n' \right] -P_n \dfrac{d}{dx} \left[ (1-x^2)P_m' \right] + \left[ n(n+1)-m(m+1)\right] P_nP_m=0. \label{wowiwuwjwnmmzzzzz}
+\end{equation}
+Os dois primeiros termos são na verdade a derivada de um termo só, logo:
+\begin{equation}
+ \dfrac{d}{dx} \left[ (1-x^2) (P_m P_n' - P_nP_m') \right] + \left[ n(n+1)-m(m+1)\right] P_nP_m=0. \nonumber
+\end{equation}
+Integrando de -1 a 1:
+\begin{equation}
+ (1-x^2) (P_m P_n' - P_nP_m')\bigg\rvert_{-1}^1  + \left[ n(n+1)-m(m+1)\right] \int_{-1}^1 P_nP_m=0. \nonumber
+\end{equation}
+Porém temos que $1-x^2=0$ para $x=\pm 1$, o que zera o termo da esquerda. Sobra só o termo da direita. Mas $n(n+1)-m(m+1)  \neq 0$ se $n \neq m$. Logo neste caso a integral deve ser zero:
+\begin{equation}
+ \int_{-1}^1 P_nP_m=0, \qquad n \neq m. \label{ortognoaPlegend}
+\end{equation}
+Este resultado mostra que $P_n$ forma um conjunto ortogonal.
+
+Agora precisamos calcular o módulo de $P_l$, que é o resultado da integral de superposição quando $n=m$. Multiplicando a relação de recorrência da Eq. \ref{relrecorenciaPlegen} por $P_l(x)$ e integrando temos:
+\begin{equation}
+l\int_{-1}^1 \left[ P_l(x) \right]^2 dx =  \int_{-1}^1 x P_l(x) P_l'(x) dx - \int_{-1}^1 P_l(x) P_{l-1}'(x) dx. \label{sskwjwnwmmmmpp} 
+\end{equation} 
+A última integral é zero (dica: Eq. \ref{ortognoaPlegend}) e a integral do meio pode ser efetuada por partes:
+\begin{equation}
+\int_{-1}^1 x P_l(x) P_l'(x) dx  = \dfrac{x}{2} \left[ P_l(x) \right]^2\bigg\rvert_{-1}^1 - \frac{1}{2} \int_{-1}^1 \left[ P_l(x) \right]^2 dx = 1 - \frac{1}{2} \int_{-1}^1 \left[ P_l(x) \right]^2 dx. \nonumber 
+\end{equation} 
+Substituindo esse resultado de volta na Eq. \ref{sskwjwnwmmmmpp} e isolando a integral temos que:
+\begin{equation}
+\int_{-1}^1 \left[ P_l(x) \right]^2 dx = \dfrac{2}{2l+1}. \nonumber
+\end{equation}
+Agora podemos montar a relação final de ortogonalidade dos polinômios de Legendre:
+\begin{equation}
+ \int_{-1}^1 P_n (x) P_m  (x) dx  = \left\{
+\begin{array}{rl}
+ 0& \text{se  } n \neq m  \\
+\\
+ \dfrac{2}{2n+1}& \text{se  } n = m
+\end{array} 
+\right. \nonumber
+\end{equation}
+É muito utilizado em física $P_n(x)$ com $x = \cos \theta$. Neste caso:
+\begin{equation}
+ \int_0^{\pi} P_n  (\cos \theta ) P_m  (\cos \theta ) \sin \theta d\theta  = \left\{
+\begin{array}{rl}
+ 0& \text{se  } n \neq m  \\
+\\
+ \dfrac{2}{2n+1}& \text{se  } n = m
+\end{array} 
+\right. \label{pollegendconort}
+\end{equation}
+
+Da mesma forma os polinômios associados de Legendre também formam um conjunto ortogonal:
+\begin{equation}
+ \int_{-1}^1 P_l^m (x) P_n^m (x) =0, \qquad l \neq n. \nonumber
+ \end{equation}
+ 
+ \subsection{Funções de Bessel}
+
+As funções de Bessel também formam um conjunto ortogonal, apesar de um pouco diferente do esperado. Por exemplo poderia se esperar que $\int J_p(x) J_q(x) dx$ fosse zero para $p \neq q$ e diferente de zero para $p=q$. Mas esse não é o caso. 
+
+Primeiramente, vamos reescrever a Eq. \ref{eqdebesselgenerica} como $x(xy')' + (x^2 - p^2) y = 0$, cuja solução é $y=J_p(x)$. Pode-se então mostrar que $J_p(ax)$ é soluçao de $x(xy')' + (a^2 x^2 -p^2) y = 0$, onde $a$ é um zero da função: $J_p(a) = 0$. Seja $u = J_p(ax)$ e $v = J_p(bx)$ por simplicidade, que são soluções do sistema:
+\begin{equation}
+x(xu')' + (a^2 x^2 -p^2) u = 0, \qquad x(xv')' + (b^2 x^2 -p^2) v = 0, \nonumber 
+\end{equation}
+considerando também $J_p(b)=0$. Multiplicando a equação em $u$ por $v$ e a equação em $v$ por $u$ e subtraindo uma da outra temos\footnote{Semelhante ao que fizemos para obter a Eq. \ref{wowiwuwjwnmmzzzzz}.}:
+\begin{equation}
+v(xu')' - u (xv')' + (a^2 - b^2) xuv = 0. \label{sowiwuwylllll}
+\end{equation}
+Porém, repare que:
+\begin{equation}
+\dfrac{d}{dx} (vxu' - uxv') = v(xu')' - u (xv')'. \nonumber 
+\end{equation} 
+Usando isso e integrando a Eq. \ref{sowiwuwylllll} temos:
+\begin{equation}
+(vxu' - uxv')\bigg\rvert_0^1 + (a^2 - b^2) \int_0^1 xuv dx = 0. \nonumber
+\end{equation}
+O primeiro termo avaliado em zero é zero ($u$ e $v$ são finitos) e em 1 também é zero já que $u(1) = J_p(a) =0$ e $v(1) = J_p(b) =0$. Resta então apenas o segundo termo:
+\begin{equation}
+(a^2 - b^2) \int_0^1 xJ_p(ax)J_p(bx) dx = 0. \nonumber
+\end{equation} 
+Se $a \neq b$, obrigatoriamente temos que a integral é zero! Isso mostra as funções de Bessel formam um conjunto ortogonal. A relação final de ortogonalidade é: 
+\begin{equation}
+\int_0^1 xJ_p (a x) J_p (b x) dx = \left\{
+\begin{array}{rl}
+ 0& \text{se  } a \neq b  \\
+\\
+ \frac{1}{2} J_{p+1}^2 (a) & \text{se  } a = b
+\end{array} 
+\right. \label{conjcomplfubessel}
+\end{equation}
+Veja que ainda pode ser usado $\frac{1}{2} J_{p+1}^2 (a) =  \frac{1}{2} J_{p-1}^2 (a) =  \frac{1}{2} J_p^{'2} (a)$. Esta condição pode ser generalizada para um intervalo $(0,a)$ qualquer fazendo $x=s/a$:
+\begin{equation}
+\int_0^a sJ_p (a s/\alpha) J_p (b s/\alpha) ds = \left\{
+\begin{array}{rl}
+ 0& \text{se  } a \neq b  \\
+\\
+ \frac{\alpha^2}{2} J_{p+1}^2 (a) & \text{se  } a = b
+\end{array} 
+\right. \label{conjcomplfube222}
+\end{equation}

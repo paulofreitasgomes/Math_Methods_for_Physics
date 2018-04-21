@@ -1,0 +1,756 @@
+\chapter{Cálculo Diferencial Vetorial}  \label{capcalcudifereveotiral}
+
+
+\begin{flushright}
+\begin{small}
+\textit{ [Mathematics] is an independent world created out of pure intelligence}  
+\textbf{William Wordsworth}
+\end{small}
+\end{flushright}
+
+
+\section{Vetores}
+
+Gradezas escalares precisam de apenas um número para sua definição: i) a temperatura de hoje é 25 graus. Já grandezas vetoriais\footnote{Escalar é um tensor de ordem zero. Vetor é um tensor de ordem 1. Já o tensor de ordem 2 é comumente chamado de apenas tensor.} precisam de mais de um número: a torre de controle do aeroporto informa a velocidade do vento de 50 km/h para o piloto que está pousando, que então pergunta para que direção. Em 3 dimensões cada vetor precisa de três números para ser definido: módulo, direção e sentido. Representando cada vetor por uma flecha, módulo será o comprimento da flecha e é representado pelo símbolo da função módulo $\vert \textbf{A} \vert$. Ao longo deste texto usamos a notação usual de que o símbolo do vetor sem estar em negrito é o módulo do mesmo: $A = \vert \textbf{A} \vert$.
+
+
+Os vetores seguem as mesmas regras de adição e subtração que os escalares:
+\begin{eqnarray}
+\textbf{A} + \textbf{B} = \textbf{B} + \textbf{C}, \qquad \qquad (\textbf{A} + \textbf{B}) + \textbf{C} = \textbf{A} + (\textbf{B}+\textbf{C}), \nonumber \\
+\textbf{A} - \textbf{B} = \textbf{A} + (-\textbf{B}), \qquad \qquad a(\textbf{A} + \textbf{B}) = a\textbf{A} + a\textbf{B}. 
+\end{eqnarray}
+A última equação mostra também que a multiplicação de vetores por um escalar é uma operação linear.
+
+
+
+\subsection{Produto escalar e vetorial}
+
+
+Já a multiplicação entre vetores pode ser feita de duas maneiras. A primeira (mais simples) é a chamada de produto escalar (pois o resultado é um escalar) e é definida como:
+\begin{equation}
+\textbf{A} \cdot \textbf{B} \equiv A B \cos \theta. \nonumber
+\end{equation}
+onde $\theta$ é o ângulo entre os vetores. Como esperado o produto escalar segue as propriedades comutativa e distributiva:
+\begin{equation}
+\textbf{A} \cdot \textbf{B} = \textbf{B} \cdot \textbf{A}, \qquad \qquad \textbf{A} \cdot (\textbf{B} + \textbf{C}) = \textbf{A} \cdot \textbf{B} + \textbf{A} \cdot \textbf{C}. \nonumber 
+\end{equation}
+Um resultado imediato desta definição é: $A^2 = \textbf{A} \cdot \textbf{A}$. Outro resultado imediado é que o produto escalar entre dois vetores perpendiculares é zero: $\textbf{A} \cdot \textbf{B} = AB \cos \pi/2 = 0$. Essas duas propriedades (e mais algumas outras) fazem com que o produo escalar seja extremamente útil e utilizado em todas as áreas da física.
+
+A outra multiplicação possível entre vetores é o produto vetorial, que retorna um outro vetor:
+\begin{equation}
+\textbf{A} \times \textbf{B} \equiv \hat{n} A B \sin \theta, \qquad \qquad \hat{n} \cdot \textbf{A} = \hat{n} \cdot \textbf{B} = 0. \nonumber
+\end{equation}
+onde $\vert \hat{n} \vert = 1$ (é um vetor unitário, de módulo 1). Ou seja, o vetor $\hat{n}$ é perpendicular aos vetores $\textbf{A}$ e $\textbf{B}$ simultaneamente, o que define a direção. Porém, nesta direção ainda há dois sentidos possíveis para $\hat{n}$, o que é definida pela regra da mão direita\footnote{Isso é uma convenção, poderia usar por exemplo a regra da mão esquerda. Porém, é a convenção que todo mundo usa.}: deixe seus dedos no sentido de $\textbf{A}$ e curve sua mão no sentido de $\textbf{B}$ (via o menor ângulo), seu dedão irá apontar no sentido de $\hat{n}$. Veja que $\textbf{A} \times \textbf{B}$ é um vetor! Exemplos de produto vetorial em física são o momento angular e a relação entre velocidade linear e angular:
+\begin{equation}
+\textbf{L} = \textbf{r} \times \textbf{p}, \qquad \qquad \textbf{v} = \bm{\omega} \times \textbf{r}. \label{slskjwoiweurlwww}
+\end{equation}
+
+O produto vetorial segue a propriedade distributiva mas não a comutativa:
+\begin{equation}
+\textbf{A} \times (\textbf{B} + \textbf{C}) = \textbf{A} \times \textbf{B} + \textbf{A} \times \textbf{C}, \qquad \qquad \textbf{A} \times \textbf{B} = - \textbf{B} \times \textbf{A} . \nonumber 
+\end{equation}
+Um resultado imediato da definição é que: $\textbf{A} \times \textbf{A} = 0$.
+
+Produto vetorial também é usado na definição dos versores cartesianos. O sistema amplamente aceito é o chamado destrógiro, definido da seguinte maneira:
+\begin{itemize}
+\item Primeiramente escolhe-se uma direção para ser definida como o eixo $x$. O versor $\hat{\textbf{x}}$ é então o vetor unitário nesta direção.
+\item O eixo $y$ é obtido pela rotação de 90 graus no sentido anti-horário. O versor $\hat{\textbf{y}}$ é então o vetor unitário nesta direção, de forma que $\hat{\textbf{y}} \cdot \hat{\textbf{y}} = 0$. 
+\item No sistema destrógiro, o versor na direção $z$ é definida como $\hat{\textbf{z}} = \hat{\textbf{x}} \times \hat{\textbf{y}}$, que também define o eixo $z$\footnote{No sistema levógiro, que não é utilizado, a definição é $\hat{\textbf{z}} = - \hat{\textbf{x}} \times \hat{\textbf{y}}$.}.
+\end{itemize}
+
+
+\subsection{Como representar um vetor?}
+
+Um vetor pode ser definido por seu módulo, direção e sentido. Intuitivamente podemos então dizer que o vetor $\textbf{A}$ tem módulo 3, direção vertical e sentido para cima. Porém, em física é necessário uma descrição precisa e formal, para isso usamos as componentes em relação a um sistema de coordenadas. Vamos começar pelo sistema Cartesiano com as coordenadas $x$, $y$ e $z$. Chamamos os versores ($\equiv$ vetores unitários) nestas direções de $\hat{\textbf{x}}$, $\hat{\textbf{y}}$ e $\hat{\textbf{z}}$. A ideia é então escrever um vetor arbitrário como sendo uma soma sobre esses versores: 
+\begin{equation}
+\textbf{A} = \hat{\textbf{x}}A_1 + \hat{\textbf{y}}A_2 + \hat{\textbf{z}}A_3. \nonumber
+\end{equation}
+onde os escalares $A_1$, $A_2$ e $A_3$ são as componentes $\textbf{A}$. Geometricamente falando, as componentes são as projeções de $\textbf{A}$ nas 3 direções:
+\begin{equation}
+A_1 = \textbf{A} \cdot \hat{\textbf{x}}, \quad A_2 = \textbf{A} \cdot \hat{\textbf{y}}, A_3 = \textbf{A} \cdot \hat{\textbf{z}}. \nonumber
+\end{equation}
+Usando as componentes, todas as propriedades definidas até agora podem ser escritas em função das componentes. A adição de vetores é feita pela adição das componentes, enquanto a multiplicação por um escalar é feita multiplicando as componentes por este escalar:
+\begin{eqnarray}
+c(\textbf{A} + \textbf{B}) &=& c(A_1+B_1) \hat{\textbf{x}} + c(A_2+B_2) \hat{\textbf{y}} + c(A_3+B_3) \hat{\textbf{z}}, \nonumber \\
+\textbf{A} \cdot \textbf{B} &=& A_1 B_1 + A_2 B_2 +A_3B_3. \nonumber
+\end{eqnarray}
+Apesar de um pouco mais trabalhoso, o produto vetorial também pode ser escrito em termos de componentes:
+\begin{eqnarray}
+\textbf{A} \times \textbf{B} &=& \left( \hat{\textbf{x}}A_x + \hat{\textbf{y}}A_y + \hat{\textbf{z}}A_z\right) \times  \left( \hat{\textbf{x}}B_x + \hat{\textbf{y}}B_y + \hat{\textbf{z}}B_z\right), \nonumber \\
+&=& (A_yB_z - A_zB_y)\hat{\textbf{x}} + (A_zB_x - A_xB_z)\hat{\textbf{y}} + (A_xB_y - A_yB_x)\hat{\textbf{z}}, \nonumber 
+\end{eqnarray}
+Essa expressão é mais facilmente lembrada quando se escreve na forma de um determinante matricial:
+\begin{equation}
+\textbf{A} \times \textbf{B} = 
+\begin{vmatrix}
+\hat{\textbf{x}} & \hat{\textbf{y}} & \hat{\textbf{z}} \\
+A_x & A_y & A_z \\
+B_x & B_y & B_z
+\end{vmatrix}. \label{determiavlscrossprodu}
+\end{equation}
+
+\subsection{Produto Triplo}
+
+Em física é comum aparecer os chamados produtos triplos, pois envolvem três vetores. Nesta seção apresentamos os mais comuns. O primeiro é $\alpha = \textbf{A} \cdot (\textbf{B} \times \textbf{C})$, ou seja, o produto escalar entre dois vetores sendo que o segundo é o produto vetorial de outros dois. O resultado desta operação é um escalar $\alpha$. Geometricamente $\vert \textbf{A} \cdot (\textbf{B} \times \textbf{C}) \vert$ é o volume do paralelepípedo gerado pelos 3 vetores já que $\vert \textbf{B} \times \textbf{C} \vert$ é a base e $A\cos \theta$ é a altura. Temos ainda que:
+\begin{eqnarray}
+\textbf{A} \cdot (\textbf{B} \times \textbf{C}) &=& \textbf{B} \cdot (\textbf{C} \times \textbf{A}) = \textbf{C} \cdot (\textbf{A} \times \textbf{B}), \nonumber \\
+&=& (\textbf{A} \times \textbf{B}) \cdot \textbf{C}. \nonumber
+\end{eqnarray}
+Repare que na última equação a ordem se manteve para os símbolos foram trocados. A posição do parêntese é essencial uma vez que $\textbf{A} \times (\textbf{B} \cdot \textbf{C})$ é matemáticamente errado: não se pode fazer o produto vetorial entre um vetor e um número ($\textbf{B}) \cdot \textbf{C}$).
+
+O segundo produto triplo importante é\footnote{Uma forma de se lembrar é "baca menos cabala".}
+\begin{equation}
+\textbf{A} \times (\textbf{B} \times \textbf{C}) = \textbf{B}(\textbf{A} \cdot \textbf{C}) - \textbf{C}(\textbf{A} \cdot \textbf{B}). \label{bacamenoscabala}
+\end{equation}
+Novamente a posição dos parênteses é importante pois $(\textbf{A} \times \textbf{B}) \times \textbf{C}$ é outro vetor completamente diferente. Este produto triplo pode ser usado para diminuir o números de produto vetorial $\times$ em uma expressão. Nunca é necessário haver mais que um. Por exemplo:
+\begin{eqnarray}
+(\textbf{A} \times \textbf{B}) \cdot ( \textbf{C}  \times \textbf{D} ) &=& (\textbf{A} \cdot \textbf{C}) ( \textbf{B}  \cdot \textbf{D} ), \label{prodtriplo1} \\
+\textbf{A} \times [\textbf{B} \times ( \textbf{C}  \times \textbf{D} )] &=& \textbf{B} [\textbf{A} \cdot ( \textbf{C}  \times \textbf{D} )] - (\textbf{A} \cdot \textbf{B}) ( \textbf{C}  \times \textbf{D}). \label{produtriplo23}
+\end{eqnarray}
+
+\subsection{Vetores posição, deslocamento e separação} \label{vetorposicadesseparacal}
+
+Uma posição qualquer no sistema cartesiano $xyz$ é definida pelo vetor posição\footnote{Ao longo deste livro o vetor posição será sempre indicado por $\textbf{r}$.} (veja figura \ref{vetor_posicao}):
+\begin{equation}
+\textbf{r} = x\hat{\textbf{x}} + y\hat{\textbf{y}} + z\hat{\textbf{z}}. \nonumber
+\end{equation}
+Seu módulo e o versor associado são:
+\begin{equation}
+r = \sqrt{x^2+y^2+z^2}, \qquad \qquad \hat{\textbf{r}} = \dfrac{\textbf{r}}{r} = \dfrac{x\hat{\textbf{x}} + y\hat{\textbf{y}} + z\hat{\textbf{z}}}{\sqrt{x^2+y^2+z^2}}. \nonumber
+\end{equation}
+Já o vetor relativo ao deslocamento infinitesimal é a distância entre o ponto $(x,y,z)$ e $(x+dx,y+dy,z+dz)$:
+\begin{equation}
+d\textbf{l} = \hat{\textbf{x}} dx+ \hat{\textbf{y}}dy + \hat{\textbf{z}}dz. \nonumber
+\end{equation}
+Em diversas áreas da física é necessário expressar uma grande em um ponto $\textbf{r}$ criado por uma fonte na posição $\textbf{r}'$. Neste caso o vetor importante será aquele que sai de $\textbf{r}'$ e vai até $\textbf{r}$:
+\begin{equation}
+\brcurs =  \textbf{r} - \textbf{r}' = (x-x')\hat{\textbf{x}} + (y-y')\hat{\textbf{y}} + (z-z')\hat{\textbf{z}}. \nonumber
+\end{equation}
+Este é o vetor separação (veja figura \ref{vetor_separacao}). Seu módulo e o vetor associao são:
+\begin{eqnarray}
+\rcurs &=& \sqrt{(x-x')^2+(y-y')^2+(z-z')^2}, \nonumber \\
+\hrcurs &=& \dfrac{\brcurs}{\rcurs} = \dfrac{(x-x')\hat{\textbf{x}} + (y-y')\hat{\textbf{y}} + (z-z')\hat{\textbf{z}}}{\sqrt{(x-x')^2+(y-y')^2+(z-z')^2}}. \nonumber
+\end{eqnarray}
+
+
+\begin{figure}[!h]
+\centering
+\subfigure{a)
+\includegraphics[width=2.2 in]{figuras/calculo/vetor_posicao.png}
+\label{vetor_posicao}
+}
+\subfigure{b)
+\includegraphics[width=2.2 in]{figuras/calculo/vetor_separacao.png}
+\label{vetor_separacao}
+}
+\caption{\subref{vetor_posicao} Vetor posição $\textbf{r}$. \subref{vetor_separacao} Vetor separação.}
+\end{figure}
+
+
+
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+    
+
+\begin{problema}
+a)Prove a Eq. \ref{prodtriplo1}. b) Prove a Eq. \ref{produtriplo23}.
+\end{problema}
+
+
+\begin{problema}
+Em quais condições temos que $\textbf{A} \times (\textbf{B} \times \textbf{C}) = (\textbf{A} \times \textbf{B}) \times \textbf{C}$?
+\end{problema}
+
+\begin{problema}
+a) Calcule $\textbf{A} \cdot \textbf{C} = \textbf{A} \cdot ( \textbf{A} \times \textbf{B})$. b) Mostre que $\textbf{B} \cdot \textbf{C} = \textbf{B} \cdot ( \textbf{A} \times \textbf{B}) = 0$.
+\end{problema} 
+
+\begin{problema} \label{proexpanslwkjwlkjwer}
+Expanda um vetor $\textbf{x}$ em componentes paralela a três vetores linearmente independentes $\textbf{a}$, $\textbf{b}$, $\textbf{c}$.
+\end{problema}
+
+\begin{problema}
+a) Usando o momento linear $\textbf{p} = m\textbf{v}$ e as Eqs. \ref{slskjwoiweurlwww} mostre que $\textbf{L} = mr^2 [\bm{\omega} - \hat{\textbf{r}} (\hat{\textbf{r}} \cdot \bm{\omega} )]$. b) Já a energia cinética de um corpo em rotação é $T = (1/2) m \vert \bm{\omega} \times \textbf{r} \vert^2$. Mostre que:
+\begin{equation}
+T = \dfrac{1}{2} m [r^2 \omega^2 - (\bm{\omega} \times \textbf{r} )^2 ]. \nonumber 
+\end{equation}
+\end{problema}
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+\section{Coordenadas Curvilíneas}
+
+Dependendo da simetria do problema a ser resolvido, diferentes sistemas de coordenadas podem ser utilizados. Dentre os vários existentes dois são muito utilizados além do sistema cartesiano: coordenadas cilíndricas e esféricas. Apresentamos aqui os principais resultados nesses sistemas.
+
+
+\subsection{Coordenadas Cilíndricas}
+
+As coordenadas cilíndricas $s,\varphi,z$ são definidas na figura: $s$ é a distância em relação ao eixo $z$ e $\varphi$ é o ângulo no plano $xy$ que o raio faz com o eixo $x$. Como a terceira variável $z$ é a mesma do sistema cartesiano, iremos explicitar as novas expressões aqui apenas para $s$ e $\varphi$. O objetivo deste sistema é explorar eventuais simetrias cilíndricas, mantendo a coordenada $z$ a mesma do sistema cartesiano. A definição é:
+\begin{equation}
+s = \sqrt{x^2 + y^2}, \qquad \qquad \varphi = \arctan (y/x). \nonumber
+\end{equation}
+A transformação inversa é\footnote{A função $\arctan$ é a inversa da tangente, de forma que $\arctan a = b$ implica $\tan b = a$. É comum também utilizar a notação $\arctan = \tan^{-1}$.}:
+\begin{equation}
+x = s\cos \varphi, \qquad \qquad x = s\sin \varphi  \label{coorcilindricavari}
+\end{equation}
+
+De maneira análoga, os versores $\hat{\textbf{s}}$ e $\hat{\bm{\varphi}}$ são vetores unitários que apontam na direção de variação das respectivas variáveis. Ao contrário dos versores cartesianos, os versores cilíndricos não são constantes, as direções mudam conforme o ponto em questão. Assim, em uma integral envolvendo $\hat{\textbf{s}}$ e $\hat{\bm{\varphi}}$ deve-se escrevê-los em função dos versores cartesianos para então fazer a integral. A relação entre ambas as bases é:
+\begin{eqnarray}
+\hat{\textbf{s}} &= \hat{\textbf{x}} \cos \varphi + \hat{\textbf{y}} \sin \varphi, \nonumber \\
+\hat{\bm{\varphi}} & = -\hat{\textbf{x}} \sin \varphi + \hat{\textbf{y}} \cos \varphi. \nonumber
+\end{eqnarray}
+A transformação inversa é:
+\begin{eqnarray}
+\hat{\textbf{x}} &= \hat{\textbf{s}} \cos \varphi + \hat{\bm{\varphi}} \sin \varphi, \nonumber \\
+\hat{\textbf{y}} & = \hat{\textbf{s}} \sin \varphi + \hat{\bm{\varphi}} \cos \varphi. \nonumber
+\end{eqnarray}
+
+%$\hat{\pmb{\varphi}}$, $\hat{\boldsymbol{\varphi}}$, $\hat{\bm{\varphi}}$, $\hat{\mathbold{\varphi}}$, $\hat{\varphi}$, $\varphi$
+
+O deslocamento infinitesimal para a variável $s$ é direto ($ds$), já para a variável angular trata-se do o comprimento do arco compreendido pelo ângulo infinitesimal: $sd\varphi$. De forma que o deslocamento resultante e o elemento de volume são\footnote{Repare na dimensão de ambos: $d\bm{\ell}$ tem dimensão de comprimento e $d\tau$ de volume.}:
+\begin{equation}
+d\bm{\ell} = \hat{\textbf{s}} ds + \hat{\bm{\varphi}} sd\varphi + \hat{\textbf{z}}dz, \qquad \qquad d\tau = sds d\varphi dz. \nonumber  
+\end{equation} 
+O intervalo de validade de cada um é: 
+\begin{equation}
+0< s < +\infty, \qquad \qquad  0<\varphi < 2\pi, \qquad \qquad -\infty < s < + \infty. \nonumber
+\end{equation}
+
+
+
+\begin{exemplo}
+Mostre que $d \ell^2 = dx^2 + dy^2 + dz^2 =  ds^2 + s^2 d\varphi^2 + dz^2$. 
+\tcblower
+As derivadas parciais de $x$ em relação a $s$, $\varphi$ e $z$ são:
+\begin{equation}
+\dfrac{\partial x}{\partial s} = \cos \varphi, \qquad \dfrac{\partial x}{\partial \varphi} = -s \sin \varphi, \qquad \dfrac{\partial x}{\partial z} = 0. \nonumber 
+\end{equation}
+Logo $dx = \cos \varphi d\varphi - s \sin \varphi d\varphi$. 
+
+Repetimos o procedimento para $y$:
+\begin{equation}
+\dfrac{\partial y}{\partial s} = \sin \varphi, \qquad \dfrac{\partial y}{\partial \varphi} = s \cos \varphi, \qquad \dfrac{\partial y}{\partial z} = 0. \nonumber 
+\end{equation}
+Obtemos $dy = \sin \varphi d\varphi + s \cos \varphi d\varphi$. Somando os resultados para $dx$, $dy$ e $dz$ obtemos a Eq. desejada.
+\end{exemplo}
+
+
+\subsection{Coordenadas Esféricas}
+
+As coordenadas esféricas estão definidas na figura: $r$ é a distância em relação a origem, $\varphi$ é a mesma da coordenada cilíndrica (veja Eq. \ref{coorcilindricavari}) e $\theta$ é o ângulo que o vetor posição faz com o eixo $z$. A transformação de esférica para cartesiana é:
+\begin{equation}
+r = \sqrt{x^2 + y^2+z^2}, \qquad \qquad \theta = \arctan (\sqrt{x^2 + y^2}/z), \qquad \qquad \varphi = \arctan (y/x). \label{converesferiparacartesinas}
+\end{equation}
+A transformação inversa é:
+\begin{equation}
+x = r \sin \theta \cos \varphi, \qquad \qquad y = r \sin \theta \sin \varphi, \qquad \qquad z = r \cos \theta. \nonumber 
+\end{equation}
+
+Da mesma forma que antes, qualquer vetor pode ser decomposto em coordenadas esféricas: $\textbf{A} = \hat{\textbf{r}} A_r + \hat{\bm{\theta}} A_{\theta} + \hat{\bm{\varphi}} A_{\varphi}$. Em uma integral, esses vetores devem ser escritos em função dos versores canônicos pois eles não são constantes. A transformação dos versores é:
+\begin{eqnarray}
+\hat{\textbf{r}} &=& \hat{\textbf{x}} \sin \theta \cos \varphi + \hat{\textbf{y}} \sin \theta \sin \varphi + \hat{\textbf{z}} \cos \theta, \nonumber \\
+\hat{\bm{\theta}} &=& \hat{\textbf{x}} \cos \theta \cos \varphi + \hat{\textbf{y}} \cos \theta \sin \varphi + \hat{\textbf{z}} \sin \theta, \nonumber \\
+\hat{\bm{\varphi}} &=& -\hat{\textbf{x}} \sin \varphi + \hat{\textbf{y}} \cos \varphi. \nonumber
+\end{eqnarray}
+A transformação inversa é:
+\begin{eqnarray}
+\hat{\textbf{x}} &=& \hat{\textbf{r}} \sin \theta \cos \varphi + \hat{\bm{\theta}} \cos \theta \cos \varphi - \hat{\bm{\varphi}} \sin \varphi, \nonumber \\
+\hat{\textbf{y}} &=& \hat{\textbf{r}} \sin \theta \sin \varphi + \hat{\bm{\theta}} \cos \theta \sin \varphi + \hat{\bm{\varphi}} \cos \varphi, \nonumber \\
+\hat{\textbf{z}} &=& \hat{\textbf{r}} \cos \theta - \hat{\bm{\theta}} \sin \theta. \nonumber
+\end{eqnarray}
+
+Vamos agora escrever o elemento de comprimento em coordenadas esféricas. No caso de $r$, o resultado é direto. Mas para as variáveis angulares, o elemento de comprimento correspondente é o comprimento do arco definido pelo ângulo:
+\begin{equation}
+d \ell_r = dr, \qquad \qquad d \ell_{\theta} = r d \theta, \qquad \qquad  d \ell_{\varphi} = r \sin \theta d\varphi. \nonumber
+\end{equation}
+Em uma integral de linha o elemento de comprimento resultante será:
+\begin{equation}
+d \bm{\ell} = \hat{\textbf{r}} dr + \hat{\bm{\theta}} r d \theta + \hat{\bm{\varphi}} r \sin \theta d\varphi. \nonumber 
+\end{equation}
+O elemento de volume é direto:
+\begin{equation}
+d \tau = d \ell_r d \ell_{\theta}   d \ell_{\varphi} = r^2 \sin \theta dr d \theta d\varphi. \nonumber
+\end{equation}
+Já o vetor elemento de área depende depende da orientação do plano da mesma (o mesmo vale para coordenadas cartesianas e cilíndricas). Por exemplo, para uma integração na superfície de uma esfera o vetor elemento de área é:
+\begin{equation}
+d \textbf{a} =  \hat{\textbf{r}} d \ell_{\theta}   d \ell_{\varphi} = \hat{\textbf{r}} r^2 \sin \theta d \theta d\varphi. \nonumber
+\end{equation}
+Por fim, os intervalos de variação são: 
+\begin{equation}
+0 < r < +\infty, \qquad \qquad 0 < \theta < \pi, \qquad \qquad  0<\varphi < 2\pi . \nonumber
+\end{equation}
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+    
+   
+\begin{problema}
+Dois prótons estão se movendo um contra o outro. Descreva suas órbitas nas seguintes situações: a) eles se aproximam ao longo de uma mesma reta, b) se aproximam em trajetórias retilíneas paralelas distantes $b$ uma da outra. Dica: ignore a interação forte. 
+\end{problema}
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\section{Cálculo Diferencial} \label{secaocalcudiferencialskjsfs}
+
+Suponha que tenhamos uma função $f(x)$. O que significa sua derivada $df/dx = f'(x)$? A derivada nos diz o quando $f$ varia quando $x$ varia: $df = f'(x) dx$. Já a interpretação geométrica é que $f'(x)$ é o coeficiente angular da reta tangente no gráfico de $f(x)$.
+
+
+\subsection{Operador $\nabla$ e suas aplicações}
+
+O operador vetorial $\nabla$, chamado de \textit{del}, é utilizado em diversas operações diferenciais aplicadas em vetores, como veremos nas próximas seções. Apesar de não ser rigorosamente um vetor, e sim um operador (operador linear por exemplo, atuando em algum espaço vetorial), podemo tratá-lo como vetor por conveniência. Assim, uma "definição"\footnote{Obviamente, não é uma definição formal, apenas uma regra prática para facilitar seu uso. Repare que a flecha sobre o símbolo é para reforçar o caráter vetorial desta definição.} é:
+\begin{equation}
+\vec{\nabla} = \hat{\textbf{x}} \dfrac{\partial }{\partial x}  + \hat{\textbf{y}}\dfrac{\partial }{\partial y}  +  \hat{\textbf{z}}\dfrac{\partial }{\partial z}. \nonumber
+\end{equation}
+É importante escrever os versores antes das derivadas para não haver equívocos em sua aplicação. Assim, o operador $\nabla$ pode ser manipulado como um vetor na maioria dos casos. Seu uso é de suma importância na física, como veremos nas próximas seções.
+
+\subsubsection{Gradiente}
+
+Suponha agora que definimos uma função temperatura $T(x,y,z)$ em uma sala por exemplo e queiramos avaliar como a temperatura varia neste espaço (suponha a origem do sistema $xyz$ no canto da sala por exemplo). Agora a situação é mais complicado pois a variação da temperatura depende agora da direção. Podemos representar a direção de movimento com um vetor. Se andarmos na direção $(1,1,1)$ (ao longo da diagonal da sala) varia com uma taxa, se andarmos na direção $(0,0,1)$ (vertical para cima) a taxa será outra. Podemos então generalizar a expressão $df = f'(x) dx$ para 3 dimensões como:
+\begin{equation}
+dT = \left( \dfrac{\partial T}{\partial x} \right) dx + \left( \dfrac{\partial T}{\partial y} \right) dy + \left( \dfrac{\partial T}{\partial z} \right) dz. \nonumber
+\end{equation}
+Se variarmos ao longo de $x$, $dy =dz=0$, e só a derivada em $x$ contribui (análogo para $y$ e $z$). Se variar em uma direção oblíquoa qualquer, as 3 derivadas contribuem. Assim, podemos reescrever $dT$ da forma:
+\begin{equation}
+dT = \left( \dfrac{\partial T}{\partial x} \hat{\textbf{x}} + \dfrac{\partial T}{\partial y} \hat{\textbf{y}} +  \dfrac{\partial T}{\partial z} \hat{\textbf{z}} \right) \cdot \left( dx \hat{\textbf{x}} + dy \hat{\textbf{y}} +  dz \hat{\textbf{z}} \right) =  \vec{\nabla} T \cdot d \textbf{l} , \nonumber
+\end{equation}
+onde 
+\begin{equation}
+\vec{\nabla} T =\dfrac{\partial T}{\partial x} \hat{\textbf{x}} + \dfrac{\partial T}{\partial y} \hat{\textbf{y}} +  \dfrac{\partial T}{\partial z} \hat{\textbf{z}} \nonumber
+\end{equation}
+ é chamado de gradiente \index{gradiente} de $T$, que nada mais é do que o operador \textit{del} atuando na função $T$. Veja que esse gradiente, $\vec{\nabla} T$, é um vetor que determina a derivada de $T$ em qualquer direção $d\bm{\ell}$ desejada.
+ 
+ A interpretação geométrica do gradiente de uma função é direta. Da definição temos que:
+ \begin{equation}
+ dT = \vec{\nabla} T \cdot d \bm{\ell} = \vert \vec{\nabla} T \vert \vert d \textbf{l} \vert \cos \theta, \label{lskjdflkjwoiuerss}
+\end{equation}   
+onde $\theta$ é o ângulo entre os dois vetores. Fixemos o módulo $\vert d \textbf{l} \vert$ e variemos $\theta$. Neste caso $dT$ será máximo quando $\theta = 0$, o que implica que ambos os vetores são paralelos. Ou seja, a variação será máxima quando a direção $d\bm{\ell}$ escolhida for paralela ao gradiente $\vec{\nabla} T$. Ou seja, o gradiente de uma função é um vetor que aponta na direção de máxima variação desta função. O módulo desse vetor dá a taxa de variação da função.
+
+Suponha que você esteja em uma região montanhosa e seja $h(x,y)$ a função que descreve a superfície (relevo) deste terreno. O caminho no qual a subida (ou descida) é mais inclinada é a direção de $\vec{\nabla} h$, enquanto que a inclinação da superfície é o escalar $\vert \vec{\nabla} h \vert$.
+
+Decorre imediatamente então que na direção perpendicular ao gradiente a variação da função é nula. De fato quando $\vec{\nabla} T = 0$ implica que $dT=0$, ou seja, a função não variou. Trata-se de um ponto estacionário, podendo ser de mínimo, máximo ou ponto de cela. A analogia no caso de uma dimensão é direta: quando a derivada de uma função é zero, implica que a função tem um ponto de equilíbrio.
+
+\subsubsection{Divergente}
+
+O divergente de um vetor $\textbf{v}$ é uma operação que retorna um escalar e é definido como:
+\begin{equation}
+\vec{\nabla} \cdot \textbf{v} = \left( \hat{\textbf{x}} \dfrac{\partial }{\partial x}  + \hat{\textbf{y}}\dfrac{\partial }{\partial y}  +  \hat{\textbf{z}}\dfrac{\partial }{\partial z}  \right) \cdot \left(  \hat{\textbf{x}} v_x + \hat{\textbf{y}}  v_y +  \hat{\textbf{z}} v_z \right) = \dfrac{\partial v_x }{\partial x}  +\dfrac{\partial v_y}{\partial y}  + \dfrac{\partial v_z}{\partial z}. \nonumber
+\end{equation}
+A interpretação geométrica do divergente é exatamente o quanto o vetor diverge, ou espalha de um ponto em específico. Essa característica de divergir é facilmente observada graficando o vetor $\textbf{v}$ em pontos na região em questão. Quando os vetores estão saindo do ponto central, o divergente é positivo, como se houvesse "criação" de $\textbf{v}$. Já quando os vetores estão todos direcionados ao ponto central o divergente é negativo, como se houvesse "destruição" de $\textbf{v}$. Essa é a interpretação geométrica, se há uma fonte ou um sorvedouro para a grandeza associada ao vetor $\textbf{v}$.
+
+\subsubsection{Rotacional}
+
+O rotacional de um vetor é o produto vetorial entre o operador $\vec{\nabla}$ e o vetor em questão (Eq. \ref{determiavlscrossprodu}):
+\begin{equation}
+\vec{\nabla} \times \textbf{v} = \begin{vmatrix}
+\hat{\textbf{x}} & \hat{\textbf{y}} & \hat{\textbf{z}} \\
+\partial /\partial x & \partial /\partial y & \partial /\partial z \\
+v_x & v_y & v_z
+\end{vmatrix}. \nonumber 
+\end{equation}
+Repare que o produto do rotacional também é um vetor. O significado geométrico de rotacional é exatamente o quanto o vetor rotaciona em torno de um ponto\footnote{Os nomes do divergente e rotacional são de fato bem intuitivos quanto aos respectivos significados, algo que nem sempre ocorre em física.}. Quando a água começa a escorrer pelo ralo de um tanque ou pia circular, ela gira como em um redemoinho. O rotacional do vetor velocidade nesse caso é grande. Outro exemplo são os tornados e furacões.
+
+\begin{exemplo}
+\textbf{Eletromagnetismo Clássico}. Como exemplo do uso do operador $\nabla$ em física apresentamos as Eqs. de Maxwell para os campos elétrico $\textbf{E}$ e magnético $\textbf{B}$:
+\begin{eqnarray}
+\text{Lei de Gauss} \qquad \qquad \vec{\nabla} \cdot \textbf{E} &=& \dfrac{\rho}{\varepsilon_0},  \label{leidegauss} \\
+\text{Lei de Gauss do magnetismo} \qquad \qquad \vec{\nabla} \cdot \textbf{B} &=& 0,  \label{leidegaussmagnetismo} \\
+\text{Lei de Faraday} \qquad \qquad \vec{\nabla} \times \textbf{E} &=& -\dfrac{\partial \textbf{B}}{\partial t},  \label{leidefaraday} \\
+\text{Lei de Ampère-Maxwell} \qquad \qquad \vec{\nabla} \times \textbf{B} &=& \mu_0 \textbf{J} +\mu_0 \varepsilon_0\dfrac{\partial \textbf{E}}{\partial t},  \label{leideamperemaxwell}
+\end{eqnarray}
+onde $\varepsilon_0$ e $\textbf{J}$ são a permissividade elétrica do vácuo e a densidade de corrente. Juntamente com a força de Lorentz $\textbf{F} = q\textbf{E} + q\textbf{v} \times \textbf{B}$, estas 5 equações formam a base do Eletromagnetismo Clássico.
+
+As equações de Maxwell são um conjunto de 4 equações diferenciais acopladas de ordem 1, lineares e não homogêneas. Elas podem ser reduzidas para 2 equações apenas (equação de onda) porém de segunda ordem (veja problema \ref{capcalcudifereveotiral}.\ref{eqsondacamelemagne}). Essa equação de onda prevê que a velocidade da onda eletromagnética é $c = 1/(\sqrt{\mu_0 \varepsilon_0})$, que é a velocidade da luz.
+\end{exemplo}
+
+\subsection{Regras de produto}
+
+As regras de derivadas envolvendo mais de uma função são diretas:
+\begin{eqnarray}
+\dfrac{d}{dx}(f+g) = \dfrac{df}{dx} + \dfrac{dg}{dx}, \qquad \qquad  \dfrac{d}{dx}(kf) = k\dfrac{df}{dx}, \nonumber \\
+ \dfrac{d}{dx}(fg) = f\dfrac{dg}{dx} + g\dfrac{df}{dx}, \qquad \qquad \dfrac{d}{dx}\dfrac{f}{g} =  \dfrac{1}{g^2} \left( g\dfrac{df}{dx} - f\dfrac{dg}{dx}\right). \nonumber  
+\end{eqnarray}
+Algumas dessas propriedades são válidas no caso vetorial. Considerando $a$ e $b$ como escalares, temos:
+\begin{eqnarray}
+\vec{\nabla} (af+bg) = a\vec{\nabla} f + b\vec{\nabla} g, \qquad \qquad \vec{\nabla} \cdot (a\textbf{A}+b\textbf{B}) = a\vec{\nabla} \cdot \textbf{A}+ b\vec{\nabla} \cdot\textbf{B}, \nonumber \\
+\vec{\nabla} \times (a\textbf{A}+b\textbf{B}) = a\vec{\nabla} \times \textbf{A}+ b\vec{\nabla} \times \textbf{B}. \nonumber 
+\end{eqnarray}
+Essas são as relações mais simples, porém há uma série de outras relações mais complicadas chamadas de regras dos produtos. Vale reforçar que $\vec{\nabla} \cdot \textbf{A}$ é um escalar enquanto que $\vec{\nabla} \times \textbf{A}$ é um vetor. Tendo isso em mente, as regras mais usadas são 6, duas ligadas ao gradiente, duas ligadas ao divergente e duas do rotacional:
+\begin{eqnarray}
+\vec{\nabla} (fg) &=& g\vec{\nabla} f + f\vec{\nabla} g, \nonumber \\
+\vec{\nabla} (\textbf{A} \cdot \textbf{B}) &=& \textbf{A}  \times (\vec{\nabla} \times \textbf{B}) + \textbf{B}  \times (\vec{\nabla} \times \textbf{A}) + (\textbf{A} \cdot \vec{\nabla} ) \textbf{B} + (\textbf{B} \cdot \vec{\nabla} ) \textbf{A}, \label{regradoprodutoii} \\
+\vec{\nabla} \cdot  (f\textbf{A}) &=& \textbf{A} \cdot \vec{\nabla} f + f\vec{\nabla} \cdot \textbf{A}, \nonumber \\
+\vec{\nabla} \cdot (\textbf{A} \times  \textbf{B}) &=& \textbf{B} \cdot (\vec{\nabla} \times \textbf{A} ) - \textbf{A} \cdot (\vec{\nabla} \times \textbf{B}), \nonumber \\
+  \vec{\nabla} \times  (f\textbf{A}) &=& f\vec{\nabla} \times \textbf{A} - \textbf{A} \times (\vec{\nabla} f), \nonumber \\
+ \vec{\nabla} \times ( \textbf{A} \times \textbf{B}) &=& (\textbf{B} \cdot \vec{\nabla} ) \textbf{A} - (\textbf{A} \cdot \vec{\nabla} ) \textbf{B} + \textbf{A} ( \vec{\nabla} \cdot \textbf{B} ) - \textbf{B} ( \vec{\nabla} \cdot \textbf{A}). \label{regradoprodutovi} 
+\end{eqnarray}
+
+
+\subsubsection{Laplaciano}
+
+Em muitos problemas de física aparece nas equações a derivada segunda, ou o operador $\nabla$ aplicado duas vezes. De fato, as propriedades vistas na seção anterior são derivadas primeiras. Vamos ver agora as derivadas segundas. Das várias combinações possíveis, nem todas são úteis. Dois resultados usado com alguma frequência são:
+\begin{equation}
+\vec{\nabla} \times \vec{\nabla} T = 0, \qquad \qquad \vec{\nabla} \cdot (\vec{\nabla} \times \textbf{A}) = 0. \nonumber
+\end{equation}
+Outro resultado usado com um pouco mais de frequência é o duplo rotacional (que pode ser deduzido da Eq. \ref{bacamenoscabala}):
+\begin{equation}
+\vec{\nabla} \times (\vec{\nabla} \times \textbf{A}) = \vec{\nabla} (\vec{\nabla} \cdot \textbf{A}) - \nabla^2 \textbf{A}. \nonumber   
+\end{equation}
+
+Porém, a derivada dupla mais importante é o divergente do gradiente:
+\begin{eqnarray}
+\vec{\nabla} \cdot (\vec{\nabla} T) &=& \left( \hat{\textbf{x}} \dfrac{\partial }{\partial x}  + \hat{\textbf{y}}\dfrac{\partial }{\partial y}  +  \hat{\textbf{z}}\dfrac{\partial }{\partial z}  \right) \cdot \dfrac{\partial T}{\partial x} \hat{\textbf{x}} + \dfrac{\partial T}{\partial y} \hat{\textbf{y}} +  \dfrac{\partial T}{\partial z} \hat{\textbf{z}}, \nonumber \\
+&=& \dfrac{\partial^2 T}{\partial x^2} + \dfrac{\partial^2 T}{\partial y^2}  +  \dfrac{\partial^2 T}{\partial z^2} = \nabla^2 T. \nonumber 
+\end{eqnarray}
+O símbolo $\nabla^2$ é chamado de Laplaciano\footnote{Alguns autores usam $\nabla^2 = \bigtriangleup$.} e é um operador diferencial escalar. Neste caso como $T$ é escalar temos que $\nabla^2 T$ é um escalar. Porém, quando aplicado em um vetor o resultado é um vetor:
+\begin{equation}
+\nabla^2 \textbf{A} = \left( \dfrac{\partial^2 }{\partial x^2} + \dfrac{\partial^2 }{\partial y^2}  +  \dfrac{\partial^2 }{\partial z^2} \right). \nonumber 
+\end{equation}
+Tenha em mente porém que $\nabla^2 \textbf{A}$ na verdade consiste em 3 equações escalares, uma para cada componente de $\textbf{A}$  
+
+\subsection{Operador nabla em coordenadas curvilíneas}
+
+
+Por último, falta expressar os operadores diferenciais envolvendo $\nabla$ nas coordenadas curvilíneas. A dedução destas fórmulas é um procedimento trabalhoso, apesar de conceitualmente simples. Primeiro apresentamos as expressões em coordenadas cilíndricas. Nos limitamos aqui a apresentar os resultados, considerando o vetor $\textbf{v} = \hat{\textbf{s}} v_s + \hat{\bm{\varphi}} v_{\varphi} + \hat{\textbf{z}} v_z$. 
+
+Gradiente:
+\begin{equation}
+\vec{\nabla} T = \dfrac{\partial T}{\partial s} \hat{\textbf{s}} + \dfrac{1}{s}\dfrac{\partial T}{\partial \varphi} \hat{\bm{\varphi}} +  \dfrac{\partial T}{\partial z} \hat{z}. \nonumber
+\end{equation}
+Divergente:
+\begin{equation}
+\vec{\nabla} \cdot \textbf{v} = \dfrac{1}{s} \dfrac{\partial v_s}{\partial s} + \dfrac{1}{s}\dfrac{\partial T}{\partial \varphi} +  \dfrac{\partial T}{\partial z}. \nonumber
+\end{equation}
+Rotacional:
+\begin{equation}
+\vec{\nabla} \times \textbf{v} = \left( \dfrac{1}{s} \dfrac{\partial v_z}{\partial \varphi} - \dfrac{\partial v_{\varphi}}{\partial z} \right)  \hat{\textbf{s}} + \left( \dfrac{\partial v_s}{\partial z} - \dfrac{\partial v_z}{\partial s} \right)  \hat{\bm{\varphi}} + \dfrac{1}{s} \left[ \dfrac{\partial }{\partial s} (sv_{\varphi}) - \dfrac{\partial v_s}{\partial \varphi} \right]  \hat{\textbf{z}}  , \nonumber 
+\end{equation}
+Laplaciano:
+\begin{equation}
+\nabla^2 T = \dfrac{1}{s} \dfrac{\partial }{\partial s} \left( s\dfrac{\partial T}{\partial s} \right)   + \dfrac{1}{s^2}\dfrac{\partial^2 T}{\partial \varphi^2} +  \dfrac{\partial^2 T}{\partial z^2}. \nonumber
+\end{equation}
+
+
+Já em coordenadas esféricas temos:
+
+Gradiente:
+\begin{equation}
+\vec{\nabla} T = \dfrac{\partial T}{\partial r} \hat{\textbf{r}} + \dfrac{1}{r}\dfrac{\partial T}{\partial \theta} \hat{\bm{\theta}} + \dfrac{1}{r\sin \theta}\dfrac{\partial T}{\partial \varphi} \hat{\bm{\varphi}} +. \nonumber
+\end{equation}
+Divergente:
+\begin{equation}
+\vec{\nabla} \cdot \textbf{v} = \dfrac{1}{r^2} \dfrac{\partial }{\partial r}(r^2 v_r) + \dfrac{1}{r\sin \theta}\dfrac{\partial }{\partial \theta} (\sin \theta v_{\theta}) +\dfrac{1}{r\sin \theta}\dfrac{\partial v_{\varphi}}{\partial \varphi}. \label{divergentecoordesferic}
+\end{equation}
+Rotacional:
+\begin{equation}
+\vec{\nabla} \times \textbf{v} = \dfrac{\hat{\textbf{r}}}{r \sin \theta} \left[ \dfrac{\partial }{\partial \theta} (\sin \theta v_{\varphi}) - \dfrac{\partial v_{\theta}}{\partial \varphi} \right] + \dfrac{\hat{\bm{\theta}}}{r} \left[ \dfrac{1}{r \sin \theta}  \dfrac{\partial v_r }{\partial \varphi} - \dfrac{\partial rv_{\varphi}}{\partial r} (rv_{\varphi}) \right] +  \dfrac{\hat{\bm{\varphi}}}{r} \left[ \dfrac{\partial }{\partial r} (rv_{\theta}) - \dfrac{\partial v_r}{\partial \theta}  \right]. \nonumber 
+\end{equation}
+Laplaciano:
+\begin{equation}
+\nabla^2 T = \dfrac{1}{s} \dfrac{\partial }{\partial s} \left( s\dfrac{\partial T}{\partial s} \right)   + \dfrac{1}{s^2}\dfrac{\partial^2 T}{\partial \varphi^2} +  \dfrac{\partial^2 T}{\partial z^2}. \nonumber
+\end{equation}
+
+
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+    
+    
+    
+\begin{problema}
+Calcule o divergente e rotacional dos seguintes vetores: a) $\textbf{r} = x \hat{\textbf{x}}+y\hat{\textbf{y}}+z\hat{\textbf{z}} = (x,y,z)$, b) $\textbf{V} = (x^2y,y^2x,xyz)$, c) $\textbf{V} = (\sinh z, 2y, x\cosh z)$, d) $\textbf{V} = (e^z \ln y, \cosh x \sqrt{z}, e^{\sin x})$.
+\end{problema} 
+
+
+
+
+\begin{problema}
+É possível haver um vetor não nulo cujo divergente e rotacional são nulos em todo o espaço? Se sim, dê um exemplo. Se não, prove que não.
+\end{problema}
+
+\begin{problema}
+a) Calcule detalhadamente o resultado de $(\textbf{A} \cdot \vec{\nabla}) \textbf{B}$. b) Da mesma forma, calcule $(\hat{r} \cdot \vec{\nabla}) \hat{r}$.
+\end{problema}
+
+\begin{problema} \label{probdeltaqpircurs}
+Mostre que $\vec{\nabla} \cdot \left( \dfrac{\hrcurs}{\rcurs^2} \right) = 4\pi \delta^3 (\brcurs)$.
+\end{problema}
+
+\begin{problema}
+Prove as seguintes relações:
+\begin{eqnarray}
+\vec{\nabla} \left( \dfrac{f}{g} \right) = \dfrac{g \vec{\nabla} - f \vec{\nabla} g }{g^2}, \qquad \qquad \vec{\nabla} \cdot \left( \dfrac{\textbf{A}}{g} \right) = \dfrac{g ( \vec{\nabla} \cdot \textbf{A}) - \textbf{A} \cdot (\vec{\nabla} g) }{g^2}, \nonumber \\
+\vec{\nabla} \times \left( \dfrac{\textbf{A}}{g} \right) = \dfrac{g ( \vec{\nabla} \times \textbf{A}) + \textbf{A} \times (\vec{\nabla} g) }{g^2}. \nonumber
+\end{eqnarray}
+\end{problema}
+
+\begin{problema}
+$\bigstar \bigstar \quad$ Não é uma boa ideia fazer este problema. Mas, caso você queira: a) prove a Eq. 
+\ref{regradoprodutoii}. Achou difícil? Não se preocupe, provar a Eq. \ref{regradoprodutovi} é ainda mais difícil. b) Prove a Eq. \ref{regradoprodutovi}.
+\end{problema}
+
+
+\begin{problema}
+O campo elétrico de uma distribuição contínua de carga elétrica e a carga elétrica total são dados por:
+\begin{equation}
+\textbf{E}(\textbf{r}) = \dfrac{1}{4\pi \varepsilon_0} \int_{\Omega} \dfrac{\hrcurs}{\rcurs^2} \rho (\textbf{r}') d \tau', \qquad \qquad Q = \int_{\Omega} \rho d \tau. \nonumber
+\end{equation}
+Prove que $\varepsilon_0 \int_S \textbf{E} \cdot d\textbf{a} = Q$. Dica 1: use o divergente. Dica 2: veja o problema \ref{capcalcudifereveotiral}.\ref{probdeltaqpircurs}.
+\end{problema}
+
+\begin{problema}
+Diferencie as componentes para mostrar que:
+\begin{eqnarray}
+\text{a)} \qquad \dfrac{d}{dt} (\textbf{A} \cdot \textbf{B} ) &=& \dfrac{d\textbf{A}}{dt} \cdot \textbf{B} + \textbf{A} \cdot  \dfrac{d\textbf{B}}{dt}, \nonumber \\
+\text{b)} \qquad \dfrac{d}{dt} (\textbf{A} \times \textbf{B} ) &=& \dfrac{d\textbf{A}}{dt} \times \textbf{B} + \textbf{A} \times  \dfrac{d\textbf{B}}{dt}. \nonumber
+\end{eqnarray}
+\end{problema}
+
+\begin{problema}
+Uma distribuição de corrente elétrica cria um momento magnético $\textbf{m}$. A força que um campo magnético $\textbf{B}$ exerce em $\textbf{m}$ é:
+\begin{equation}
+\textbf{F} = \vec{\nabla} \times (\textbf{B} \times \textbf{m} ). \nonumber
+\end{equation}
+Mostre que $\textbf{F} = \vec{\nabla} (\textbf{m} \cdot \textbf{B})$.
+\end{problema}
+
+\begin{problema} \label{eqsondacamelemagne}
+\textbf{Equações de Onda}. A partir das Eqs. de Maxwell, mostre que os campos elétrico $\textbf{E}$ e magnético $\textbf{B}$ satisfazem a equação de onda:
+\begin{equation}
+\nabla^2 \textbf{E} = \dfrac{1}{c^2}\dfrac{\partial^2 \textbf{E}}{\partial t^2}, \qquad \qquad \nabla^2 \textbf{B} = \dfrac{1}{c^2}\dfrac{\partial^2 \textbf{B}}{\partial t^2}, \nonumber
+\end{equation}
+onde $c=1/\sqrt{\varepsilon_0 \mu_0}$ é a velocidade da luz.
+\end{problema}
+
+\begin{problema} \label{campoEesfericos}
+$\bigstar \bigstar \quad$ Considere o campo elétrico como uma onda esférica:
+\begin{equation}
+\textbf{E} (r, \theta, \varphi, t) = A \dfrac{\sin \theta}{r} \left[  \cos (kr - \omega t) - \dfrac{\sin (kr - \omega t)}{kr} \right] \hat{\bm{\varphi}}, \nonumber
+\end{equation}
+com $\omega = c k$. Mostre que este campo elétrico $\textbf{E}$ satisfaz as 4 equações de Maxwell no vácuo. b) Encontre o campo magnético $\textbf{B}$ associado. Dica: use $u = kr - \omega t$.
+\end{problema}
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=DarkGreen!75!black,title=Um pouco de história.]
+
+\textbf{Johann Carl Friedrich Gauss} Matemático alemão (1777 - 1855), considerado um dos maiores matemáticos da história, fez inúmeras e importantes contribuições em diversas áreas: teoria dos números, álgebra, statística, geometria diferencial, geofísica, mecânica, eletrostática, magnetismo, astronomia, matrizes, cálculo numérico e óptica, dentre outros. Gauss era um perfeccionista e viciado em trabalho. Como ele se recusava a publicar trabalhos incompletos (na visão dele), vários resultados publicados de outros cientistas foram encontrados em suas notações bem antes das publicações. Assim, escreveu em torno de 14 trabalhos, todos em latim (idioma oficial da ciência na época). Especula-se que se Gauss tivesse publicado todas as suas descobertas quando as obteve, a matemática teria avançado cerca de 50 anos.
+\end{tcolorbox}
+
+\section{Teorema Fundamental do Cálculo}
+
+Este teorema é exatamente a definição da integral (de linha) como sendo o inverso da derivada:
+\begin{equation}
+\int_a^b \left( \dfrac{df}{dx} \right)  dx = f(b) - f(a). \nonumber
+\end{equation}
+Repare na forma geral deste teorema: a integral da derivada de uma função em um comprimento é igual a diferença da função nos limites deste comprimento. Em cálculo diferencial de vetores há três teoremas fundamental para três tipos diferentes de derivada: gradiente, divergente e rotacional. Antes de enunciar estes outros teoremas precisamos definir as integrais vetoriais.
+
+
+
+\subsection{Integrais}
+
+Integrais são usadas extensivamente em todas as áreas da física. Elas podem ser simples, duplas ou triplas. Uma integral de linha, ou integral simples é do tipo $\int_{\textbf{a}}^{\bm{\ell}} \textbf{v} \cdot d\bm{\ell}$, onde $\textbf{v}$ é uma função vetorial, $d \bm{\ell}$ é o elemento de comprimento ao longo do caminho $\mathscr{C}$ delimitado pelos vetores $\textbf{a}$ e $\textbf{b}$. Veja que esse é o caso mais geral, sendo que tanto o integrando quanto os limites podem ser escalares em casos mais simples. Quando $\textbf{a} = \textbf{b}$ dizemos que a integral é fechada e escrevemos $\oint \textbf{v} \cdot d\bm{\ell}$. Em física a integral de linha mais comum é o trabalho exercido por uma força\footnote{É comum não indicar os limites quando se escreve uma integral genérica.}: $W = \int \textbf{F} \cdot d\textbf{r}$.
+
+As integrais de superfície são da forma $\iint_{\mathscr{S}} \textbf{v} \cdot d\textbf{a}$ onde $d\textbf{a}$ é o elemento de área e $\mathscr{S}$ define a superfície onde a integração será feita. Um vetor área é definido de forma tal que sua direção é perpendicular ao plano da superfície e seu módulo é o valor da área. Na integral, o sentido do vetor área é indefinido quando é uma superfície aberta. Quando a superfície é fechada, o vetor área é definido como apontando para fora da superfície. Um exemplo de integral dupla na física é a Lei de Gauss do Eletromagnetismo: $\varepsilon_0 \iint \textbf{E} \cdot d\textbf{a} = Q$.
+
+Por último a integral de volume é escrita como $\iiint_{\Omega} T d\tau$, onde $d\tau$ é o elemento de volume e $\Omega$ é o volume de integração. Ocasionalmente pode-se encontrar integrais de vetores. Nesses casos deve-se escrever os vetores em questão em termos dos versores cartesianos ($\hat{\textbf{x}}$, $\hat{\textbf{y}}$, $\hat{\textbf{z}}$) se necessário. Esses versores são constantes e podem ser tirados para fora da integral, quando então a integral poderá ser resolvida como um escalar. Por exemplo:
+\begin{equation}
+\iiint \textbf{v} d\tau = \hat{\textbf{x}}\iiint v_x d\tau + \hat{\textbf{y}}\iiint v_y d\tau  + \hat{\textbf{z}}\iiint v_z d\tau. \nonumber
+\end{equation}
+
+
+\begin{exemplo}
+Encontre o potencial elétrico criado pelo elétron estando no auto estado fundamental de um átomo com $p$ prótons em seu núcleo.
+\tcblower
+Seja $\rho(\textbf{r})$ a densidade de carga elétrica de uma dada distribuição eletrônica. O potencial eletrostático criado por essa distribuição é:
+\begin{eqnarray}
+V (x,y,z) &=& \dfrac{1}{4\pi \epsilon_0} \iiint \dfrac{\rho(x_e,y_e,z_e)}{ \rcurs } dx_ey_ez_e,   \nonumber \\
+&=&   \dfrac{1}{4\pi \epsilon_0}    \int_{-\infty}^{+\infty} dx_e \int_{-\infty}^{+\infty} dy_e \int_{-\infty}^{+\infty} dz_e   \dfrac{ \rho(x_e,y_e,z_e) }{\sqrt{(x-x_e)^2+(y-y_e)^2+(z-z_e)^2} },  \nonumber \\
+ \label{potgeraleleH}
+\end{eqnarray}
+onde a distância entre a posição $\textbf{r}$ onde está sendo calculado o potencial e o elemento fonte da distribuição na posição $\textbf{r}_e$ é:
+\begin{equation}
+\rcurs =  \vert \textbf{r} - \textbf{r}_e \vert = \sqrt{(x-x_e)^2+(y-y_e)^2+(z-z_e)^2}. \nonumber
+\end{equation}
+Seja $\psi_{nlm}(\textbf{r})$ a função de onda do elétron no autoestado $nlm$ do átomo de com $p$ prótons no núcleo. Nesse caso a densidade de carga será $\rho(\textbf{r}_e) = -q\vert \psi_{nlm}(\textbf{r}_e) \vert^2$, onde $q$ é o módulo da carga fundamental do elétron. No auto estado fundamental temos $n=1$ e no primeiro excitado $n=2$, sendo $l=m=0$ para ambos. As funções de onda são:
+\begin{eqnarray}
+\psi_{100} (r,\theta,\varphi) &=& \dfrac{1}{\sqrt{\pi}} \left( \dfrac{p}{a_0} \right)^{3/2} \exp \left(- \dfrac{pr}{a_0} \right),  \nonumber \\
+\psi_{200} (r,\theta,\varphi) &=& \dfrac{1}{4\sqrt{2\pi}} \left( \dfrac{p}{a_0} \right)^{3/2}   \left( 2-\dfrac{pr}{a_0} \right)  \exp \left(- \dfrac{pr}{2a_0} \right), \nonumber 
+\end{eqnarray}
+onde $a_0$ é o raio de Bohr. Podemos converter essas expressões para coordenadas cartesianas usando a Eq. \ref{converesferiparacartesinas} dos apêndices. Dessa forma, os respectivos potenciais ficam:
+\begin{eqnarray}
+V_1 (\textbf{r}) &=& -\dfrac{1}{4\pi \epsilon_0}   \int_{-\infty}^{+\infty} dx_e \int_{-\infty}^{+\infty} dy_e \int_{-\infty}^{+\infty} dz_e   \dfrac{  \dfrac{qp^3}{a_0^3\pi} \exp \left(- \dfrac{2p}{a_0} \sqrt{x_e^2+y_e^2+z_e^2} \right) }{\sqrt{(x-x_e)^2+(y-y_e)^2+(z-z_e)^2} },   \nonumber  \\
+\\
+V_2 (\textbf{r}) &=& -\dfrac{1}{4\pi \epsilon_0}  \dfrac{qp^3}{2^5 a_0^3\pi}  \int_{-\infty}^{+\infty} dx_e \int_{-\infty}^{+\infty} dy_e \int_{-\infty}^{+\infty} dz_e  \nonumber \\
+ &\times &  \dfrac{ \left( 2-\dfrac{p}{a_0} \sqrt{x_e^2+y_e^2+z_e^2}\right)^2  \exp \left(- \dfrac{p}{a_0} \sqrt{x_e^2+y_e^2+z_e^2} \right) }{\sqrt{(x-x_e)^2+(y-y_e)^2+(z-z_e)^2} }.  \nonumber 
+\end{eqnarray}
+Estes potenciais são mais simples pois não dependem das coordenadas angulares. Assim, é esperado que as funções $V_1$ e $V_2$ sejam também radialmente simétricas.
+\end{exemplo}
+
+\subsection{Teorema Fundamental do Gradiente}
+
+Suponha que tenhamos uma função $T(x,y,z)$ e que movamos de um ponto $\textbf{a}$ até um ponto $\textbf{b}$. Para cada elemento de comprimento $d\bm{\ell}$ a variação na função é de $dT = \vec{\nabla} T \cdot d \bm{\ell}_1$ (veja Eq. \ref{lskjdflkjwoiuerss}). Movendo mais um passo o incremento será $dT = \vec{\nabla} T \cdot d \bm{\ell}_2$, e assim por diante. Fazendo a soma até o ponto final teremos:
+\begin{equation}
+\int_{\textbf{a}}^{\textbf{b}} \vec{\nabla} T \cdot d \textbf{l} = T(\textbf{b}) - T(\textbf{a}). 
+\end{equation}
+Este é o Teorema Fundamental do Gradiente. A intepretação geométrica é direta. Suponha que você quer medir a altura da Torre Eiffel. A forma trabalhosa é medir com uma régua a altura de cada degrau, e depois somar tudo. Essa forma é exatamente a expressão $\int_{\textbf{a}}^{\textbf{b}} \vec{\nabla} T \cdot d \bm{\ell}$. A forma fácil é, com um altímetro, medir o ponto mais alto e o ponto mais baixo e subtrair um do outro: $T(\textbf{b}) - T(\textbf{a})$. 
+Um questionamento é que no Teorema Fundamental do Gradiente não há definição do caminho pelo qual a integral é feita. De modo geral as integrais de linhas dependem do caminho, porém algumas funções tem a propriedade de que esta integral dependa apenas dos limites. O gradiente é uma função com tal propriedade.
+
+Dois corolários são derivados Teorema do Gradiente:
+\begin{itemize}
+\item $\int_{\textbf{a}}^{\textbf{b}} \vec{\nabla} T \cdot d \bm{\ell}$ independe do caminho.
+\item $\oint \vec{\nabla} T \cdot d \bm{\ell}=0$, já que $\oint =\int_{\textbf{a}}^{\textbf{a}}$. 
+\end{itemize}
+
+\subsection{Teorema do Divergente e do Rotacional}
+
+Já o Teorema Fundamental do Divergente é:
+\begin{equation}
+\int_{\Omega} (\vec{\nabla} \cdot \textbf{v} ) d\tau = \oint_{\mathscr{S}} \textbf{v} \cdot d\textbf{a}. \nonumber 
+\end{equation}
+Por algum motivo, talvez devido a sua grande importância, este teorema tem no mínimo três nomes: Teorema do Divergente, Teorema de Gauss e Teorema de Green. Este teorema segue o mesmo raciocínio dos anteriores: a integral da derivada de uma função em uma região é igual a função avaliada na borda desta região. Neste caso a derivada da função é o divergente do vetor ($\vec{\nabla} \cdot \textbf{v}$), a região é o volume ${\Omega}$ e a borda é a superfície $\mathscr{A}$ que delimita o volume. 
+
+A interpretação geométrica do Teorema do Divergente também é direta. Suponha que $\textbf{v}$ seja o campo de velocidades de um fluido, $\oint_{\mathscr{S}} \textbf{v} \cdot d\textbf{a}$ mede então o fluxo resultante pela superfície. Se a mesma quantidade de água que entra na superfície também sai, significa que há conservação da quantidade de matéria. Já o divergente mede exatamente se a quantidade de matéria muda. Se o divergente é positiva, é como se matéria fosse criada logo $\int_{\Omega} (\vec{\nabla} \cdot \textbf{v} ) d\tau$ é positivo. Porém, se isso ocorrer haverá mais matéria saindo da superfície do que entrando, de modo que $\oint_{\mathscr{S}} \textbf{v} \cdot d\textbf{a}$ também será positivo. O raciocínio é análogo quando há matéria sendo destruída. 
+
+Já o Teorema Fundamental do Rotacional, chamado de Teorema de Stokes, é escrito como:
+\begin{equation}
+\int_{\mathscr{A}} (\vec{\nabla} \times \textbf{v} ) \cdot d\textbf{a} = \oint_{\mathscr{C}} \textbf{v} \cdot d\bm{\ell}. \nonumber
+\end{equation}
+Como sempre a integral de uma derivada (rotacional no caso) em uma região (superfície $\mathscr{S}$) é igual ao valor da função na borda (curva $\mathscr{C}$). A integral da direita é chamada de circulação e ela mede o quanto o vetor $\textbf{v}$ circula na curva $\mathscr{C}$. E só haverá circulação nessa curva se houver uma rotação na superfície definida por essa curva, que é exatamente o rotacional de $\textbf{v}$.
+
+Existem infinitas superfícies delimitadas pela curva $\mathscr{C}$. Qual devemos escolher? Supondo a curva como um arco circular, a superfície mais simples é exatamente o plano delimitado pela curva. Porém, nada impede que escolhamos outra superfície. Por exemplo, suponha um vento deformando esse plano. O Teorema de Stokes diz que não importa qual superfície escolher, o valor da integral dupla será definido uma vez escolhido a curva.
+
+Dois corolários são derivados do Teorema de Stokes:
+\begin{itemize}
+\item $\int_{\mathscr{A}} (\vec{\nabla} \times \textbf{v} ) \cdot d\textbf{a}$ não depende da superfície $\mathscr{A}$.
+\item $\oint_{\mathscr{A}} (\vec{\nabla} \times \textbf{v} ) \cdot d\textbf{a} = 0$ quando a superfície é fechada.
+\end{itemize}
+
+
+\subsection{A função Delta de Dirac}
+
+Seja o vetor $\textbf{v} = \hat{\textbf{r}}/r^2$, que é radial para fora. É de se esperar que o seu divergente seja positivo. Porém, usando a Eq. \ref{divergentecoordesferic}, o divergente é:
+\begin{equation}
+\vec{\nabla} \cdot \textbf{v} = \dfrac{1}{r^2} \dfrac{\partial }{\partial r}  \left(  \dfrac{r^2}{r^2} \right) = 0. \nonumber
+\end{equation}
+
+{\noindent\def\stackalignment{l}% code from https://tex.stackexchange.com/a/195118/101651
+    \stackunder[0pt]{\colorbox{cyan}{\textcolor{white}{\textbf{\LARGE Problemas}}}}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+    
+
+\begin{problema}
+Seja $\textbf{V} = x^2 \hat{\textbf{x}} + y^2 \hat{\textbf{y}} + z^2 \hat{\textbf{z}}$. a) Calcule a integral de $\textbf{V} \cdot d\textbf{a}$ sobre toda a superfície do cubo de lado 1 e vértices nos pontos $(0,0,0)$, $(0,0,1)$, $(0,1,0)$, $(1,0,0)$. b) Compare o resultado com o resultado da mesma integral utilizando o Teorema do Divergente. 
+\end{problema}
+
+\begin{problema}
+Usando o Teorema do divergente, calcule as seguintes integrais:
+\begin{itemize}
+\item a) $\int \int (x \hat{\textbf{x}} + y \hat{\textbf{y}} + z \hat{\textbf{z}}) \cdot d\textbf{a}$ na superfície do cilindro limitado por $x^2 + y^2 =1$, $z=0$ e $z=3$;
+\item b) $\int \int \textbf{V} \cdot d\textbf{a}$ com $\textbf{V} = \hat{\textbf{x}} x \cos^2y  + xz \hat{\textbf{y}} + \hat{\textbf{z}} z\sin^2 y$ na superfície de uma esfera centrada na origem com raio 3;
+\item c) $\iiint \vec{\nabla} \cdot \textbf{V}  d\tau$ com $\textbf{V} = \hat{\textbf{x}} (x^3 - x^2)y  + \hat{\textbf{y}}(y^3 - 2y^2 + y)x + \hat{\textbf{z}} (z^2-1)$ no volume do cubo unitário no primeiro octante.
+\end{itemize}
+\end{problema}
+
+
+
+\begin{problema}
+Sejam $f$ e $g$ duas funções diferenciáveis. Mostre que:
+\begin{equation}
+\int_a^b f \left( \dfrac{dg}{dx} \right) dx = fg\bigg\vert_a^b - \int_a^b g \left( \dfrac{df}{dx} \right) dx. \nonumber
+\end{equation}
+Este resultado é chamado de integral por partes e sua utilidade reside no fato de se transferir a derivada para outra função.
+\end{problema}
+
+\begin{problema} \label{sksjwwnnnnnnnnn}
+Calcule a seguinte integral:
+\begin{equation}
+I = \int_0^{\infty} \dfrac{\ln (1+x)}{x \sqrt{x}} dx. \nonumber
+\end{equation}
+Dica 1: use integral por partes. Dica 2: veja \cite{Nahin2015}.
+\end{problema}
+
+\begin{problema} \label{proconvercartesesfekk}
+$\bigstar$ Mostre os seguintes resultados entre coordenadas esféricas e cartesianas:
+\begin{equation}
+r^4\sin^2 \theta \cos^2 \theta = (x^2 +y^2)z^2, \qquad r^4\sin^4 \theta =  (x^2 + y^2)^2. \nonumber
+\end{equation}
+\end{problema}
+
+\begin{problema} \label{prosegunsssssssss}
+$\bigstar$ Seja os seguintes autoestados de um átomo:
+\begin{eqnarray}
+\psi_{32\pm 1} (r,\theta,\varphi) &=& \dfrac{1}{81\sqrt{\pi}} \left( \dfrac{p}{a_0} \right)^{3/2} \dfrac{p^2r^2}{a_0^2} \exp \left(- \dfrac{pr}{3a_0} \right) \sin \theta \cos \theta  e^{\pm i\varphi}, \nonumber \\
+\psi_{32\pm 2} (r,\theta,\varphi) &=& \dfrac{1}{162\sqrt{\pi}} \left( \dfrac{p}{a_0} \right)^{3/2} \dfrac{p^2r^2}{a_0^2} \exp \left(- \dfrac{pr}{3a_0} \right) \sin^2 \theta  e^{\pm 2i\varphi},  \nonumber
+\end{eqnarray}
+onde $p$ é o número de prótons no núcleo e $a_0$ é o raio de Bohr. Mostre que as respectivas densidades eletrônicas $\rho = -q\vert \psi \vert^2$ são:
+\begin{eqnarray}
+\rho_3(\textbf{r}) &=& -q\vert \psi_{32\pm 1} \vert^2 = -\dfrac{qp^7}{81^2\pi a_0^7}  (x^2 +y^2)z^2  \exp \left(- \dfrac{2p}{3a_0} \sqrt{x^2+y^2+z^2} \right), \nonumber \\
+\rho_4 (\textbf{r}) &=& -q\vert \psi_{32\pm 2} \vert^2 = -\dfrac{qp^7}{162^2\pi a_0^7}  (x^2 + y^2)^2  \exp \left(- \dfrac{2p}{3a_0} \sqrt{x^2+y^2+z^2} \right). \nonumber
+\end{eqnarray}
+Dica: veja problema \ref{capcalcudifereveotiral}.\ref{proconvercartesesfekk}.
+\end{problema}
+
+\begin{problema}
+Usando as densidades eletrônicas do problema \ref{capcalcudifereveotiral}.\ref{prosegunsssssssss}, mostre que os respectivos potenciais eletrostáticos (Eq. \ref{potgeraleleH}) são:
+\begin{eqnarray}
+V_3 (\textbf{r}) &=& -\dfrac{1}{4\pi \epsilon_0} \dfrac{qp^7}{81^2\pi a_0^7}  \int_{-\infty}^{+\infty} dx_e \int_{-\infty}^{+\infty} dy_e \int_{-\infty}^{+\infty} dz_e   \dfrac{   (x_e^2 +y_e^2)z_e^2 \exp \left(- \dfrac{2p}{3a_0} \sqrt{x_e^2+y_e^2+z_e^2} \right) }{\sqrt{(x-x_e)^2+(y-y_e)^2+(z-z_e)^2} } \nonumber \\
+\\
+V_4 (\textbf{r}) &=& -\dfrac{1}{4\pi \epsilon_0} \dfrac{qp^7}{162^2\pi a_0^7}  \int_{-\infty}^{+\infty} dx_e \int_{-\infty}^{+\infty} dy_e \int_{-\infty}^{+\infty} dz_e   \dfrac{   (x_e^2 +y_e^2)^2 \exp \left(- \dfrac{2p}{3a_0} \sqrt{x_e^2+y_e^2+z_e^2} \right) }{\sqrt{(x-x_e)^2+(y-y_e)^2+(z-z_e)^2} } \nonumber 
+ \end{eqnarray}
+\end{problema}
+
+\begin{problema} \label{proleideamperelskj}
+$\bigstar \quad$ A Lei de Ampère-Maxwell é dado pela Eq. \ref{leideamperemaxwell}, onde o segundo termo do lado direito é a correção de Maxwell. Sem esse termo, a chamada Lei de Ampère é apenas $\vec{\nabla} \times \textbf{B} = (4\pi/c) \textbf{J}$ em unidades CGS. Porém, André-Marie Ampère deduziu um resultado teórico para a força entre dois circuitos elétricos (veja figura \ref{circuitos_lei_ampere}) após uma série de experimentos entre 1820 e 1825. Seu resultado apresentado a Académie Royale des Sciences para essa força é\footnote{Veja: V. H. A. Dias, P. M. C. Dias \textit{Escrevendo o "Livro da Natureza" na linguagem da matemática: A lei de Ampère}, Revista Brasileira de Ensino de Física, \href{http://dx.doi.org/10.1590/S1806-1117374230}{\textbf{37}, n. 4, 4601 (2015)}.}:
+\begin{equation}
+\textbf{F}  = \dfrac{ii'}{c^2}  \oint \oint \dfrac{d\textbf{s} \times (d\textbf{s}' \times \textbf{r})}{r^3}. \nonumber
+\end{equation}
+Seja o campo magnético dado por:
+\begin{equation}
+\textbf{B} (\textbf{r}) = \dfrac{i'}{c} \oint \dfrac{d\textbf{s}' \times \textbf{r}}{r^3}, \nonumber
+\end{equation}
+também em unidades cgs. Mostre que a força pode escrita como:
+\begin{equation}
+\textbf{F} = \dfrac{i}{c} \oint d\textbf{s} \times \textbf{B}(\textbf{r}). \nonumber
+\end{equation}
+\end{problema}
+
+
+
+\begin{problema}
+$\bigstar \bigstar \quad$ Mostre que\footnote{Se algum problema neste livro merece 3 estrelas, é esse!}:
+\begin{equation}
+\int_0^{\pi /2} \cos^{-1} \left( \dfrac{\cos x}{1+ 2 \cos x} \right) dx = \dfrac{5 \pi^2}{24}. \nonumber
+\end{equation}
+Dica: veja \cite{Nahin2015}.
+\end{problema}
+
+
+
+{\noindent\def\stackalignment{l}{\textcolor{lightcyan}{\rule{\linewidth}{2pt}}}\medskip}
+
+\begin{SCfigure}
+ \centering
+\includegraphics[width=3.3 in]{figuras/calculo/circuitos_lei_ampere.png}
+\caption{Circuitos elétricos referente ao problema \ref{capcalcudifereveotiral}.\ref{proleideamperelskj}. Figura retirada de V. H. A. Dias, P. M. C. Dias \textit{Escrevendo o "Livro da Natureza" na linguagem da matemática: A lei de Ampère}, Revista Brasileira de Ensino de Física, \href{http://dx.doi.org/10.1590/S1806-1117374230}{\textbf{37}, n. 4, 4601 (2015)}.}
+\label{circuitos_lei_ampere}
+\end{SCfigure} 
+
+
+\begin{tcolorbox}[breakable,pad at break*=1mm,colback=blue!5!white,colframe=DarkGreen!75!black,title=Um pouco de história.]
+Todas as variações do Teorema fundamental do cálculo apresentados neste capítulo usam o cálculo diferencial e integral criado por Isaac Newton, de forma que os teoremas datam de pelo menos fim do século XVII. O Teorema do Divergente foi formulado primeiramente por Lagrange em 1762, depois (de maneira independente) por Gauss em 1813, que é a versão atualmente utilizada. Apenas em 1826, o matemático russo (sempre eles) Michael Ostrogradsky foi o primeiro a fornecer uma prova geral do teorema. Vários casos especiais do enunciado geral de Ostrogradsky foram desenvolvidos em seguida, sempre com o intuito de aplicar a algum tópico em específico da física: Gauss estava interessado em estudar atração magnética, Green em eletricidade e magnetismo, Ostrogradsky na condução de calor.
+  Já o Teorema de Stokes apareceu pela primeira vez em 1854, como uma das questões do Smith's Prize Exam na universidade de Cambridge. Em seguida, o teorema foi citado em cartas entre Lord Kelvin (William Thomson) e George Stokes. Mas a primeira demonstração formal publicada apareceu apenas em 1861 na monografia de Hermann Hankel. Em 1871 J. Clerk Maxwell escreveu para Stokes questionando a origem do teorema. Stokes deve ter respondido, pois em 1873 Maxwell publica o Treatise on Electricity and Magnetism no qual apresenta e prova o Teorema de Stokes, além de fazer referência ao Smith's Prize Exam.
+\end{tcolorbox}
+
+
+
+
+\section{Leitura Adicional}
+
+\begin{itemize}
+\item D. J. Griffiths, Introduction to Electrodynamics, 4th Edition, Pearson Education (2013). Este livro (o capítulo 1) foi a principal referência para este capítulo de Cálculo Diferencial e Integral.
+\item V. J. Katz, \textit{The History of Stokes' Theorem}, Mathematics Magazine \href{http://www.jstor.org/stable/2690275}{Vol. 52, No. 3 (May, 1979), pp. 146-156}. Published by: Mathematical Association of America. Apresenta um histórico detalhado do desenvolvimento do Teorema do Divergente e de Stokes, mostrando as diversas deduções.
+\end{itemize} 
